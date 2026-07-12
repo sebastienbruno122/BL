@@ -1,385 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Berger Levrault × Ringover — Suivi du projet CCaaS</title>
-<meta name="description" content="Suivi en direct du projet de remplacement de la solution téléphonie et centre de contact chez Berger Levrault.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #F6F8F9;
-    --panel: #FFFFFF;
-    --panel-border: #E4E9EC;
-    --ink: #0E1A22;
-    --ink-soft: #4B5B63;
-    --ink-faint: #8A98A0;
-    --teal: #27E2D7;
-    --teal-deep: #0E8F87;
-    --teal-ink: #06403D;
-    --teal-wash: #E8FBFA;
-    --ok: #1B9C57;
-    --ok-bg: #E4F7EC;
-    --warn: #C4790A;
-    --warn-bg: #FDF1DE;
-    --bad: #D7373F;
-    --bad-bg: #FBE6E7;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --shadow: 0 1px 2px rgba(14,26,34,.04), 0 8px 24px -12px rgba(14,26,34,.12);
-    --font-display: 'Space Grotesk', 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:var(--font-body); line-height:1.55; font-size:15.5px;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:var(--teal-deep);}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
-  @media (max-width:640px){ .wrap{padding:0 18px;} body{font-size:15px;} }
-
-  /* ---------- side nav ---------- */
-  .side-nav{
-    position:fixed; left:20px; top:50%; transform:translateY(-50%); z-index:50;
-    display:flex; flex-direction:column;
-  }
-  @media (max-width:980px){ .side-nav{display:none;} }
-  .side-nav-item{
-    display:flex; align-items:center; gap:11px;
-    padding:9px 4px; text-decoration:none; cursor:pointer; -webkit-tap-highlight-color:transparent;
-  }
-  .side-nav-item .tick{
-    width:13px; height:2px; border-radius:2px; flex:0 0 auto;
-    background:var(--ink-faint); opacity:.55;
-    transition:width .25s ease, background-color .25s ease, opacity .25s ease;
-  }
-  .side-nav-item .side-label{
-    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.03em; text-transform:uppercase;
-    white-space:nowrap; color:var(--ink-faint); opacity:.6;
-    transition:color .25s ease, opacity .25s ease;
-  }
-  .side-nav-item:hover .tick, .side-nav-item:focus-visible .tick, .side-nav-item.active .tick{
-    width:26px; background:var(--teal-deep); opacity:1;
-  }
-  .side-nav-item:hover .side-label, .side-nav-item:focus-visible .side-label, .side-nav-item.active .side-label{
-    color:var(--ink); opacity:1;
-  }
-  .side-nav-item.active .side-label{font-weight:600;}
-  .side-nav-item:focus-visible{outline:2px solid var(--teal); outline-offset:3px; border-radius:3px;}
-  .side-nav.on-dark .side-nav-item .tick{background:rgba(255,255,255,.4);}
-  .side-nav.on-dark .side-nav-item .side-label{color:rgba(232,241,244,.65);}
-  .side-nav.on-dark .side-nav-item:hover .tick,
-  .side-nav.on-dark .side-nav-item:focus-visible .tick,
-  .side-nav.on-dark .side-nav-item.active .tick{background:var(--teal);}
-  .side-nav.on-dark .side-nav-item:hover .side-label,
-  .side-nav.on-dark .side-nav-item:focus-visible .side-label,
-  .side-nav.on-dark .side-nav-item.active .side-label{color:#fff;}
-  @media (prefers-reduced-motion: reduce){
-    .side-nav-item .tick, .side-nav-item .side-label{transition:none;}
-  }
-
-  /* ---------- top bar ---------- */
-  .topbar{
-    position:sticky; top:0; z-index:40;
-    background:rgba(246,248,249,.86); backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--panel-border);
-  }
-  .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0;}
-  .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:700; font-size:16px;}
-  .brand .dot{width:9px; height:9px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 4px var(--teal-wash);}
-  .brand .x{color:var(--ink-faint); font-weight:500; margin:0 2px;}
-  .sync-pill{
-    display:flex; align-items:center; gap:7px;
-    font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
-    background:var(--panel); border:1px solid var(--panel-border); border-radius:99px;
-    padding:6px 12px 6px 10px;
-  }
-  .sync-pill .led{width:7px; height:7px; border-radius:50%; background:var(--ok); position:relative;}
-  .sync-pill .led::after{
-    content:''; position:absolute; inset:-4px; border-radius:50%;
-    border:1px solid var(--ok); opacity:.5; animation:ping 2.4s ease-out infinite;
-  }
-  @keyframes ping{ 0%{transform:scale(.6); opacity:.6;} 100%{transform:scale(1.9); opacity:0;} }
-  .sync-pill.offline .led{background:var(--ink-faint);}
-  .sync-pill.offline .led::after{border-color:var(--ink-faint);}
-
-  /* ---------- hero ---------- */
-  .hero{padding:64px 0 40px;}
-  .eyebrow{
-    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--teal-deep); background:var(--teal-wash); display:inline-block;
-    padding:5px 11px; border-radius:99px; margin-bottom:18px;
-  }
-  h1{
-    font-family:var(--font-display); font-size:clamp(30px,4.4vw,48px); line-height:1.08;
-    margin:0 0 18px; letter-spacing:-.01em; max-width:16ch;
-  }
-  .hero p.lede{font-size:17px; color:var(--ink-soft); max-width:60ch; margin:0 0 34px;}
-  .stat-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--panel-border); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden;}
-  @media (max-width:760px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
-  .stat{background:var(--panel); padding:22px 20px;}
-  .stat .num{font-family:var(--font-display); font-size:30px; font-weight:700; display:flex; align-items:baseline; gap:6px;}
-  .stat .num small{font-size:14px; color:var(--ink-faint); font-weight:500; font-family:var(--font-body);}
-  .stat .label{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
-  .stat.ok .num{color:var(--ok);}
-  .stat.warn .num{color:var(--warn);}
-  .stat.bad .num{color:var(--bad);}
-
-  /* ---------- sections generic ---------- */
-  section{padding:56px 0;}
-  .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:28px; flex-wrap:wrap;}
-  .section-head h2{font-family:var(--font-display); font-size:26px; margin:0 0 6px;}
-  .section-head p{margin:0; color:var(--ink-soft); max-width:56ch; font-size:14.5px;}
-
-  /* ---------- suite ---------- */
-  :root{
-    --airo: #7B7FF5;
-    --airo-deep: #5B5FEF;
-    --empower: #F0A93A;
-    --empower-deep: #C4790A;
-  }
-  .suite-band{
-    position:relative; overflow:hidden; isolation:isolate;
-    background:
-      radial-gradient(600px 320px at 12% -10%, rgba(39,226,215,.20), transparent 60%),
-      radial-gradient(560px 300px at 88% 10%, rgba(123,127,245,.20), transparent 60%),
-      radial-gradient(620px 340px at 55% 110%, rgba(240,169,58,.14), transparent 60%),
-      linear-gradient(180deg, #0A1620 0%, #0C1D26 100%);
-  }
-  .suite-band::before{
-    content:''; position:absolute; inset:0; z-index:-1; opacity:.5; pointer-events:none;
-    background-image:
-      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size:42px 42px;
-    mask-image:radial-gradient(circle at 50% 0%, #000 0%, transparent 75%);
-  }
-  .suite-blobs{position:absolute; inset:0; z-index:0; transition:transform .35s ease-out;}
-  .suite-blob{position:absolute; border-radius:50%; filter:blur(64px); pointer-events:none;}
-  .suite-blob.b1{width:340px; height:340px; opacity:.30; background:var(--teal); top:-90px; left:6%; animation:blobFloat1 17s ease-in-out infinite;}
-  .suite-blob.b2{width:300px; height:300px; opacity:.28; background:var(--airo); top:6%; right:4%; animation:blobFloat2 21s ease-in-out infinite;}
-  .suite-blob.b3{width:360px; height:360px; opacity:.22; background:var(--empower); bottom:-140px; left:36%; animation:blobFloat3 25s ease-in-out infinite;}
-  @keyframes blobFloat1{0%,100%{transform:translate(0,0);} 50%{transform:translate(46px,32px);}}
-  @keyframes blobFloat2{0%,100%{transform:translate(0,0);} 50%{transform:translate(-36px,42px);}}
-  @keyframes blobFloat3{0%,100%{transform:translate(0,0);} 50%{transform:translate(34px,-28px);}}
-  .suite-band .wrap{position:relative; z-index:1;}
-  .suite-band .section-head h2{color:#fff;}
-  .suite-band .section-head p{color:rgba(232,241,244,.68);}
-  .suite-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:18px; perspective:1200px;}
-  @property --angle{ syntax:'<angle>'; inherits:false; initial-value:0deg; }
-  .suite-card{
-    --enter-y:28px; --enter-o:0; --hover-y:0px; --tilt-x:0deg; --tilt-y:0deg; --mx:50%; --my:50%; --spot-o:0; --angle:0deg;
-    position:relative; display:flex; flex-direction:column; gap:14px; transform-style:preserve-3d;
-    background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
-    border:1px solid rgba(255,255,255,.10); border-radius:20px; padding:26px;
-    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-    box-shadow:0 1px 0 rgba(255,255,255,.06) inset, 0 20px 40px -28px rgba(0,0,0,.6);
-    opacity:var(--enter-o);
-    transform:translateY(calc(var(--enter-y) + var(--hover-y))) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-    transition:
-      opacity .7s cubic-bezier(.16,.8,.24,1) var(--d,0s),
-      transform .35s cubic-bezier(.16,.8,.24,1),
-      border-color .2s ease, box-shadow .2s ease;
-  }
-  .suite-card.in-view{--enter-y:0px; --enter-o:1;}
-  .suite-card::before{
-    content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:-1;
-    opacity:var(--spot-o); transition:opacity .3s ease;
-    background:radial-gradient(260px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 40%, transparent), transparent 70%);
-  }
-  .suite-card::after{
-    content:''; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none;
-    background:conic-gradient(from var(--angle), transparent 0%, var(--accent) 10%, transparent 22%, transparent 78%, var(--accent) 90%, transparent 100%);
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor; mask-composite:exclude; opacity:.7;
-    animation:spinBorder 6s linear infinite;
-  }
-  @keyframes spinBorder{ to{ --angle:360deg; } }
-  .suite-card:hover{
-    --hover-y:-6px; --spot-o:1;
-    border-color:rgba(255,255,255,.18);
-    box-shadow:0 1px 0 rgba(255,255,255,.08) inset, 0 26px 48px -24px var(--accent-shadow, rgba(0,0,0,.6));
-  }
-  .suite-card.ringover{--accent: var(--teal); --accent-shadow: rgba(39,226,215,.30);}
-  .suite-card.airo{--accent: var(--airo); --accent-shadow: rgba(123,127,245,.32);}
-  .suite-card.empower{--accent: var(--empower); --accent-shadow: rgba(240,169,58,.30);}
-  .suite-card.target-first{--accent: var(--airo); --accent-shadow: rgba(123,127,245,.32);}
-  .suite-icon{
-    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-display); font-weight:700; font-size:16px; color:#0A1620;
-    background:linear-gradient(155deg, var(--accent) 0%, #fff 160%);
-    box-shadow:0 10px 24px -8px var(--accent-shadow, transparent);
-    animation:iconPulse 3.2s ease-in-out infinite;
-  }
-  @keyframes iconPulse{
-    0%,100%{ box-shadow:0 10px 24px -8px var(--accent-shadow, transparent); }
-    50%{ box-shadow:0 12px 34px -4px var(--accent-shadow, transparent); }
-  }
-  .suite-tag{
-    font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
-    padding:4px 10px; border-radius:99px; font-weight:600; align-self:flex-start;
-    background:color-mix(in srgb, var(--accent) 20%, transparent); color:var(--accent);
-    border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-  }
-  .suite-card h3{margin:0; font-size:19px; font-family:var(--font-display); color:#fff;}
-  .suite-card p{margin:0; font-size:13.6px; color:rgba(232,241,244,.72);}
-  .suite-features{list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:9px;}
-  .suite-features li{display:flex; align-items:flex-start; gap:9px; font-size:13.2px; color:rgba(232,241,244,.86); line-height:1.4;}
-  .suite-features .tick{
-    flex:0 0 auto; width:17px; height:17px; margin-top:1px; border-radius:50%;
-    background:color-mix(in srgb, var(--accent) 22%, transparent); color:var(--accent);
-    display:flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700;
-  }
-  .suite-refs{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:auto; padding-top:14px; border-top:1px solid rgba(255,255,255,.12);}
-  .suite-refs .ref-label{font-size:11.5px; color:rgba(232,241,244,.5); margin-right:2px;}
-  .ref-chip{
-    font-family:var(--font-mono); font-size:11.5px; padding:3px 9px; border-radius:99px;
-    border:1px solid var(--panel-border); background:var(--bg); color:var(--ink-soft); cursor:pointer;
-  }
-  .ref-chip:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
-  .suite-band .ref-chip{background:rgba(255,255,255,.07); color:rgba(232,241,244,.85); border-color:rgba(255,255,255,.18);}
-  .suite-band .ref-chip:hover{background:#fff; color:#0A1620; border-color:#fff;}
-
-  /* ---------- salesforce (reuses .suite-band / .suite-card design) ---------- */
-  :root{ --sf-blue: #00A1E0; --sf-blue-deep: #0071A9; }
-  .suite-card.salesforce{--accent: var(--sf-blue); --accent-shadow: rgba(0,161,224,.32);}
-
-  /* ---------- roadmap lanes ---------- */
-  .lanes{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
-  @media (max-width:860px){ .lanes{grid-template-columns:1fr;} }
-  .lane{
-    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
-    padding:22px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease; box-shadow:var(--shadow);
-    display:flex; flex-direction:column; gap:12px;
-  }
-  .lane:hover{transform:translateY(-2px);}
-  .lane-top{display:flex; align-items:center; justify-content:space-between;}
-  .lane-tag{
-    font-family:var(--font-mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
-    padding:4px 9px; border-radius:6px; font-weight:600;
-  }
-  .lane.ok .lane-tag{background:var(--ok-bg); color:var(--ok);}
-  .lane.warn .lane-tag{background:var(--warn-bg); color:var(--warn);}
-  .lane.bad .lane-tag{background:var(--bad-bg); color:var(--bad);}
-  .lane .count{font-family:var(--font-display); font-size:40px; font-weight:700; line-height:1;}
-  .lane h3{margin:0; font-size:16.5px; font-family:var(--font-display);}
-  .lane p{margin:0; font-size:13.5px; color:var(--ink-soft);}
-  .lane .arrow{font-size:13px; color:var(--teal-deep); font-weight:600;}
-
-  /* ---------- grid / table ---------- */
-  .grid-toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:18px;}
-  .search{
-    flex:1; min-width:220px; padding:11px 14px; border-radius:var(--radius-sm); border:1px solid var(--panel-border);
-    background:var(--panel); font-family:var(--font-body); font-size:14px; color:var(--ink);
-  }
-  .search:focus{outline:2px solid var(--teal); outline-offset:1px;}
-  .chip{
-    font-family:var(--font-mono); font-size:12.5px; padding:8px 14px; border-radius:99px;
-    border:1px solid var(--panel-border); background:var(--panel); color:var(--ink-soft); cursor:pointer;
-  }
-  .chip[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink);}
-  .chip:focus-visible, .lane:focus-visible, .search:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
-
-  .table-panel{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
-  .table-scroll{overflow-x:auto;}
-  table{width:100%; border-collapse:collapse; min-width:920px;}
-  thead th{
-    text-align:left; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
-    color:var(--ink-faint); padding:12px 16px; border-bottom:1px solid var(--panel-border); background:#FAFBFC;
-    white-space:nowrap;
-  }
-  tbody td{padding:13px 16px; border-bottom:1px solid var(--panel-border); font-size:13.6px; vertical-align:top;}
-  tbody tr:last-child td{border-bottom:none;}
-  tbody tr:hover{background:#FBFDFD;}
-  td.n{font-family:var(--font-mono); color:var(--ink-soft); white-space:nowrap;}
-  td.chapitre{color:var(--ink-soft); font-size:12.8px; max-width:180px;}
-  td.prio{white-space:nowrap; font-family:var(--font-mono); font-size:12px; color:var(--ink-faint);}
-  .badge{
-    display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600;
-    padding:4px 10px; border-radius:99px; white-space:nowrap;
-  }
-  .badge .d{width:6px; height:6px; border-radius:50%;}
-  .badge.ok{background:var(--ok-bg); color:var(--ok);} .badge.ok .d{background:var(--ok);}
-  .badge.warn{background:var(--warn-bg); color:var(--warn);} .badge.warn .d{background:var(--warn);}
-  .badge.bad{background:var(--bad-bg); color:var(--bad);} .badge.bad .d{background:var(--bad);}
-  .empty-row td{text-align:center; color:var(--ink-faint); padding:40px 16px; font-size:13.5px;}
-  .count-note{font-size:12.5px; color:var(--ink-faint); margin-top:12px;}
-  .show-more-wrap{display:flex; justify-content:center; margin-top:18px;}
-  .show-more-wrap[hidden]{display:none;}
-  .show-more-btn{
-    font-family:var(--font-mono); font-size:12.5px; padding:10px 22px; border-radius:99px;
-    border:1px solid var(--panel-border); background:var(--panel); color:var(--ink-soft); cursor:pointer;
-    box-shadow:var(--shadow); transition:background .15s ease, color .15s ease, border-color .15s ease;
-  }
-  .show-more-btn:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
-  .show-more-btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
-
-  /* ---------- pricing ---------- */
-  .blank-cell{
-    display:inline-block; min-width:70px; padding-bottom:2px; border-bottom:1px dashed var(--ink-faint);
-    color:var(--ink-faint); font-family:var(--font-mono); font-size:12.5px; font-style:italic;
-  }
-  td.total-row{text-align:right; font-weight:600; color:var(--ink);}
-  .pricing-summary{margin-top:20px;}
-  .stat .num .blank-cell{font-size:16px; font-family:var(--font-display); font-style:normal;}
-
-  /* ---------- team ---------- */
-  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
-  @media (max-width:860px){ .team-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:520px){ .team-grid{grid-template-columns:1fr;} }
-  .person{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);}
-  .avatar{
-    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--teal-ink);
-    background:linear-gradient(155deg, var(--teal) 0%, #8FF0EA 100%); margin-bottom:14px;
-  }
-  .person h3{margin:0 0 3px; font-size:15.5px; font-family:var(--font-display);}
-  .person .role{font-size:12.8px; color:var(--teal-deep); font-weight:600; margin-bottom:8px;}
-  .person p.desc{margin:0; font-size:13px; color:var(--ink-soft);}
-
-  footer{padding:36px 0 60px; border-top:1px solid var(--panel-border); margin-top:20px;}
-  .footer-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
-  footer p{margin:0; font-size:12.5px; color:var(--ink-faint);}
-  footer .foot-brand{font-family:var(--font-display); font-weight:700; color:var(--ink-soft);}
-
-  ::selection{background:var(--teal); color:var(--teal-ink);}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .sync-pill .led::after{animation:none;}
-    .lane{transition:none;}
-    .suite-blob{animation:none;}
-    .suite-blobs{transition:none;}
-    .suite-card{--enter-y:0px; --enter-o:1; transition:border-color .2s ease, box-shadow .2s ease;}
-    .suite-card::after{animation:none;}
-    .suite-icon{animation:none;}
-  }
-</style>
-</head>
-<body>
-
-<div class="topbar">
-  <div class="wrap topbar-inner">
-    <div class="brand"><span class="dot"></span> Ringover <span class="x">×</span> Berger Levrault</div>
-    <div class="sync-pill" id="syncPill"><span class="led"></span><span id="syncText">Chargement des données…</span></div>
-  </div>
-</div>
-
-<nav class="side-nav" aria-label="Navigation rapide">
-  <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
-  <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
-  <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
-  <a class="side-nav-item" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Feuille de route</span></a>
-  <a class="side-nav-item" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille détaillée</span></a>
-  <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
-  <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
-</nav>
-
 <header class="hero" id="hero">
   <div class="wrap">
     <span class="eyebrow">Projet CCaaS · Remplacement Hermès</span>
@@ -397,154 +15,6 @@
     </div>
   </div>
 </header>
-
-<section id="suite" class="suite-band">
-  <div class="suite-blobs" aria-hidden="true">
-    <div class="suite-blob b1"></div>
-    <div class="suite-blob b2"></div>
-    <div class="suite-blob b3"></div>
-  </div>
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>La suite Ringover</h2>
-        <p>Ringover ne se limite pas à la téléphonie : la réponse au recueil s'appuie sur trois briques complémentaires de la même suite.</p>
-      </div>
-    </div>
-    <div class="suite-grid">
-      <div class="suite-card ringover">
-        <div class="suite-icon">R</div>
-        <span class="suite-tag">Téléphonie &amp; centre de contact</span>
-        <h3>Ringover</h3>
-        <p>Le socle voix de la suite, pour le centre de contact au quotidien.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Téléphonie cloud, SVI, files d'attente et routage</li>
-          <li><span class="tick">✓</span>Campagnes d'appels sortants</li>
-          <li><span class="tick">✓</span>Bandeau agent/superviseur et intégration CRM native</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="008">008</button>
-          <button class="ref-chip" data-ref="020">020</button>
-          <button class="ref-chip" data-ref="030">030</button>
-          <button class="ref-chip" data-ref="041">041</button>
-        </div>
-      </div>
-      <div class="suite-card airo">
-        <div class="suite-icon">A</div>
-        <span class="suite-tag">Voicebot &amp; Chatbot IA</span>
-        <h3>Airo</h3>
-        <p>La brique conversationnelle IA de la suite, à la voix comme à l'écrit.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Voicebot : compréhension, qualification et routage d'un appel à la voix, sans arborescence à touches</li>
-          <li><span class="tick">✓</span>Coaching temps réel des agents pendant l'interaction</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="011">011</button>
-          <button class="ref-chip" data-ref="057">057</button>
-        </div>
-      </div>
-      <div class="suite-card empower">
-        <div class="suite-icon">E</div>
-        <span class="suite-tag">Analyse conversationnelle IA</span>
-        <h3>Empower</h3>
-        <p>La brique d'analyse de la suite, sur les interactions voix et écrit.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Transcription des échanges, en direct ou a posteriori</li>
-          <li><span class="tick">✓</span>Résumés automatiques, détection de sujets et mots-clés</li>
-          <li><span class="tick">✓</span>Évaluation qualité assistée par IA</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="039">039</button>
-          <button class="ref-chip" data-ref="040">040</button>
-          <button class="ref-chip" data-ref="074">074</button>
-          <button class="ref-chip" data-ref="077">077</button>
-        </div>
-      </div>
-      <div class="suite-card target-first">
-        <div class="suite-icon">💬</div>
-        <span class="suite-tag">Target first · Chatbot web</span>
-        <h3>Chatbot embarqué</h3>
-        <p>La première brique ciblée du volet conversationnel Airo : un chatbot intégré au site web de Berger Levrault.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Point d'entrée unique sur le site, disponible 24/7</li>
-          <li><span class="tick">✓</span>Qualification et réponse par un agent IA</li>
-          <li><span class="tick">✓</span>Bascule fluide vers un agent humain si besoin</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="salesforce" class="suite-band">
-  <div class="suite-blobs" aria-hidden="true">
-    <div class="suite-blob b1"></div>
-    <div class="suite-blob b2"></div>
-    <div class="suite-blob b3"></div>
-  </div>
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Intégration Salesforce</h2>
-        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
-      </div>
-    </div>
-    <div class="suite-grid">
-      <div class="suite-card salesforce">
-        <div class="suite-icon">1</div>
-        <span class="suite-tag">Contact</span>
-        <h3>Création automatique de contact</h3>
-        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
-          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
-          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="030">030</button>
-          <button class="ref-chip" data-ref="047">047</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">2</div>
-        <span class="suite-tag">Case</span>
-        <h3>Gestion des cases</h3>
-        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
-          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
-          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="031">031</button>
-          <button class="ref-chip" data-ref="049">049</button>
-          <button class="ref-chip" data-ref="050">050</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">3</div>
-        <span class="suite-tag">Compte rendu</span>
-        <h3>Remontée de compte rendu de conversation téléphonique</h3>
-        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
-          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
-          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="039">039</button>
-          <button class="ref-chip" data-ref="042">042</button>
-          <button class="ref-chip" data-ref="077">077</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="roadmap">
   <div class="wrap">
@@ -692,6 +162,154 @@
       <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Engagement (mois)</div></div>
       <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Démarrage souhaité</div></div>
       <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Budget mensuel cible</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="suite" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>La suite Ringover</h2>
+        <p>Ringover ne se limite pas à la téléphonie : la réponse au recueil s'appuie sur trois briques complémentaires de la même suite.</p>
+      </div>
+    </div>
+    <div class="suite-grid">
+      <div class="suite-card ringover">
+        <div class="suite-icon">R</div>
+        <span class="suite-tag">Téléphonie &amp; centre de contact</span>
+        <h3>Ringover</h3>
+        <p>Le socle voix de la suite, pour le centre de contact au quotidien.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Téléphonie cloud, SVI, files d'attente et routage</li>
+          <li><span class="tick">✓</span>Campagnes d'appels sortants</li>
+          <li><span class="tick">✓</span>Bandeau agent/superviseur et intégration CRM native</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="008">008</button>
+          <button class="ref-chip" data-ref="020">020</button>
+          <button class="ref-chip" data-ref="030">030</button>
+          <button class="ref-chip" data-ref="041">041</button>
+        </div>
+      </div>
+      <div class="suite-card airo">
+        <div class="suite-icon">A</div>
+        <span class="suite-tag">Voicebot &amp; Chatbot IA</span>
+        <h3>Airo</h3>
+        <p>La brique conversationnelle IA de la suite, à la voix comme à l'écrit.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Voicebot : compréhension, qualification et routage d'un appel à la voix, sans arborescence à touches</li>
+          <li><span class="tick">✓</span>Coaching temps réel des agents pendant l'interaction</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="011">011</button>
+          <button class="ref-chip" data-ref="057">057</button>
+        </div>
+      </div>
+      <div class="suite-card empower">
+        <div class="suite-icon">E</div>
+        <span class="suite-tag">Analyse conversationnelle IA</span>
+        <h3>Empower</h3>
+        <p>La brique d'analyse de la suite, sur les interactions voix et écrit.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Transcription des échanges, en direct ou a posteriori</li>
+          <li><span class="tick">✓</span>Résumés automatiques, détection de sujets et mots-clés</li>
+          <li><span class="tick">✓</span>Évaluation qualité assistée par IA</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="039">039</button>
+          <button class="ref-chip" data-ref="040">040</button>
+          <button class="ref-chip" data-ref="074">074</button>
+          <button class="ref-chip" data-ref="077">077</button>
+        </div>
+      </div>
+      <div class="suite-card target-first">
+        <div class="suite-icon">💬</div>
+        <span class="suite-tag">Target first · Chatbot web</span>
+        <h3>Chatbot embarqué</h3>
+        <p>La première brique ciblée du volet conversationnel Airo : un chatbot intégré au site web de Berger Levrault.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Point d'entrée unique sur le site, disponible 24/7</li>
+          <li><span class="tick">✓</span>Qualification et réponse par un agent IA</li>
+          <li><span class="tick">✓</span>Bascule fluide vers un agent humain si besoin</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="salesforce" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Intégration Salesforce</h2>
+        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
+      </div>
+    </div>
+    <div class="suite-grid">
+      <div class="suite-card salesforce">
+        <div class="suite-icon">1</div>
+        <span class="suite-tag">Contact</span>
+        <h3>Création automatique de contact</h3>
+        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
+          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
+          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="030">030</button>
+          <button class="ref-chip" data-ref="047">047</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">2</div>
+        <span class="suite-tag">Case</span>
+        <h3>Gestion des cases</h3>
+        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
+          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
+          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="031">031</button>
+          <button class="ref-chip" data-ref="049">049</button>
+          <button class="ref-chip" data-ref="050">050</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">3</div>
+        <span class="suite-tag">Compte rendu</span>
+        <h3>Remontée de compte rendu de conversation téléphonique</h3>
+        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
+          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
+          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="039">039</button>
+          <button class="ref-chip" data-ref="042">042</button>
+          <button class="ref-chip" data-ref="077">077</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
