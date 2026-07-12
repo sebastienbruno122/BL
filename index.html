@@ -246,6 +246,10 @@
   .suite-band .ref-chip{background:rgba(255,255,255,.07); color:rgba(232,241,244,.85); border-color:rgba(255,255,255,.18);}
   .suite-band .ref-chip:hover{background:#fff; color:#0A1620; border-color:#fff;}
 
+  /* ---------- salesforce (reuses .suite-band / .suite-card design) ---------- */
+  :root{ --sf-blue: #00A1E0; --sf-blue-deep: #0071A9; }
+  .suite-card.salesforce{--accent: var(--sf-blue); --accent-shadow: rgba(0,161,224,.32);}
+
   /* ---------- roadmap lanes ---------- */
   .lanes{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
   @media (max-width:860px){ .lanes{grid-template-columns:1fr;} }
@@ -306,6 +310,24 @@
   .badge.bad{background:var(--bad-bg); color:var(--bad);} .badge.bad .d{background:var(--bad);}
   .empty-row td{text-align:center; color:var(--ink-faint); padding:40px 16px; font-size:13.5px;}
   .count-note{font-size:12.5px; color:var(--ink-faint); margin-top:12px;}
+  .show-more-wrap{display:flex; justify-content:center; margin-top:18px;}
+  .show-more-wrap[hidden]{display:none;}
+  .show-more-btn{
+    font-family:var(--font-mono); font-size:12.5px; padding:10px 22px; border-radius:99px;
+    border:1px solid var(--panel-border); background:var(--panel); color:var(--ink-soft); cursor:pointer;
+    box-shadow:var(--shadow); transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .show-more-btn:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .show-more-btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
+
+  /* ---------- pricing ---------- */
+  .blank-cell{
+    display:inline-block; min-width:70px; padding-bottom:2px; border-bottom:1px dashed var(--ink-faint);
+    color:var(--ink-faint); font-family:var(--font-mono); font-size:12.5px; font-style:italic;
+  }
+  td.total-row{text-align:right; font-weight:600; color:var(--ink);}
+  .pricing-summary{margin-top:20px;}
+  .stat .num .blank-cell{font-size:16px; font-family:var(--font-display); font-style:normal;}
 
   /* ---------- team ---------- */
   .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
@@ -351,8 +373,10 @@
 <nav class="side-nav" aria-label="Navigation rapide">
   <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
   <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
+  <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
   <a class="side-nav-item" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Feuille de route</span></a>
   <a class="side-nav-item" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille détaillée</span></a>
+  <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
   <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
 </nav>
 
@@ -361,9 +385,9 @@
     <span class="eyebrow">Projet CCaaS · Remplacement Hermès</span>
     <h1>Où en est le projet Berger&nbsp;Levrault</h1>
     <p class="lede">
-      Ce document suit, exigence par exigence, la réponse de Ringover au recueil des exigences
-      fonctionnelles de Berger Levrault — sur le périmètre commercial et service client.
-      Le contenu ci-dessous se met à jour automatiquement à mesure que l'équipe avance.
+      Cette interface présente l'offre Ringover conçue spécifiquement pour Berger&nbsp;Levrault : les produits de la
+      suite, leur intégration à Salesforce, la réponse exigence par exigence au recueil fonctionnel et la tarification
+      associée. Le contenu ci-dessous se met à jour automatiquement à mesure que l'équipe avance.
     </p>
     <div class="stat-strip">
       <div class="stat"><div class="num" id="statTotal">–</div><div class="label">Exigences analysées</div></div>
@@ -454,6 +478,74 @@
   </div>
 </section>
 
+<section id="salesforce" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Intégration Salesforce</h2>
+        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
+      </div>
+    </div>
+    <div class="suite-grid">
+      <div class="suite-card salesforce">
+        <div class="suite-icon">1</div>
+        <span class="suite-tag">Contact</span>
+        <h3>Création automatique de contact</h3>
+        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
+          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
+          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="030">030</button>
+          <button class="ref-chip" data-ref="047">047</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">2</div>
+        <span class="suite-tag">Case</span>
+        <h3>Gestion des cases</h3>
+        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
+          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
+          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="031">031</button>
+          <button class="ref-chip" data-ref="049">049</button>
+          <button class="ref-chip" data-ref="050">050</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">3</div>
+        <span class="suite-tag">Compte rendu</span>
+        <h3>Remontée de compte rendu de conversation téléphonique</h3>
+        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
+          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
+          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="039">039</button>
+          <button class="ref-chip" data-ref="042">042</button>
+          <button class="ref-chip" data-ref="077">077</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="roadmap">
   <div class="wrap">
     <div class="section-head">
@@ -514,6 +606,93 @@
       </div>
     </div>
     <p class="count-note" id="countNote"></p>
+    <div class="show-more-wrap">
+      <button class="show-more-btn" id="showMoreBtn" type="button">Afficher plus</button>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Tarification</h2>
+        <p>Récapitulatif des postes de licence à chiffrer pour Berger Levrault. Volumes et tarifs à finaliser avec l'équipe commerciale.</p>
+      </div>
+    </div>
+    <div class="table-panel">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Poste</th><th>Description</th><th>Nombre de licences / utilisateurs</th><th>Prix unitaire</th><th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Licence Ringover — Agent</td>
+              <td class="chapitre">Téléphonie, bandeau agent, intégration CRM Salesforce</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Licence Ringover — Superviseur</td>
+              <td class="chapitre">Supervision temps réel, statistiques, écoute/chuchotement</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Licence Airo — Voicebot</td>
+              <td class="chapitre">Volume d'appels traités par le voicebot / mois</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Licence Airo — Chatbot web</td>
+              <td class="chapitre">Nombre de conversations traitées / mois (cible)</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Licence Empower</td>
+              <td class="chapitre">Nombre d'utilisateurs : transcription, résumé, évaluation qualité</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Numéros &amp; SVI</td>
+              <td class="chapitre">Numéros virtuels, SVI, files d'attente</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td>Options &amp; intégrations</td>
+              <td class="chapitre">Intégration Salesforce avancée, WFM tiers, autres options</td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+            <tr>
+              <td colspan="4" class="total-row">Total mensuel estimé</td>
+              <td><span class="blank-cell">à définir</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="count-note">Nombre de licences, d'utilisateurs et tarifs à compléter avec l'équipe commerciale Ringover.</p>
+    <div class="stat-strip pricing-summary">
+      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Nombre total d'utilisateurs</div></div>
+      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Engagement (mois)</div></div>
+      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Démarrage souhaité</div></div>
+      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Budget mensuel cible</div></div>
+    </div>
   </div>
 </section>
 
@@ -651,6 +830,9 @@ function escapeHTML(s){
   return (s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 }
 
+const PAGE_SIZE = 8;
+let visibleCount = PAGE_SIZE;
+
 function render(){
   const q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
   const tbody = document.getElementById("tableBody");
@@ -660,11 +842,12 @@ function render(){
     if(!q) return true;
     return r.join(" ").toLowerCase().includes(q);
   });
+  const shown = rows.slice(0, visibleCount);
 
-  if(rows.length === 0){
+  if(shown.length === 0){
     tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Aucune exigence ne correspond à cette recherche.</td></tr>';
   } else {
-    tbody.innerHTML = rows.map(r => `
+    tbody.innerHTML = shown.map(r => `
       <tr>
         <td class="n">${escapeHTML(r[0])}</td>
         <td class="chapitre">${escapeHTML(r[1])}</td>
@@ -677,7 +860,16 @@ function render(){
     `).join("");
   }
   document.getElementById("countNote").textContent =
-    `${rows.length} exigence${rows.length > 1 ? "s" : ""} affichée${rows.length > 1 ? "s" : ""} sur ${ALL_ROWS.length}.`;
+    `${shown.length} exigence${shown.length > 1 ? "s" : ""} affichée${shown.length > 1 ? "s" : ""} sur ${rows.length} (${ALL_ROWS.length} au total).`;
+
+  const remaining = rows.length - shown.length;
+  const showMoreWrap = document.getElementById("showMoreBtn").parentElement;
+  showMoreWrap.hidden = remaining <= 0;
+  document.getElementById("showMoreBtn").textContent = `Afficher plus (${Math.min(PAGE_SIZE, remaining)} sur ${remaining} restantes)`;
+}
+
+function resetPaging(){
+  visibleCount = PAGE_SIZE;
 }
 
 function computeStats(){
@@ -726,12 +918,13 @@ async function loadData(){
   computeStats(); render();
 }
 
-document.getElementById("searchInput").addEventListener("input", render);
+document.getElementById("searchInput").addEventListener("input", () => { resetPaging(); render(); });
 document.querySelectorAll(".chip").forEach(chip => {
   chip.addEventListener("click", () => {
     document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
     chip.setAttribute("aria-pressed","true");
     currentFilter = chip.dataset.chip;
+    resetPaging();
     render();
   });
 });
@@ -740,6 +933,7 @@ document.querySelectorAll(".lane").forEach(lane => {
     const f = lane.dataset.filter;
     document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.chip === f ? "true" : "false"));
     currentFilter = f;
+    resetPaging();
     render();
     document.getElementById("grille").scrollIntoView({behavior:"smooth", block:"start"});
   };
@@ -752,9 +946,15 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
     document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.chip === "Tous" ? "true" : "false"));
     currentFilter = "Tous";
     document.getElementById("searchInput").value = chip.dataset.ref;
+    resetPaging();
     render();
     document.getElementById("grille").scrollIntoView({behavior:"smooth", block:"start"});
   });
+});
+
+document.getElementById("showMoreBtn").addEventListener("click", () => {
+  visibleCount += PAGE_SIZE;
+  render();
 });
 
 /* ---------- side nav: smooth scroll + scrollspy ---------- */
@@ -763,7 +963,7 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
   const navItems = Array.from(document.querySelectorAll(".side-nav-item"));
   if(!navItems.length) return;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const DARK_SECTIONS = new Set(["suite"]);
+  const DARK_SECTIONS = new Set(["suite", "salesforce"]);
 
   function setActive(id){
     navItems.forEach(item => item.classList.toggle("active", item.dataset.target === id));
@@ -797,10 +997,11 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
   }
 })();
 
-/* ---------- suite section: scroll reveal + mouse-follow spotlight/tilt ---------- */
+/* ---------- suite-style bands (Suite Ringover + Salesforce): scroll reveal + mouse-follow spotlight/tilt ---------- */
 (function initSuiteInteractions(){
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const suiteCards = document.querySelectorAll("#suite .suite-card");
+  const bands = document.querySelectorAll(".suite-band");
+  const suiteCards = document.querySelectorAll(".suite-band .suite-card");
 
   if(reduceMotion){
     suiteCards.forEach(card => card.classList.add("in-view"));
@@ -813,9 +1014,11 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
         }
       });
     }, {threshold:.2});
-    suiteCards.forEach((card, i) => {
-      card.style.setProperty("--d", (i * 0.12) + "s");
-      io.observe(card);
+    bands.forEach(band => {
+      band.querySelectorAll(".suite-card").forEach((card, i) => {
+        card.style.setProperty("--d", (i * 0.12) + "s");
+        io.observe(card);
+      });
     });
   } else {
     suiteCards.forEach(card => card.classList.add("in-view"));
@@ -838,19 +1041,19 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
       });
     });
 
-    const suiteBand = document.querySelector("#suite.suite-band");
-    const suiteBlobs = document.querySelector("#suite .suite-blobs");
-    if(suiteBand && suiteBlobs){
-      suiteBand.addEventListener("pointermove", e => {
-        const r = suiteBand.getBoundingClientRect();
+    bands.forEach(band => {
+      const blobs = band.querySelector(".suite-blobs");
+      if(!blobs) return;
+      band.addEventListener("pointermove", e => {
+        const r = band.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width - 0.5;
         const py = (e.clientY - r.top) / r.height - 0.5;
-        suiteBlobs.style.transform = `translate(${px * 30}px, ${py * 22}px)`;
+        blobs.style.transform = `translate(${px * 30}px, ${py * 22}px)`;
       });
-      suiteBand.addEventListener("pointerleave", () => {
-        suiteBlobs.style.transform = "translate(0,0)";
+      band.addEventListener("pointerleave", () => {
+        blobs.style.transform = "translate(0,0)";
       });
-    }
+    });
   }
 })();
 
