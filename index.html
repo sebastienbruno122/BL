@@ -830,7 +830,7 @@ function escapeHTML(s){
   return (s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 }
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 5;
 let visibleCount = PAGE_SIZE;
 
 function render(){
