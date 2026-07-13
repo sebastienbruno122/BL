@@ -376,6 +376,111 @@
   .pricing-summary{margin-top:20px;}
   .stat .num .blank-cell{font-size:16px; font-family:var(--font-display); font-style:normal;}
 
+  .pricing-context{
+    background:var(--teal-wash); border:1px solid rgba(14,143,135,.18); border-radius:var(--radius);
+    padding:20px 24px; margin-top:20px; display:flex; flex-direction:column; gap:10px;
+  }
+  .pricing-context p{margin:0; font-size:13.4px; color:var(--teal-ink); line-height:1.6;}
+  .pricing-context .lock-badge{
+    align-self:flex-start; font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    background:var(--teal-deep); color:#fff; padding:6px 12px; border-radius:99px;
+  }
+
+  .table-block{margin-top:32px;}
+  .table-block:first-of-type{margin-top:28px;}
+  .table-block-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap;}
+  .table-block-head h3{font-family:var(--font-display); font-size:16.5px; margin:0;}
+  .table-block-head .table-note{font-size:12.5px; color:var(--ink-faint);}
+
+  .price-strike{color:var(--ink-faint); text-decoration:line-through; font-size:12.8px; margin-right:6px;}
+  .price-dedie{color:var(--ok); font-weight:700;}
+  .price-badge{
+    display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+    background:var(--ok-bg); color:var(--ok); padding:3px 9px; border-radius:99px;
+  }
+  tr.total-row-line td{background:var(--teal-wash); font-weight:700; color:var(--teal-ink); border-top:2px solid rgba(14,143,135,.25);}
+
+  /* ---------- plan d'action ---------- */
+  .plan-commit{
+    display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap;
+    background:var(--teal-wash); border:1px solid rgba(14,143,135,.18); border-radius:var(--radius);
+    padding:16px 20px; margin-top:20px;
+  }
+  .plan-commit-badge{
+    flex:0 0 auto; font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    background:var(--teal-deep); color:#fff; padding:6px 12px; border-radius:99px;
+  }
+  .plan-commit p{margin:0; font-size:13.6px; color:var(--teal-ink); flex:1 1 260px;}
+
+  .phase-panel{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:32px; box-shadow:var(--shadow); margin-bottom:24px;
+  }
+  .phase-header{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:22px;}
+  .phase-header h3{font-family:var(--font-display); font-size:20px; margin:0;}
+  .phase-tag{
+    font-family:var(--font-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.04em;
+    background:var(--teal-wash); color:var(--teal-deep); padding:5px 12px; border-radius:99px; font-weight:600;
+  }
+
+  .phase-meta{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;}
+  @media (max-width:760px){ .phase-meta{grid-template-columns:1fr;} }
+  .phase-meta-item{background:var(--bg); border:1px solid var(--panel-border); border-radius:var(--radius-sm); padding:16px 18px;}
+  .phase-meta-item .k{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin-bottom:6px;}
+  .phase-meta-item .v{font-size:13.6px; color:var(--ink); font-weight:600; line-height:1.45;}
+
+  .plan-subhead{font-family:var(--font-display); font-size:14.5px; font-weight:700; color:var(--ink); margin:0 0 14px;}
+
+  .timeline{display:flex; align-items:stretch; gap:0; margin-bottom:32px;}
+  .timeline-card{
+    flex:1; background:var(--bg); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:20px;
+  }
+  .timeline-arrow{display:flex; align-items:center; justify-content:center; width:30px; flex:0 0 auto; color:var(--ink-faint); font-size:16px;}
+  @media (max-width:860px){
+    .timeline{flex-direction:column;}
+    .timeline-arrow{width:auto; height:22px; transform:rotate(90deg);}
+  }
+  .timeline-card .month{
+    display:block; font-family:var(--font-display); font-weight:700; font-size:12.5px;
+    text-transform:uppercase; letter-spacing:.03em; color:var(--teal-deep); margin-bottom:4px;
+  }
+  .timeline-card .month-sub{display:block; font-size:12px; color:var(--ink-faint); margin-bottom:12px;}
+  .timeline-card ul{margin:0; padding-left:18px; font-size:12.8px; color:var(--ink-soft); display:flex; flex-direction:column; gap:7px;}
+  .timeline-card li{line-height:1.5;}
+
+  .detail-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:760px){ .detail-grid{grid-template-columns:1fr;} }
+  .detail-card{background:var(--bg); border:1px solid var(--panel-border); border-radius:var(--radius); padding:20px; display:flex; gap:14px;}
+  .detail-num{
+    flex:0 0 auto; width:32px; height:32px; border-radius:9px; background:var(--teal-wash); color:var(--teal-deep);
+    font-family:var(--font-display); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center;
+  }
+  .detail-card h4{margin:0 0 8px; font-size:14.5px; font-family:var(--font-display);}
+  .detail-card ul{margin:0; padding-left:16px; font-size:12.8px; color:var(--ink-soft); display:flex; flex-direction:column; gap:6px;}
+  .detail-card p{margin:0; font-size:12.8px; color:var(--ink-soft); line-height:1.55;}
+  .detail-card li b{color:var(--ink);}
+
+  .phase2-panel{
+    background:linear-gradient(150deg, var(--teal-wash) 0%, var(--panel) 65%);
+    border:1px solid var(--panel-border); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow);
+  }
+  .phase2-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:20px;}
+  @media (max-width:760px){ .phase2-grid{grid-template-columns:1fr;} }
+  .phase2-grid .k{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--teal-deep); margin-bottom:6px;}
+  .phase2-grid p{margin:0; font-size:13.6px; color:var(--ink-soft); line-height:1.55;}
+
+  .phase-intro{margin:0 0 20px; font-size:13.4px; color:var(--ink-soft); line-height:1.55;}
+  .workshop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  @media (max-width:900px){ .workshop-grid{grid-template-columns:1fr;} }
+  .workshop-card{background:var(--bg); border:1px solid var(--panel-border); border-radius:var(--radius); padding:18px; display:flex; flex-direction:column; gap:10px;}
+  .workshop-top{display:flex; align-items:center; gap:10px;}
+  .workshop-top h4{margin:0; font-size:14px; font-family:var(--font-display);}
+  .workshop-card > p{margin:0; font-size:12.6px; color:var(--ink-soft); line-height:1.55;}
+  .prep-block{padding:10px 12px; background:var(--panel); border-left:3px solid var(--teal); border-radius:6px;}
+  .prep-label{display:block; font-family:var(--font-mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--teal-deep); margin-bottom:4px;}
+  .prep-block p{margin:0; font-size:12.2px; color:var(--ink-soft); line-height:1.5;}
+
   /* ---------- team ---------- */
   .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
   @media (max-width:860px){ .team-grid{grid-template-columns:repeat(2,1fr);} }
@@ -426,6 +531,8 @@
   <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
   <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
   <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
+  <a class="side-nav-item" href="#plan-action" data-target="plan-action"><span class="tick"></span><span class="side-label">Plan d'action</span></a>
+  <a class="side-nav-item" href="#empower-plan" data-target="empower-plan"><span class="tick"></span><span class="side-label">Formation Empower</span></a>
   <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
 </nav>
 
@@ -574,7 +681,7 @@
     <div class="section-head">
       <div>
         <span class="eyebrow">Cahier des charges</span>
-        <h2>Commercial</h2>
+        <h2>Service Commercial</h2>
         <p>Même principe que ci-dessus, appliqué cette fois au recueil des exigences fonctionnelles de la partie commerciale.</p>
       </div>
     </div>
@@ -680,81 +787,200 @@
     <div class="section-head">
       <div>
         <h2>Tarification</h2>
-        <p>Récapitulatif des postes de licence à chiffrer pour Berger Levrault. Volumes et tarifs à finaliser avec l'équipe commerciale.</p>
+        <p>Évaluation budgétaire et orientations contractuelles : grille tarifaire négociée pour Berger Levrault, avec anticipation de vos volumes futurs.</p>
       </div>
     </div>
-    <div class="table-panel">
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Poste</th><th>Description</th><th>Nombre de licences / utilisateurs</th><th>Prix unitaire</th><th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Licence Ringover — Agent</td>
-              <td class="chapitre">Téléphonie, bandeau agent, intégration CRM Salesforce</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Licence Ringover — Superviseur</td>
-              <td class="chapitre">Supervision temps réel, statistiques, écoute/chuchotement</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Licence Airo — Voicebot</td>
-              <td class="chapitre">Volume d'appels traités par le voicebot / mois</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Licence Airo — Chatbot web</td>
-              <td class="chapitre">Nombre de conversations traitées / mois (cible)</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Licence Empower</td>
-              <td class="chapitre">Nombre d'utilisateurs : transcription, résumé, évaluation qualité</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Numéros &amp; SVI</td>
-              <td class="chapitre">Numéros virtuels, SVI, files d'attente</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td>Options &amp; intégrations</td>
-              <td class="chapitre">Intégration Salesforce avancée, WFM tiers, autres options</td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-            <tr>
-              <td colspan="4" class="total-row">Total mensuel estimé</td>
-              <td><span class="blank-cell">à définir</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+    <div class="pricing-context">
+      <span class="lock-badge">Tarifs figés 24 ou 36 mois</span>
+      <p>Notre volonté d'accompagner Berger Levrault dans la transformation de ses infrastructures, associée à l'envergure de votre organisation et à la temporalité de ce déploiement, nous a permis de mobiliser des leviers de négociation exceptionnels auprès de notre direction générale.</p>
+      <p>Nous anticipons dès à présent vos volumes futurs : la grille tarifaire préférentielle normalement réservée aux comptes de 500 à 700 licences vous est appliquée immédiatement, dès l'activation du premier périmètre Sales.</p>
+      <p>Nos conditions générales prévoient une indexation annuelle de 6&nbsp;% lors des renouvellements ; nous sommes en mesure de figer l'ensemble de ces conditions préférentielles sur un engagement de 24 ou 36 mois, vous garantissant une parfaite maîtrise budgétaire sans augmentation sur toute la durée de l'accord.</p>
     </div>
-    <p class="count-note">Nombre de licences, d'utilisateurs et tarifs à compléter avec l'équipe commerciale Ringover.</p>
+
     <div class="stat-strip pricing-summary">
-      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Nombre total d'utilisateurs</div></div>
-      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Engagement (mois)</div></div>
-      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Démarrage souhaité</div></div>
-      <div class="stat"><div class="num"><span class="blank-cell">à définir</span></div><div class="label">Budget mensuel cible</div></div>
+      <div class="stat"><div class="num">112</div><div class="label">Licences Phase 1 · Sales</div></div>
+      <div class="stat"><div class="num">370</div><div class="label">Licences Phase 2 · Relation client</div></div>
+      <div class="stat ok"><div class="num">9 934&nbsp;€</div><div class="label">Économie mensuelle négociée (HT)</div></div>
+      <div class="stat"><div class="num">24-36</div><div class="label">Mois d'engagement pour figer les tarifs</div></div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Partie Sales — Phase 1</h3>
+        <span class="table-note">112 licences</span>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Type de licence / option</th><th>Quantité</th><th>Prix public</th><th>Votre prix dédié</th><th>Économie mensuelle</th><th>Total mensuel HT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Licence Business (Users)</td>
+                <td>100</td>
+                <td><span class="price-strike">47,00 €</span></td>
+                <td><span class="price-dedie">39,00 €</span></td>
+                <td>800,00 €</td>
+                <td>3 900,00 €</td>
+              </tr>
+              <tr>
+                <td>Licence Business (Superviseurs)</td>
+                <td>12</td>
+                <td><span class="price-strike">47,00 €</span></td>
+                <td><span class="price-dedie">33,00 €</span></td>
+                <td>168,00 €</td>
+                <td>396,00 €</td>
+              </tr>
+              <tr>
+                <td>Option Empower (IA)</td>
+                <td>112</td>
+                <td><span class="price-strike">39,00 €</span></td>
+                <td><span class="price-dedie">27,00 €</span></td>
+                <td>1 344,00 €</td>
+                <td>3 024,00 €</td>
+              </tr>
+              <tr class="total-row-line">
+                <td>Total projet Sales</td>
+                <td>112</td>
+                <td></td>
+                <td></td>
+                <td>2 312,00 € HT / mois</td>
+                <td>7 320,00 € HT / mois</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Partie Relation client — Phase 2</h3>
+        <span class="table-note">370 licences</span>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Type de licence / option</th><th>Quantité</th><th>Prix public</th><th>Votre prix dédié</th><th>Économie mensuelle</th><th>Total mensuel HT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Licence Business (Users)</td>
+                <td>333</td>
+                <td><span class="price-strike">47,00 €</span></td>
+                <td><span class="price-dedie">39,00 €</span></td>
+                <td>2 664,00 €</td>
+                <td>12 987,00 €</td>
+              </tr>
+              <tr>
+                <td>Licence Business (Superviseurs)</td>
+                <td>37</td>
+                <td><span class="price-strike">47,00 €</span></td>
+                <td><span class="price-dedie">33,00 €</span></td>
+                <td>518,00 €</td>
+                <td>1 221,00 €</td>
+              </tr>
+              <tr>
+                <td>Option Empower (IA)</td>
+                <td>370</td>
+                <td><span class="price-strike">39,00 €</span></td>
+                <td><span class="price-dedie">27,00 €</span></td>
+                <td>4 440,00 €</td>
+                <td>9 990,00 €</td>
+              </tr>
+              <tr class="total-row-line">
+                <td>Total Relation client</td>
+                <td>370</td>
+                <td></td>
+                <td></td>
+                <td>7 622,00 € HT / mois</td>
+                <td>24 198,00 € HT / mois</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Options complémentaires</h3>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Module / option</th><th>Prix public</th><th>Votre prix dédié</th><th>Statut / grille de consommation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Autofill CRM (intégration Salesforce)</td>
+                <td><span class="price-strike">5,00 € / mois / user</span></td>
+                <td><span class="price-badge">Offert</span></td>
+                <td class="chapitre">Inclus pour l'ensemble des utilisateurs</td>
+              </tr>
+              <tr>
+                <td>Serveur Vocal Interactif (SVI)</td>
+                <td>5,00 € / mois</td>
+                <td><span class="price-dedie">5,00 € / mois</span></td>
+                <td class="chapitre">Par numéro de SVI supplémentaire créé</td>
+              </tr>
+              <tr>
+                <td>Ringover Views</td>
+                <td><span class="blank-cell">à définir</span></td>
+                <td><span class="price-badge">Inclus</span></td>
+                <td class="chapitre">Projection sur plateaux d'appels &amp; dashboards avancés</td>
+              </tr>
+              <tr>
+                <td>Campagnes d'appel V2</td>
+                <td><span class="blank-cell">à définir</span></td>
+                <td><span class="blank-cell">à définir</span></td>
+                <td class="chapitre">Selon l'expression des besoins précis</td>
+              </tr>
+              <tr>
+                <td>Target First Chat Bot</td>
+                <td><span class="blank-cell">à définir</span></td>
+                <td><span class="blank-cell">à définir</span></td>
+                <td class="chapitre">Selon l'expression des besoins précis</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Partie Airo</h3>
+        <span class="table-note">Plans à la minute</span>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Plan</th><th>Coût à la minute</th><th>Minimum mensuel</th><th>Volume de minutes inclus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Starter</td><td>0,33 €</td><td>99 € / mois</td><td>300 min</td></tr>
+              <tr><td>Growth</td><td>0,29 €</td><td>290 € / mois</td><td>1 000 min</td></tr>
+              <tr><td>Scale</td><td>0,25 €</td><td>500 € / mois</td><td>2 000 min</td></tr>
+              <tr><td>Business</td><td>0,22 €</td><td>1 100 € / mois</td><td>5 000 min</td></tr>
+              <tr><td>Enterprise</td><td>0,19 €</td><td>1 900 € / mois</td><td>10 000 min</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -903,6 +1129,341 @@
           <button class="ref-chip" data-ref="077">077</button>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="plan-action">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Plan d'action stratégique : déploiement en 2 phases</h2>
+        <p>Pour répondre à l'exigence globale de Berger Levrault tout en éradiquant tout risque d'exécution, une approche pragmatique : la Phase 1 isole la population en forte souffrance opérationnelle (les forces de vente) et sécurise l'impact business immédiat sur un périmètre maîtrisé à 100%.</p>
+      </div>
+    </div>
+    <div class="plan-commit">
+      <span class="plan-commit-badge">Sans engagement</span>
+      <p>Un modèle initial <strong>sans engagement</strong> sur la Phase 1, pour vous garantir une totale liberté et prouver notre valeur sur le terrain avant de basculer sur la phase globale du groupe.</p>
+    </div>
+
+    <div class="phase-panel" style="margin-top:32px;">
+      <div class="phase-header">
+        <h3>Phase 1 — Focus performance commerciale</h3>
+        <span class="phase-tag">Août – Septembre</span>
+      </div>
+      <div class="phase-meta">
+        <div class="phase-meta-item">
+          <div class="k">Périmètre</div>
+          <div class="v">112 utilisateurs (100 Sales + 12 Superviseurs)</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">Technologie</div>
+          <div class="v">Licences Ringover Business + Option IA Empower, intégration native Salesforce</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">Objectif</div>
+          <div class="v">Résorber la souffrance des équipes, sécuriser le business et valider l'adhésion des utilisateurs dès la rentrée</div>
+        </div>
+      </div>
+
+      <p class="plan-subhead">Rétro-planning d'exécution et livrables techniques</p>
+      <div class="timeline">
+        <div class="timeline-card">
+          <span class="month">Août</span>
+          <span class="month-sub">Fondations &amp; réseau</span>
+          <ul>
+            <li>Kick-off et alignement des équipes TAM / CSM</li>
+            <li>Audit technique du réseau et des flux Salesforce</li>
+            <li>Collecte et validation des données de portabilité</li>
+            <li>Configuration de l'architecture SVI, des utilisateurs et des groupes</li>
+          </ul>
+        </div>
+        <div class="timeline-arrow" aria-hidden="true">→</div>
+        <div class="timeline-card">
+          <span class="month">Septembre</span>
+          <span class="month-sub">Go-live &amp; adoption</span>
+          <ul>
+            <li>Injection des configurations en production</li>
+            <li>Déploiement et activation du couplage CTI dans Salesforce</li>
+            <li>Bascule technique et routage des numéros</li>
+            <li>Formations utilisateurs et paramétrage des frameworks IA</li>
+          </ul>
+        </div>
+        <div class="timeline-arrow" aria-hidden="true">→</div>
+        <div class="timeline-card">
+          <span class="month">Octobre</span>
+          <span class="month-sub">Confort &amp; ajustements</span>
+          <ul>
+            <li>Accompagnement de confort et suivi de l'adoption</li>
+            <li>Optimisations avancées de l'infrastructure</li>
+            <li>Analyses fines et calibration des scorecards IA</li>
+            <li>Suivi sur-mesure sur des points métiers spécifiques</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="plan-subhead">Détail par chantier</p>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-num">1</div>
+          <div>
+            <h4>Fluidité des infrastructures et gestion télécom <span style="color:var(--ink-faint); font-weight:500;">(Août)</span></h4>
+            <ul>
+              <li><b>Gouvernance :</b> affectation immédiate de votre Technical Account Manager (TAM) dédié pour piloter les chantiers télécom de bout en bout.</li>
+              <li><b>Gestion des portabilités :</b> prise en charge intégrale des démarches administratives et techniques de transfert de vos numéros actuels, planifiée en amont pour garantir une continuité de service absolue lors de la bascule.</li>
+              <li><b>Configuration :</b> paramétrage complet de l'environnement (profils utilisateurs, groupes de distribution d'appels, règles de routage) et réplication à l'identique de votre SVI actuel.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">2</div>
+          <div>
+            <h4>Intégration et conduite du changement <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
+            <ul>
+              <li><b>Alignement CRM :</b> déploiement et activation de l'intégration bidirectionnelle dans votre instance Salesforce (remontée des fiches, click-to-call, consignation automatique).</li>
+              <li><b>Formations sur-mesure :</b> sessions illimitées dispensées par groupes de niveau (administrateurs, superviseurs et équipes sales) pour ancrer les bonnes pratiques dès les premiers jours d'utilisation.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">3</div>
+          <div>
+            <h4>Intelligence conversationnelle &amp; coaching <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
+            <ul>
+              <li><b>Frameworks Empower :</b> co-construction des modèles d'analyse IA adaptés à la méthodologie de vente de Berger Levrault (détection des signaux d'achat, des objections récurrentes, des points de conformité).</li>
+              <li><b>Scorecards de coaching :</b> création de grilles d'évaluation sur-mesure dans Empower pour permettre aux 12 superviseurs de piloter la montée en compétences de manière factuelle.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">4</div>
+          <div>
+            <h4>Octobre en cible de confort</h4>
+            <p>Afin de sécuriser le projet, le mois d'octobre est conservé comme une phase de confort supplémentaire : suivi de l'adoption, ajustement précis des frameworks d'intelligence artificielle et accompagnement des utilisateurs sur des sujets spécifiques si le besoin s'en fait sentir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase2-panel">
+      <div class="phase-header">
+        <h3>Phase 2 — Convergence relation client groupe</h3>
+        <span class="phase-tag">À partir de novembre</span>
+      </div>
+      <div class="phase2-grid">
+        <div>
+          <div class="k">Périmètre</div>
+          <p>Extension aux centres de relation client et services transverses du groupe.</p>
+        </div>
+        <div>
+          <div class="k">Démarche</div>
+          <p>Forts du succès de la Phase 1 et d'une infrastructure Salesforce-téléphonie éprouvée, co-développement de l'intégration des besoins CRC complexes et spécifiques, en s'appuyant sur les briques avancées de la roadmap validée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="empower-plan">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Plan de formation et déploiement d'Empower</h2>
+        <p>Déployer Empower, module par module : estimation du temps de configuration par atelier, et ce qu'il faut préparer en amont de chaque session.</p>
+      </div>
+    </div>
+
+    <div class="stat-strip pricing-summary">
+      <div class="stat"><div class="num">4</div><div class="label">Phases de configuration</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Ateliers au total</div></div>
+      <div class="stat ok"><div class="num">~14h00</div><div class="label">Configuration effective estimée</div></div>
+      <div class="stat"><div class="num">1h-1h30</div><div class="label">Formation finale des utilisateurs</div></div>
+    </div>
+
+    <div class="phase-panel" style="margin-top:32px;">
+      <div class="phase-header">
+        <h3>Phase 1 — Fondations</h3>
+        <span class="phase-tag">2h00</span>
+      </div>
+      <p class="phase-intro">Cadrage, rôles et vocabulaire métier : la base sur laquelle reposent toutes les phases suivantes.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Cadrage du besoin</h4></div>
+          <p>Atelier de recueil des objectifs d'évaluation, de la structure d'équipe et des priorités métier.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Objectifs d'évaluation, organigramme équipe, CRM utilisé, quelques exemples d'appels types.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Rôles &amp; groupes</h4></div>
+          <p>Création des groupes utilisateurs et attribution des rôles (Admin, Supervisor, User) — si pas d'intégration native avec Ringover.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des utilisateurs avec le rôle souhaité pour chacun et l'organisation en équipes.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Vocabulaire métier</h4></div>
+          <p>Ajout des termes spécifiques pour fiabiliser la transcription et l'analyse.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Noms de produits, clients clés, acronymes internes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 2 — Analyse &amp; scoring</h3>
+        <span class="phase-tag">4h30</span>
+      </div>
+      <p class="phase-intro">Framework de vente et scorecards : ce qui permettra à Empower d'évaluer automatiquement les appels.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Framework de vente</h4></div>
+          <p>Configuration de la méthodologie (BANT, MEDDPICC, SPICED ou custom) et des metrics associées.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Méthodologie de vente utilisée et étapes clés attendues dans un appel type.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard principale</h4></div>
+          <p>Grille d'évaluation IA + statistique : critères, pondération, tolérance, mots interdits.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Grille existante si disponible, critères prioritaires et pondération souhaitée.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard Qualité</h4></div>
+          <p>Grille secondaire dédiée à la conformité et au ton, distincte de la grille commerciale.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Script d'appel type et exemples d'appels réussis / à corriger.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 3 — Automatisation</h3>
+        <span class="phase-tag">4h00</span>
+      </div>
+      <p class="phase-intro">Moments, workflows et style de résumé : ce qui fait tourner Empower en continu, sans intervention manuelle.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Moments</h4></div>
+          <p>Détection automatique de mots-clés : objections, mentions concurrents, signaux de closing.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des expressions ou mots-clés à détecter par thématique.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Workflows</h4></div>
+          <p>Règles automatiques : flag, email, changement de scorecard selon les événements détectés.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Règles métier : qui alerter, à quel moment, et quelle action déclencher.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Style de résumé</h4></div>
+          <p>Modèle de résumé d'appel généré par IA, appliqué par défaut à l'équipe.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Format souhaité : longueur, champs à faire apparaître, structure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 4 — Coaching &amp; intégrations</h3>
+        <span class="phase-tag">3h30</span>
+      </div>
+      <p class="phase-intro">Pitch Room, CRM et Ask Empower : la couche coaching et intégrations qui referme le déploiement.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Pitch Room (2 personas)</h4></div>
+          <p>Personas d'entraînement réalistes : scénario, objectif, style de négociation, objections.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Profils clients types, objections fréquentes et attendu de l'interlocuteur.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Webhook / CRM</h4></div>
+          <p>Connexion de la remontée d'appels vers le CRM.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Accès admin CRM et contact technique côté client pour valider la connexion.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Templates Ask Empower</h4></div>
+          <p>Prompts prêts à l'emploi pour l'analyse cross-appels (coaching, tendances, objections).</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Cas d'usage prioritaires : ex. suivi mensuel, analyse des objections.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase2-panel">
+      <div class="phase-header">
+        <h3>Bien préparer les ateliers</h3>
+        <span class="phase-tag">Ce qu'il faut réunir avant chaque session</span>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-num">1</div>
+          <div>
+            <h4>Contenu métier</h4>
+            <ul>
+              <li>Méthodologie de vente utilisée (BANT / MEDDPICC / SPICED ou custom)</li>
+              <li>Grille d'évaluation existante, si elle existe déjà</li>
+              <li>Script d'appel type et exemples d'appels réussis / à corriger</li>
+              <li>Mots-clés, objections et mentions concurrents à détecter</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">2</div>
+          <div>
+            <h4>Accès &amp; organisation</h4>
+            <ul>
+              <li>Liste des utilisateurs avec le rôle souhaité pour chacun</li>
+              <li>Accès admin CRM et contact technique disponible</li>
+              <li>Organigramme d'équipe et regroupements souhaités</li>
+              <li>Noms produits, clients clés et acronymes internes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">3</div>
+          <div>
+            <h4>Décisions à prendre en amont</h4>
+            <ul>
+              <li>Critères prioritaires pour le scoring</li>
+              <li>Règles d'alerte : qui doit être notifié, quand, pour quelle action</li>
+              <li>Profils clients types pour les mises en situation Pitch Room</li>
+              <li>Cas d'usage prioritaires pour l'analyse cross-appels</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-commit">
+      <span class="plan-commit-badge">Prochaine étape</span>
+      <p>Planifions le premier atelier de cadrage : réunissez les éléments de préparation de la Phase 1 et convenons d'une date pour démarrer la configuration d'Empower.</p>
     </div>
   </div>
 </section>
