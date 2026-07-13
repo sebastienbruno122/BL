@@ -28,6 +28,10 @@
     --bad-bg: #FBE6E7;
     --dev: #3B5FCC;
     --dev-bg: #E8ECFB;
+    --bg-zone-sc: #F4F9F8;
+    --bg-zone-com: #F9F8F5;
+    --bg-zone-deploy: #F5F7FA;
+    --bg-zone-pricing: #F8F7F6;
     --radius: 14px;
     --radius-sm: 8px;
     --shadow: 0 1px 2px rgba(14,26,34,.04), 0 8px 24px -12px rgba(14,26,34,.12);
@@ -206,6 +210,12 @@
   .section-head h2{font-family:var(--font-display); font-size:26px; margin:0 0 6px;}
   .section-head p{margin:0; color:var(--ink-soft); max-width:56ch; font-size:14.5px;}
 
+  /* ---------- section background zones (subtle tint per major group, for scroll orientation) ---------- */
+  #cdc-service-client, #roadmap, #grille{background:var(--bg-zone-sc);}
+  #cdc-commercial, #roadmap-com, #grille-com{background:var(--bg-zone-com);}
+  #deployment-plan{background:var(--bg-zone-deploy);}
+  #pricing{background:var(--bg-zone-pricing);}
+
   /* ---------- suite ---------- */
   :root{
     --airo: #7B7FF5;
@@ -240,6 +250,10 @@
   .suite-band .wrap{position:relative; z-index:1;}
   .suite-band .section-head h2{color:#fff;}
   .suite-band .section-head p{color:rgba(232,241,244,.68);}
+  .suite-group{margin-top:48px; padding-top:40px; border-top:1px solid rgba(255,255,255,.14);}
+  .suite-group:first-of-type{margin-top:32px; padding-top:0; border-top:none;}
+  .suite-subhead{font-family:var(--font-display); font-size:21px; margin:0 0 8px; color:#fff;}
+  .suite-subhead-intro{font-size:13.6px; color:rgba(232,241,244,.72); margin:0 0 24px; max-width:72ch; line-height:1.55;}
   .suite-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:18px; perspective:1200px;}
   @property --angle{ syntax:'<angle>'; inherits:false; initial-value:0deg; }
   .suite-card{
@@ -476,7 +490,7 @@
   .global-coverage{
     display:flex; gap:32px; align-items:center; flex-wrap:wrap;
     background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
-    padding:26px 28px; margin-top:32px; box-shadow:var(--shadow);
+    padding:26px 28px; box-shadow:var(--shadow);
   }
   .gc-figure{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:0 0 auto;}
   .gc-pct{font-family:var(--font-display); font-size:48px; font-weight:700; color:var(--teal-deep); line-height:1;}
@@ -635,19 +649,28 @@
   .prep-label{display:block; font-family:var(--font-mono); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--teal-deep); margin-bottom:4px;}
   .prep-block p{margin:0; font-size:12.2px; color:var(--ink-soft); line-height:1.5;}
 
-  /* ---------- team ---------- */
-  .team-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
-  @media (max-width:860px){ .team-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:520px){ .team-grid{grid-template-columns:1fr;} }
-  .person{background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);}
-  .avatar{
-    width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--teal-ink);
-    background:linear-gradient(155deg, var(--teal) 0%, #8FF0EA 100%); margin-bottom:14px;
+  /* ---------- team (same dark band, calmer cards) ---------- */
+  .person-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,220px)); gap:20px;
+    justify-content:center; max-width:780px; margin:0 auto;
   }
-  .person h3{margin:0 0 3px; font-size:15.5px; font-family:var(--font-display);}
-  .person .role{font-size:12.8px; color:var(--teal-deep); font-weight:600; margin-bottom:8px;}
-  .person p.desc{margin:0; font-size:13px; color:var(--ink-soft);}
+  @media (max-width:700px){ .person-grid{grid-template-columns:minmax(0,220px); max-width:260px;} }
+  .person-card{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius);
+    padding:26px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;
+    transition:background-color .2s ease, border-color .2s ease;
+  }
+  .person-card:hover{background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.2);}
+  .person-card .avatar{
+    width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:700; font-size:28px; color:rgba(232,241,244,.85);
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+    overflow:hidden; margin-bottom:6px;
+  }
+  .person-card .avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .person-card .suite-tag{background:rgba(255,255,255,.1); color:rgba(232,241,244,.85); border:1px solid rgba(255,255,255,.18); align-self:center;}
+  .person-card h3{color:#fff;}
+  .person-card p{color:rgba(232,241,244,.72);}
 
   footer{padding:36px 0 60px; border-top:1px solid var(--panel-border); margin-top:20px;}
   .footer-row{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;}
@@ -678,6 +701,7 @@
 
 <nav class="side-nav" aria-label="Navigation rapide">
   <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
+  <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
 
   <a class="side-nav-item" href="#cdc-service-client" data-target="cdc-service-client" data-watch="cdc-service-client roadmap grille"><span class="tick"></span><span class="side-label">Service client</span></a>
   <div class="side-nav-sub">
@@ -699,9 +723,11 @@
   </div>
 
   <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
-  <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
-  <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
-  <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
+  <a class="side-nav-item" href="#modules-integration" data-target="modules-integration" data-watch="modules-integration suite-products suite-salesforce"><span class="tick"></span><span class="side-label">Modules et intégration</span></a>
+  <div class="side-nav-sub">
+    <a class="side-nav-subitem" href="#suite-products" data-target="suite-products"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
+    <a class="side-nav-subitem" href="#suite-salesforce" data-target="suite-salesforce"><span class="tick"></span><span class="side-label">Intégration Salesforce</span></a>
+  </div>
 </nav>
 
 <header class="hero" id="hero">
@@ -714,6 +740,48 @@
       réponse exigence par exigence aux deux recueils fonctionnels, et la tarification associée. Le contenu se met
       à jour automatiquement à mesure que l'équipe avance.
     </p>
+  </div>
+</header>
+
+<section id="equipe" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>L'équipe Ringover qui vous accompagne</h2>
+        <p>Les parties prenantes mobilisées sur le dossier Berger Levrault.</p>
+      </div>
+    </div>
+    <div class="person-grid">
+      <div class="person-card">
+        <div class="avatar"><img src="photo-seb.jpeg" alt="Sébastien Bruno" loading="lazy"></div>
+        <span class="suite-tag">Solution Engineer</span>
+        <h3>Sébastien Bruno</h3>
+        <p>Cadre le projet sur le plan fonctionnel et la faisabilité technique, puis assure la passation avec le Customer Success après signature, via des sessions de cadrage dédiées.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="photo-pablo.jpeg" alt="Pablo Capone" loading="lazy"></div>
+        <span class="suite-tag">Commercial</span>
+        <h3>Pablo Capone</h3>
+        <p>Chef de projet sur le dossier : pilote la relation commerciale jusqu'à la signature, puis veille au bon déroulement du déploiement jusqu'à sa mise en route.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar">?</div>
+        <span class="suite-tag">Customer Success</span>
+        <h3>Reste à définir</h3>
+        <p>Pilote le déploiement une fois le dossier signé : formations des équipes, accompagnement à l'adoption de la solution et suivi jusqu'à la mise en route complète.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="global-coverage-section">
+  <div class="wrap">
+    <p class="plan-subhead" style="margin-bottom:16px;">Progression cumulée — Service client &amp; Service commercial</p>
     <div class="global-coverage" id="globalCoverage" role="img" aria-label="Couverture Ringover cumulée sur les deux cahiers des charges">
       <div class="gc-figure">
         <div class="gc-pct" id="globalCoveragePct">–</div>
@@ -736,7 +804,7 @@
       </div>
     </div>
   </div>
-</header>
+</section>
 
 <section id="cdc-service-client" class="cdc-heading">
   <div class="wrap">
@@ -1787,7 +1855,7 @@
   </div>
 </section>
 
-<section id="salesforce" class="suite-band">
+<section id="modules-integration" class="suite-band">
   <div class="suite-blobs" aria-hidden="true">
     <div class="suite-blob b1"></div>
     <div class="suite-blob b2"></div>
@@ -1796,171 +1864,149 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <h2>Intégration Salesforce</h2>
-        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
+        <h2>Modules et intégration</h2>
+        <p>La suite de produits Ringover, et la façon dont elle s'imbrique dans Salesforce — de la prise d'appel à la clôture, sans ressaisie manuelle par l'agent.</p>
       </div>
     </div>
-    <div class="suite-grid">
-      <div class="suite-card salesforce">
-        <div class="suite-icon">1</div>
-        <span class="suite-tag">Contact</span>
-        <h3>Création automatique de contact</h3>
-        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
-          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
-          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="030">030</button>
-          <button class="ref-chip" data-ref="047">047</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">2</div>
-        <span class="suite-tag">Case</span>
-        <h3>Gestion des cases</h3>
-        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
-          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
-          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="031">031</button>
-          <button class="ref-chip" data-ref="049">049</button>
-          <button class="ref-chip" data-ref="050">050</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">3</div>
-        <span class="suite-tag">Compte rendu</span>
-        <h3>Remontée de compte rendu de conversation téléphonique</h3>
-        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
-          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
-          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="039">039</button>
-          <button class="ref-chip" data-ref="042">042</button>
-          <button class="ref-chip" data-ref="077">077</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="suite" class="suite-band">
-  <div class="suite-blobs" aria-hidden="true">
-    <div class="suite-blob b1"></div>
-    <div class="suite-blob b2"></div>
-    <div class="suite-blob b3"></div>
-  </div>
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>La suite Ringover</h2>
-        <p>Ringover ne se limite pas à la téléphonie : la réponse au recueil s'appuie sur trois briques complémentaires de la même suite.</p>
+    <div class="suite-group" id="suite-products">
+      <h3 class="suite-subhead">La suite Ringover</h3>
+      <p class="suite-subhead-intro">Ringover ne se limite pas à la téléphonie : la réponse au recueil s'appuie sur plusieurs briques complémentaires de la même suite.</p>
+      <div class="suite-grid">
+        <div class="suite-card ringover">
+          <div class="suite-icon">R</div>
+          <span class="suite-tag">Téléphonie &amp; centre de contact</span>
+          <h3>Ringover</h3>
+          <p>Le socle voix de la suite, pour le centre de contact au quotidien.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Téléphonie cloud, SVI, files d'attente et routage</li>
+            <li><span class="tick">✓</span>Campagnes d'appels sortants</li>
+            <li><span class="tick">✓</span>Bandeau agent/superviseur et intégration CRM native</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="008">008</button>
+            <button class="ref-chip" data-ref="020">020</button>
+            <button class="ref-chip" data-ref="030">030</button>
+            <button class="ref-chip" data-ref="041">041</button>
+          </div>
+        </div>
+        <div class="suite-card airo">
+          <div class="suite-icon">A</div>
+          <span class="suite-tag">Voicebot &amp; Chatbot IA</span>
+          <h3>Airo</h3>
+          <p>La brique conversationnelle IA de la suite, à la voix comme à l'écrit.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Voicebot : compréhension, qualification et routage d'un appel à la voix, sans arborescence à touches</li>
+            <li><span class="tick">✓</span>Coaching temps réel des agents pendant l'interaction</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="011">011</button>
+            <button class="ref-chip" data-ref="057">057</button>
+          </div>
+        </div>
+        <div class="suite-card empower">
+          <div class="suite-icon">E</div>
+          <span class="suite-tag">Analyse conversationnelle IA</span>
+          <h3>Empower</h3>
+          <p>La brique d'analyse de la suite, sur les interactions voix et écrit.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Transcription des échanges, en direct ou a posteriori</li>
+            <li><span class="tick">✓</span>Résumés automatiques, détection de sujets et mots-clés</li>
+            <li><span class="tick">✓</span>Évaluation qualité assistée par IA</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="039">039</button>
+            <button class="ref-chip" data-ref="040">040</button>
+            <button class="ref-chip" data-ref="074">074</button>
+            <button class="ref-chip" data-ref="077">077</button>
+          </div>
+        </div>
+        <div class="suite-card target-first">
+          <div class="suite-icon">💬</div>
+          <span class="suite-tag">Target first · Chatbot web</span>
+          <h3>Chatbot embarqué</h3>
+          <p>La première brique ciblée du volet conversationnel Airo : un chatbot intégré au site web de Berger Levrault.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Point d'entrée unique sur le site, disponible 24/7</li>
+            <li><span class="tick">✓</span>Qualification et réponse par un agent IA</li>
+            <li><span class="tick">✓</span>Bascule fluide vers un agent humain si besoin</li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="suite-grid">
-      <div class="suite-card ringover">
-        <div class="suite-icon">R</div>
-        <span class="suite-tag">Téléphonie &amp; centre de contact</span>
-        <h3>Ringover</h3>
-        <p>Le socle voix de la suite, pour le centre de contact au quotidien.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Téléphonie cloud, SVI, files d'attente et routage</li>
-          <li><span class="tick">✓</span>Campagnes d'appels sortants</li>
-          <li><span class="tick">✓</span>Bandeau agent/superviseur et intégration CRM native</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="008">008</button>
-          <button class="ref-chip" data-ref="020">020</button>
-          <button class="ref-chip" data-ref="030">030</button>
-          <button class="ref-chip" data-ref="041">041</button>
-        </div>
-      </div>
-      <div class="suite-card airo">
-        <div class="suite-icon">A</div>
-        <span class="suite-tag">Voicebot &amp; Chatbot IA</span>
-        <h3>Airo</h3>
-        <p>La brique conversationnelle IA de la suite, à la voix comme à l'écrit.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Voicebot : compréhension, qualification et routage d'un appel à la voix, sans arborescence à touches</li>
-          <li><span class="tick">✓</span>Coaching temps réel des agents pendant l'interaction</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="011">011</button>
-          <button class="ref-chip" data-ref="057">057</button>
-        </div>
-      </div>
-      <div class="suite-card empower">
-        <div class="suite-icon">E</div>
-        <span class="suite-tag">Analyse conversationnelle IA</span>
-        <h3>Empower</h3>
-        <p>La brique d'analyse de la suite, sur les interactions voix et écrit.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Transcription des échanges, en direct ou a posteriori</li>
-          <li><span class="tick">✓</span>Résumés automatiques, détection de sujets et mots-clés</li>
-          <li><span class="tick">✓</span>Évaluation qualité assistée par IA</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="039">039</button>
-          <button class="ref-chip" data-ref="040">040</button>
-          <button class="ref-chip" data-ref="074">074</button>
-          <button class="ref-chip" data-ref="077">077</button>
-        </div>
-      </div>
-      <div class="suite-card target-first">
-        <div class="suite-icon">💬</div>
-        <span class="suite-tag">Target first · Chatbot web</span>
-        <h3>Chatbot embarqué</h3>
-        <p>La première brique ciblée du volet conversationnel Airo : un chatbot intégré au site web de Berger Levrault.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Point d'entrée unique sur le site, disponible 24/7</li>
-          <li><span class="tick">✓</span>Qualification et réponse par un agent IA</li>
-          <li><span class="tick">✓</span>Bascule fluide vers un agent humain si besoin</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="equipe">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Parties prenantes côté Ringover</h2>
-        <p>L'équipe mobilisée sur le dossier Berger Levrault.</p>
-      </div>
-    </div>
-    <div class="team-grid">
-      <div class="person">
-        <div class="avatar">LR</div>
-        <h3>Ludovic Rateau</h3>
-        <div class="role">CEO</div>
-        <p class="desc">Sponsor exécutif du dossier, en lien direct avec la DSI de Berger Levrault.</p>
-      </div>
-      <div class="person">
-        <div class="avatar">SB</div>
-        <h3>Sébastien Bruno</h3>
-        <div class="role">Solution Engineer</div>
-        <p class="desc">Contact technique référent sur le projet.</p>
-      </div>
-      <div class="person">
-        <div class="avatar">PC</div>
-        <h3>Pablo Capone</h3>
-        <div class="role">Commercial</div>
-        <p class="desc">Interlocuteur commercial principal, relation avec la direction commerciale de Berger Levrault.</p>
+    <div class="suite-group" id="suite-salesforce">
+      <h3 class="suite-subhead">Intégration Salesforce</h3>
+      <p class="suite-subhead-intro">De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
+      <div class="suite-grid">
+        <div class="suite-card salesforce">
+          <div class="suite-icon">1</div>
+          <span class="suite-tag">Contact</span>
+          <h3>Création automatique de contact</h3>
+          <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
+            <li><span class="tick">✓</span>Création du contact si non reconnu</li>
+            <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="030">030</button>
+            <button class="ref-chip" data-ref="047">047</button>
+          </div>
+        </div>
+        <div class="suite-card salesforce">
+          <div class="suite-icon">2</div>
+          <span class="suite-tag">Case</span>
+          <h3>Gestion des cases</h3>
+          <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
+            <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
+            <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="031">031</button>
+            <button class="ref-chip" data-ref="049">049</button>
+            <button class="ref-chip" data-ref="050">050</button>
+          </div>
+        </div>
+        <div class="suite-card salesforce">
+          <div class="suite-icon">3</div>
+          <span class="suite-tag">Compte rendu</span>
+          <h3>Remontée de compte rendu de conversation téléphonique</h3>
+          <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
+            <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
+            <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="039">039</button>
+            <button class="ref-chip" data-ref="042">042</button>
+            <button class="ref-chip" data-ref="077">077</button>
+          </div>
+        </div>
+        <div class="suite-card salesforce">
+          <div class="suite-icon">4</div>
+          <span class="suite-tag">Autofill</span>
+          <h3>Autofill CRM</h3>
+          <p>Les champs Salesforce se remplissent automatiquement à chaque étape de l'appel, sans ressaisie manuelle par l'agent.</p>
+          <ul class="suite-features">
+            <li><span class="tick">✓</span>Remplissage automatique des champs (durée, statut, résumé, etc.)</li>
+            <li><span class="tick">✓</span>Synchronisation en temps réel avec le case et le contact</li>
+            <li><span class="tick">✓</span>Aucune saisie manuelle requise côté agent</li>
+          </ul>
+          <div class="suite-refs">
+            <span class="ref-label">Exigences liées :</span>
+            <button class="ref-chip" data-ref="050">050</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2300,7 +2346,7 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
   const subItems = Array.from(document.querySelectorAll(".side-nav-subitem"));
   if(!navItems.length) return;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const DARK_SECTIONS = new Set(["suite", "salesforce"]);
+  const DARK_SECTIONS = new Set(["modules-integration", "suite-products", "suite-salesforce", "equipe"]);
 
   function watchedIds(item){
     return (item.dataset.watch || item.dataset.target || "").split(/\s+/).filter(Boolean);
