@@ -470,9 +470,41 @@
   .phase2-grid .k{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--teal-deep); margin-bottom:6px;}
   .phase2-grid p{margin:0; font-size:13.6px; color:var(--ink-soft); line-height:1.55;}
 
+  .deploy-group{margin-top:44px; padding-top:36px; border-top:1px solid var(--panel-border);}
+  .deploy-group:first-of-type{margin-top:32px; padding-top:0; border-top:none;}
+  .deploy-subhead{font-family:var(--font-display); font-size:21px; margin:0 0 8px; color:var(--ink);}
+  .deploy-subhead-intro{font-size:13.6px; color:var(--ink-soft); margin:0 0 24px; max-width:72ch; line-height:1.55;}
+
+  .deploy-timeline{
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:26px 28px; box-shadow:var(--shadow); margin-top:24px;
+  }
+  .deploy-timeline-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px;}
+  .deploy-timeline-head h3{margin:0; font-size:15.5px; font-family:var(--font-display);}
+  .dt-track{display:flex; position:relative; height:20px; gap:2px;}
+  .dt-seg{height:100%; border-radius:3px; transition:width .6s ease;}
+  .dt-milestone{position:absolute; top:-7px; bottom:-7px; width:0; z-index:2;}
+  .dt-milestone::before{content:''; position:absolute; left:-1px; top:0; bottom:0; width:2px; background:var(--ink);}
+  .dt-milestone::after{
+    content:''; position:absolute; left:50%; top:-4px; width:9px; height:9px; border-radius:50%;
+    background:#fff; border:2px solid var(--ink); transform:translateX(-50%);
+  }
+  .dt-scale{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin:10px 0 22px;}
+  .dt-groups{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:760px){ .dt-groups{grid-template-columns:1fr;} }
+  .dt-group-title{font-family:var(--font-mono); font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); margin-bottom:10px;}
+  .dt-legend{display:flex; flex-direction:column; gap:7px;}
+  .dt-item{display:flex; align-items:center; gap:9px; font-size:12.6px; color:var(--ink-soft);}
+  .dt-item b{margin-left:auto; font-family:var(--font-mono); font-size:11.8px; color:var(--ink); font-weight:600;}
+  .dt-swatch{width:10px; height:10px; border-radius:3px; flex:0 0 auto;}
+  .dt-item.milestone .dt-swatch{border-radius:50%; background:#fff; border:2px solid var(--ink); width:8px; height:8px;}
+  @media (prefers-reduced-motion: reduce){ .dt-seg{transition:none;} }
+
   .phase-intro{margin:0 0 20px; font-size:13.4px; color:var(--ink-soft); line-height:1.55;}
   .workshop-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
-  @media (max-width:900px){ .workshop-grid{grid-template-columns:1fr;} }
+  .workshop-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:900px){ .workshop-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .workshop-grid{grid-template-columns:1fr;} }
   .workshop-card{background:var(--bg); border:1px solid var(--panel-border); border-radius:var(--radius); padding:18px; display:flex; flex-direction:column; gap:10px;}
   .workshop-top{display:flex; align-items:center; gap:10px;}
   .workshop-top h4{margin:0; font-size:14px; font-family:var(--font-display);}
@@ -524,15 +556,12 @@
 
 <nav class="side-nav" aria-label="Navigation rapide">
   <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
-  <a class="side-nav-item" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Roadmap SC</span></a>
-  <a class="side-nav-item" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille SC</span></a>
-  <a class="side-nav-item" href="#roadmap-com" data-target="roadmap-com"><span class="tick"></span><span class="side-label">Roadmap Com</span></a>
-  <a class="side-nav-item" href="#grille-com" data-target="grille-com"><span class="tick"></span><span class="side-label">Grille Com</span></a>
+  <a class="side-nav-item" href="#cdc-service-client" data-target="cdc-service-client" data-watch="cdc-service-client roadmap grille"><span class="tick"></span><span class="side-label">Service client</span></a>
+  <a class="side-nav-item" href="#cdc-commercial" data-target="cdc-commercial" data-watch="cdc-commercial roadmap-com grille-com"><span class="tick"></span><span class="side-label">Service commercial</span></a>
+  <a class="side-nav-item" href="#deployment-plan" data-target="deployment-plan"><span class="tick"></span><span class="side-label">Plan de déploiement</span></a>
   <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
-  <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
   <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
-  <a class="side-nav-item" href="#plan-action" data-target="plan-action"><span class="tick"></span><span class="side-label">Plan d'action</span></a>
-  <a class="side-nav-item" href="#empower-plan" data-target="empower-plan"><span class="tick"></span><span class="side-label">Formation Empower</span></a>
+  <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
   <a class="side-nav-item" href="#equipe" data-target="equipe"><span class="tick"></span><span class="side-label">Équipe</span></a>
 </nav>
 
@@ -782,6 +811,554 @@
   </div>
 </section>
 
+<section id="deployment-plan">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Plan de déploiement — Ringover &amp; Empower</h2>
+        <p>De la stratégie de rollout à la formation des équipes : la feuille de route complète pour déployer Ringover puis Empower chez Berger Levrault, du kick-off jusqu'à l'onboarding final.</p>
+      </div>
+    </div>
+
+    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement : environ 20 heures réparties entre Ringover et Empower">
+      <div class="deploy-timeline-head">
+        <h3>Chronologie du déploiement</h3>
+        <span class="table-note">~20h au total, réparties en sessions courtes</span>
+      </div>
+      <div class="dt-track">
+        <div class="dt-seg" style="width:5.00%; background:#8FF0EA" title="Kick off — 1h"></div>
+        <div class="dt-seg" style="width:5.00%; background:#81DED9" title="Administrateur — 1h"></div>
+        <div class="dt-seg" style="width:2.50%; background:#74CDC7" title="Optimisation — 30 min"></div>
+        <div class="dt-seg" style="width:5.00%; background:#66BBB6" title="Utilisateurs — 1h"></div>
+        <div class="dt-milestone" style="left:17.5%" title="Portabilité — bascule des numéros (jalon, durée non chiffrée)"></div>
+        <div class="dt-seg" style="width:5.00%; background:#58AAA5" title="Superviseur — 1h"></div>
+        <div class="dt-seg" style="width:2.50%; background:#4A9894" title="Q&amp;A — 30 min"></div>
+        <div class="dt-seg" style="width:5.00%; background:#3D8682" title="Fin d'onboarding — 1h"></div>
+        <div class="dt-seg" style="width:10.00%; background:#2F7571" title="Fondations (Empower) — 2h"></div>
+        <div class="dt-seg" style="width:22.50%; background:#216360" title="Analyse &amp; scoring (Empower) — 4h30"></div>
+        <div class="dt-seg" style="width:20.00%; background:#14524E" title="Automatisation (Empower) — 4h"></div>
+        <div class="dt-seg" style="width:17.50%; background:#06403D" title="Coaching &amp; intégrations (Empower) — 3h30"></div>
+      </div>
+      <div class="dt-scale">
+        <span>Kick-off</span>
+        <span>~20h — fin de déploiement</span>
+      </div>
+      <div class="dt-groups">
+        <div>
+          <div class="dt-group-title">Déploiement Ringover — ~6h</div>
+          <div class="dt-legend">
+            <span class="dt-item"><span class="dt-swatch" style="background:#8FF0EA"></span>Kick off <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#81DED9"></span>Administrateur <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#74CDC7"></span>Optimisation <b>30 min</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#66BBB6"></span>Utilisateurs <b>1h</b></span>
+            <span class="dt-item milestone"><span class="dt-swatch"></span>Portabilité <b>jalon</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#58AAA5"></span>Superviseur <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#4A9894"></span>Q&amp;A <b>30 min</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#3D8682"></span>Fin d'onboarding <b>1h</b></span>
+          </div>
+        </div>
+        <div>
+          <div class="dt-group-title">Déploiement Empower — ~14h</div>
+          <div class="dt-legend">
+            <span class="dt-item"><span class="dt-swatch" style="background:#2F7571"></span>Fondations <b>2h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#216360"></span>Analyse &amp; scoring <b>4h30</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#14524E"></span>Automatisation <b>4h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#06403D"></span>Coaching &amp; intégrations <b>3h30</b></span>
+          </div>
+        </div>
+      </div>
+      <p class="count-note">Configuration effective hors formation finale des utilisateurs (Empower : +1h à 1h30 additionnel une fois la configuration finalisée). Portabilité : jalon de bascule des numéros, durée non chiffrée par l'éditeur.</p>
+    </div>
+
+    <div class="deploy-group">
+      <h3 class="deploy-subhead">Stratégie de déploiement (Berger Levrault)</h3>
+      <p class="deploy-subhead-intro">Pour répondre à l'exigence globale de Berger Levrault tout en éradiquant tout risque d'exécution, une approche pragmatique : la Phase 1 isole la population en forte souffrance opérationnelle (les forces de vente) et sécurise l'impact business immédiat sur un périmètre maîtrisé à 100%.</p>
+    <div class="plan-commit">
+      <span class="plan-commit-badge">Sans engagement</span>
+      <p>Un modèle initial <strong>sans engagement</strong> sur la Phase 1, pour vous garantir une totale liberté et prouver notre valeur sur le terrain avant de basculer sur la phase globale du groupe.</p>
+    </div>
+
+    <div class="phase-panel" style="margin-top:32px;">
+      <div class="phase-header">
+        <h3>Phase 1 — Focus performance commerciale</h3>
+        <span class="phase-tag">Août – Septembre</span>
+      </div>
+      <div class="phase-meta">
+        <div class="phase-meta-item">
+          <div class="k">Périmètre</div>
+          <div class="v">112 utilisateurs (100 Sales + 12 Superviseurs)</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">Technologie</div>
+          <div class="v">Licences Ringover Business + Option IA Empower, intégration native Salesforce</div>
+        </div>
+        <div class="phase-meta-item">
+          <div class="k">Objectif</div>
+          <div class="v">Résorber la souffrance des équipes, sécuriser le business et valider l'adhésion des utilisateurs dès la rentrée</div>
+        </div>
+      </div>
+
+      <p class="plan-subhead">Rétro-planning d'exécution et livrables techniques</p>
+      <div class="timeline">
+        <div class="timeline-card">
+          <span class="month">Août</span>
+          <span class="month-sub">Fondations &amp; réseau</span>
+          <ul>
+            <li>Kick-off et alignement des équipes TAM / CSM</li>
+            <li>Audit technique du réseau et des flux Salesforce</li>
+            <li>Collecte et validation des données de portabilité</li>
+            <li>Configuration de l'architecture SVI, des utilisateurs et des groupes</li>
+          </ul>
+        </div>
+        <div class="timeline-arrow" aria-hidden="true">→</div>
+        <div class="timeline-card">
+          <span class="month">Septembre</span>
+          <span class="month-sub">Go-live &amp; adoption</span>
+          <ul>
+            <li>Injection des configurations en production</li>
+            <li>Déploiement et activation du couplage CTI dans Salesforce</li>
+            <li>Bascule technique et routage des numéros</li>
+            <li>Formations utilisateurs et paramétrage des frameworks IA</li>
+          </ul>
+        </div>
+        <div class="timeline-arrow" aria-hidden="true">→</div>
+        <div class="timeline-card">
+          <span class="month">Octobre</span>
+          <span class="month-sub">Confort &amp; ajustements</span>
+          <ul>
+            <li>Accompagnement de confort et suivi de l'adoption</li>
+            <li>Optimisations avancées de l'infrastructure</li>
+            <li>Analyses fines et calibration des scorecards IA</li>
+            <li>Suivi sur-mesure sur des points métiers spécifiques</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="plan-subhead">Détail par chantier</p>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-num">1</div>
+          <div>
+            <h4>Fluidité des infrastructures et gestion télécom <span style="color:var(--ink-faint); font-weight:500;">(Août)</span></h4>
+            <ul>
+              <li><b>Gouvernance :</b> affectation immédiate de votre Technical Account Manager (TAM) dédié pour piloter les chantiers télécom de bout en bout.</li>
+              <li><b>Gestion des portabilités :</b> prise en charge intégrale des démarches administratives et techniques de transfert de vos numéros actuels, planifiée en amont pour garantir une continuité de service absolue lors de la bascule.</li>
+              <li><b>Configuration :</b> paramétrage complet de l'environnement (profils utilisateurs, groupes de distribution d'appels, règles de routage) et réplication à l'identique de votre SVI actuel.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">2</div>
+          <div>
+            <h4>Intégration et conduite du changement <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
+            <ul>
+              <li><b>Alignement CRM :</b> déploiement et activation de l'intégration bidirectionnelle dans votre instance Salesforce (remontée des fiches, click-to-call, consignation automatique).</li>
+              <li><b>Formations sur-mesure :</b> sessions illimitées dispensées par groupes de niveau (administrateurs, superviseurs et équipes sales) pour ancrer les bonnes pratiques dès les premiers jours d'utilisation.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">3</div>
+          <div>
+            <h4>Intelligence conversationnelle &amp; coaching <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
+            <ul>
+              <li><b>Frameworks Empower :</b> co-construction des modèles d'analyse IA adaptés à la méthodologie de vente de Berger Levrault (détection des signaux d'achat, des objections récurrentes, des points de conformité).</li>
+              <li><b>Scorecards de coaching :</b> création de grilles d'évaluation sur-mesure dans Empower pour permettre aux 12 superviseurs de piloter la montée en compétences de manière factuelle.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">4</div>
+          <div>
+            <h4>Octobre en cible de confort</h4>
+            <p>Afin de sécuriser le projet, le mois d'octobre est conservé comme une phase de confort supplémentaire : suivi de l'adoption, ajustement précis des frameworks d'intelligence artificielle et accompagnement des utilisateurs sur des sujets spécifiques si le besoin s'en fait sentir.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase2-panel">
+      <div class="phase-header">
+        <h3>Phase 2 — Convergence relation client groupe</h3>
+        <span class="phase-tag">À partir de novembre</span>
+      </div>
+      <div class="phase2-grid">
+        <div>
+          <div class="k">Périmètre</div>
+          <p>Extension aux centres de relation client et services transverses du groupe.</p>
+        </div>
+        <div>
+          <div class="k">Démarche</div>
+          <p>Forts du succès de la Phase 1 et d'une infrastructure Salesforce-téléphonie éprouvée, co-développement de l'intégration des besoins CRC complexes et spécifiques, en s'appuyant sur les briques avancées de la roadmap validée.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="deploy-group">
+      <h3 class="deploy-subhead">Onboarding &amp; formation Ringover</h3>
+      <p class="deploy-subhead-intro">Feuille de route d'onboarding et de formation : 8 étapes de déploiement, dont 3 formations principales, réparties en sessions courtes plutôt qu'en un seul bloc.</p>
+    <div class="stat-strip pricing-summary">
+      <div class="stat"><div class="num">8</div><div class="label">Étapes de déploiement</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Formations principales</div></div>
+      <div class="stat ok"><div class="num">~6h</div><div class="label">De formation au total</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Formations optionnelles disponibles</div></div>
+    </div>
+
+    <p class="plan-subhead" style="margin-top:28px;">Vue d'ensemble</p>
+    <div class="workshop-grid cols-4">
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">1h</span><h4>1. Kick off</h4></div>
+        <p>Réunion de lancement : définition claire des besoins, cas d'usage, KPI, rétro-planning et conditions de portabilité.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">1h00</span><h4>2. Administrateur</h4></div>
+        <p>Formation Administrateur — temps de formation.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>3. Optimisation</h4></div>
+        <p>Point d'étape : suivi et optimisation de la configuration.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">1h**</span><h4>4. Utilisateurs</h4></div>
+        <p>Formation utilisateur — temps de formation.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">—</span><h4>5. Portabilité</h4></div>
+        <p>Bascule technique des numéros.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">1h00</span><h4>6. Superviseur</h4></div>
+        <p>Formation Superviseur — temps de formation.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">30 min</span><h4>7. Q&amp;A</h4></div>
+        <p>Point d'étape : sessions questions/réponses avec les superviseurs — temps d'atelier.</p>
+      </div>
+      <div class="workshop-card">
+        <div class="workshop-top"><span class="phase-tag">1h*</span><h4>8. Fin d'onboarding</h4></div>
+        <p>Réunion de clôture : revue des besoins, KPI, formalisation et bilan du déploiement.</p>
+      </div>
+    </div>
+    <p class="count-note">* Point hebdomadaire possible en fonction du nombre de licences et de la complexité de la configuration. ** Plusieurs séances possibles en fonction du nombre d'utilisateurs ou de l'organisation définie lors du Kick off.</p>
+
+    <div class="phase-panel" style="margin-top:28px;">
+      <div class="phase-header">
+        <h3>Formation 1 — Administrateur</h3>
+        <span class="phase-tag">1h30 total avec le CSM</span>
+      </div>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <p>Votre CSM vous guidera à travers différentes possibilités dans la configuration de votre plateforme en fonction de vos priorités et besoins : création et paramétrage des comptes utilisateurs, création de vos SVI, personnalisations de l'outil, intégrations.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Décision sur les enregistrements des appels, type de SVI souhaité.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">Temps variable***</span><h4>Configuration</h4></div>
+          <p>Vous serez en charge de la création et configuration des utilisateurs, des standards vocaux interactifs et du paramétrage global du compte. *** dépend du nombre d'utilisateurs et de la complexité du SVI.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des utilisateurs avec le rôle souhaité pour chacun et l'organisation en équipes, liste des fonctionnalités à activer, annonce vocale des SVI.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Optimisation</h4></div>
+          <p>Le travail que vous avez effectué sera suivi par le CSM Ringover afin de vérifier, optimiser et valider la configuration au fur et à mesure avec le client.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Formation 2 — Utilisateur</h3>
+        <span class="phase-tag">1h30 total avec le CSM</span>
+      </div>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <p>La formation de vos utilisateurs est un excellent moyen de favoriser l'adoption de votre nouveau système téléphonique : présentation globale des devices, gestion des appels quotidiens au clavier, puis les réglages.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Comptes utilisateurs créés.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">15 min</span><h4>Prise en main</h4></div>
+          <p>Les agents naviguent sur l'interface et la personnalisent en cas de besoin ; des tests internes peuvent aider à se familiariser avec l'outil. Attention : une portabilité non effective empêchera tout test d'appel entrant.</p>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Suivi post-portabilité</h4></div>
+          <p>Un point de suivi permettant de recenser toutes les questions sur l'usage et les remontées de vos agents, pour aider à la prise en main et à l'optimisation de la configuration suite à la mise en production.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des questions et remontées agents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Formation 3 — Superviseur</h3>
+        <span class="phase-tag">1h30 total avec le CSM</span>
+      </div>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <p>Aider les managers à piloter leur activité et leurs équipes, leur donner les meilleures pratiques et les aider à optimiser leurs process avec Ringover. Recommandée 15 jours après la mise en production.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>KPI de chaque manager.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">20 min</span><h4>Prise en main</h4></div>
+          <p>Les superviseurs naviguent sur l'interface et la personnalisent avec leurs filtres.</p>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Suivi</h4></div>
+          <p>Point de suivi régulier pour recueillir les retours des superviseurs et répondre aux questions d'utilisation — analyse des indicateurs, optimisation, maximisation de la valeur apportée par Ringover.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des questions et remontées superviseurs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase2-panel">
+      <div class="phase-header">
+        <h3>Formations optionnelles</h3>
+        <span class="phase-tag">Sur demande</span>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-num">1</div>
+          <div>
+            <h4>Facturation <span style="color:var(--ink-faint); font-weight:500;">(30 min)</span></h4>
+            <p>Temps de formation dédié à la facturation.</p>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">2</div>
+          <div>
+            <h4>Formation technique <span style="color:var(--ink-faint); font-weight:500;">(1h)</span></h4>
+            <p>Bonnes pratiques — temps de formation.</p>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">3</div>
+          <div>
+            <h4>Campagnes <span style="color:var(--ink-faint); font-weight:500;">(1h)</span></h4>
+            <p>Création d'une campagne d'appel, SMS et messages vocaux — temps de formation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="deploy-group">
+      <h3 class="deploy-subhead">Formation &amp; déploiement Empower</h3>
+      <p class="deploy-subhead-intro">Déployer Empower, module par module : estimation du temps de configuration par atelier, et ce qu'il faut préparer en amont de chaque session.</p>
+    <div class="stat-strip pricing-summary">
+      <div class="stat"><div class="num">4</div><div class="label">Phases de configuration</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Ateliers au total</div></div>
+      <div class="stat ok"><div class="num">~14h00</div><div class="label">Configuration effective estimée</div></div>
+      <div class="stat"><div class="num">1h-1h30</div><div class="label">Formation finale des utilisateurs</div></div>
+    </div>
+
+    <div class="phase-panel" style="margin-top:32px;">
+      <div class="phase-header">
+        <h3>Phase 1 — Fondations</h3>
+        <span class="phase-tag">2h00</span>
+      </div>
+      <p class="phase-intro">Cadrage, rôles et vocabulaire métier : la base sur laquelle reposent toutes les phases suivantes.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Cadrage du besoin</h4></div>
+          <p>Atelier de recueil des objectifs d'évaluation, de la structure d'équipe et des priorités métier.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Objectifs d'évaluation, organigramme équipe, CRM utilisé, quelques exemples d'appels types.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Rôles &amp; groupes</h4></div>
+          <p>Création des groupes utilisateurs et attribution des rôles (Admin, Supervisor, User) — si pas d'intégration native avec Ringover.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des utilisateurs avec le rôle souhaité pour chacun et l'organisation en équipes.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Vocabulaire métier</h4></div>
+          <p>Ajout des termes spécifiques pour fiabiliser la transcription et l'analyse.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Noms de produits, clients clés, acronymes internes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 2 — Analyse &amp; scoring</h3>
+        <span class="phase-tag">4h30</span>
+      </div>
+      <p class="phase-intro">Framework de vente et scorecards : ce qui permettra à Empower d'évaluer automatiquement les appels.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Framework de vente</h4></div>
+          <p>Configuration de la méthodologie (BANT, MEDDPICC, SPICED ou custom) et des metrics associées.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Méthodologie de vente utilisée et étapes clés attendues dans un appel type.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard principale</h4></div>
+          <p>Grille d'évaluation IA + statistique : critères, pondération, tolérance, mots interdits.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Grille existante si disponible, critères prioritaires et pondération souhaitée.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard Qualité</h4></div>
+          <p>Grille secondaire dédiée à la conformité et au ton, distincte de la grille commerciale.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Script d'appel type et exemples d'appels réussis / à corriger.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 3 — Automatisation</h3>
+        <span class="phase-tag">4h00</span>
+      </div>
+      <p class="phase-intro">Moments, workflows et style de résumé : ce qui fait tourner Empower en continu, sans intervention manuelle.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Moments</h4></div>
+          <p>Détection automatique de mots-clés : objections, mentions concurrents, signaux de closing.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Liste des expressions ou mots-clés à détecter par thématique.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Workflows</h4></div>
+          <p>Règles automatiques : flag, email, changement de scorecard selon les événements détectés.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Règles métier : qui alerter, à quel moment, et quelle action déclencher.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Style de résumé</h4></div>
+          <p>Modèle de résumé d'appel généré par IA, appliqué par défaut à l'équipe.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Format souhaité : longueur, champs à faire apparaître, structure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-panel">
+      <div class="phase-header">
+        <h3>Phase 4 — Coaching &amp; intégrations</h3>
+        <span class="phase-tag">3h30</span>
+      </div>
+      <p class="phase-intro">Pitch Room, CRM et Ask Empower : la couche coaching et intégrations qui referme le déploiement.</p>
+      <div class="workshop-grid">
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Pitch Room (2 personas)</h4></div>
+          <p>Personas d'entraînement réalistes : scénario, objectif, style de négociation, objections.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Profils clients types, objections fréquentes et attendu de l'interlocuteur.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Webhook / CRM</h4></div>
+          <p>Connexion de la remontée d'appels vers le CRM.</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Accès admin CRM et contact technique côté client pour valider la connexion.</p>
+          </div>
+        </div>
+        <div class="workshop-card">
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Templates Ask Empower</h4></div>
+          <p>Prompts prêts à l'emploi pour l'analyse cross-appels (coaching, tendances, objections).</p>
+          <div class="prep-block">
+            <span class="prep-label">À préparer</span>
+            <p>Cas d'usage prioritaires : ex. suivi mensuel, analyse des objections.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase2-panel">
+      <div class="phase-header">
+        <h3>Bien préparer les ateliers</h3>
+        <span class="phase-tag">Ce qu'il faut réunir avant chaque session</span>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-card">
+          <div class="detail-num">1</div>
+          <div>
+            <h4>Contenu métier</h4>
+            <ul>
+              <li>Méthodologie de vente utilisée (BANT / MEDDPICC / SPICED ou custom)</li>
+              <li>Grille d'évaluation existante, si elle existe déjà</li>
+              <li>Script d'appel type et exemples d'appels réussis / à corriger</li>
+              <li>Mots-clés, objections et mentions concurrents à détecter</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">2</div>
+          <div>
+            <h4>Accès &amp; organisation</h4>
+            <ul>
+              <li>Liste des utilisateurs avec le rôle souhaité pour chacun</li>
+              <li>Accès admin CRM et contact technique disponible</li>
+              <li>Organigramme d'équipe et regroupements souhaités</li>
+              <li>Noms produits, clients clés et acronymes internes</li>
+            </ul>
+          </div>
+        </div>
+        <div class="detail-card">
+          <div class="detail-num">3</div>
+          <div>
+            <h4>Décisions à prendre en amont</h4>
+            <ul>
+              <li>Critères prioritaires pour le scoring</li>
+              <li>Règles d'alerte : qui doit être notifié, quand, pour quelle action</li>
+              <li>Profils clients types pour les mises en situation Pitch Room</li>
+              <li>Cas d'usage prioritaires pour l'analyse cross-appels</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="plan-commit">
+      <span class="plan-commit-badge">Prochaine étape</span>
+      <p>Planifions le premier atelier de cadrage : réunissez les éléments de préparation de la Phase 1 et convenons d'une date pour démarrer la configuration d'Empower.</p>
+    </div>
+    </div>
+  </div>
+</section>
+
 <section id="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -985,6 +1562,74 @@
   </div>
 </section>
 
+<section id="salesforce" class="suite-band">
+  <div class="suite-blobs" aria-hidden="true">
+    <div class="suite-blob b1"></div>
+    <div class="suite-blob b2"></div>
+    <div class="suite-blob b3"></div>
+  </div>
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Intégration Salesforce</h2>
+        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
+      </div>
+    </div>
+    <div class="suite-grid">
+      <div class="suite-card salesforce">
+        <div class="suite-icon">1</div>
+        <span class="suite-tag">Contact</span>
+        <h3>Création automatique de contact</h3>
+        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
+          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
+          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="030">030</button>
+          <button class="ref-chip" data-ref="047">047</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">2</div>
+        <span class="suite-tag">Case</span>
+        <h3>Gestion des cases</h3>
+        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
+          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
+          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="031">031</button>
+          <button class="ref-chip" data-ref="049">049</button>
+          <button class="ref-chip" data-ref="050">050</button>
+        </div>
+      </div>
+      <div class="suite-card salesforce">
+        <div class="suite-icon">3</div>
+        <span class="suite-tag">Compte rendu</span>
+        <h3>Remontée de compte rendu de conversation téléphonique</h3>
+        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
+        <ul class="suite-features">
+          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
+          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
+          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
+        </ul>
+        <div class="suite-refs">
+          <span class="ref-label">Exigences liées :</span>
+          <button class="ref-chip" data-ref="039">039</button>
+          <button class="ref-chip" data-ref="042">042</button>
+          <button class="ref-chip" data-ref="077">077</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="suite" class="suite-band">
   <div class="suite-blobs" aria-hidden="true">
     <div class="suite-blob b1"></div>
@@ -1061,409 +1706,6 @@
           <li><span class="tick">✓</span>Bascule fluide vers un agent humain si besoin</li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="salesforce" class="suite-band">
-  <div class="suite-blobs" aria-hidden="true">
-    <div class="suite-blob b1"></div>
-    <div class="suite-blob b2"></div>
-    <div class="suite-blob b3"></div>
-  </div>
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Intégration Salesforce</h2>
-        <p>De la prise d'appel à la clôture, l'interaction est tracée dans Salesforce sans ressaisie manuelle par l'agent.</p>
-      </div>
-    </div>
-    <div class="suite-grid">
-      <div class="suite-card salesforce">
-        <div class="suite-icon">1</div>
-        <span class="suite-tag">Contact</span>
-        <h3>Création automatique de contact</h3>
-        <p>Dès la prise d'appel, le contact Salesforce correspondant est identifié ou créé automatiquement.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Identification automatique par numéro de téléphone</li>
-          <li><span class="tick">✓</span>Création du contact si non reconnu</li>
-          <li><span class="tick">✓</span>Fiche client remontée à l'agent (CTI Screen Pop)</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="030">030</button>
-          <button class="ref-chip" data-ref="047">047</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">2</div>
-        <span class="suite-tag">Case</span>
-        <h3>Gestion des cases</h3>
-        <p>Le case Salesforce est créé et mis à jour automatiquement à chaque étape de l'appel.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Création du case lié à l'interaction</li>
-          <li><span class="tick">✓</span>Mise à jour temps réel (durée, statut, agent)</li>
-          <li><span class="tick">✓</span>Qualification automatique à la clôture</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="031">031</button>
-          <button class="ref-chip" data-ref="049">049</button>
-          <button class="ref-chip" data-ref="050">050</button>
-        </div>
-      </div>
-      <div class="suite-card salesforce">
-        <div class="suite-icon">3</div>
-        <span class="suite-tag">Compte rendu</span>
-        <h3>Remontée de compte rendu de conversation téléphonique</h3>
-        <p>Résumé et enregistrement de l'appel rattachés automatiquement au case et à l'historique du contact.</p>
-        <ul class="suite-features">
-          <li><span class="tick">✓</span>Transcription et résumé automatique par IA (Empower)</li>
-          <li><span class="tick">✓</span>Enregistrement audio joint à l'appel</li>
-          <li><span class="tick">✓</span>Historique consultable depuis la fiche client</li>
-        </ul>
-        <div class="suite-refs">
-          <span class="ref-label">Exigences liées :</span>
-          <button class="ref-chip" data-ref="039">039</button>
-          <button class="ref-chip" data-ref="042">042</button>
-          <button class="ref-chip" data-ref="077">077</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="plan-action">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Plan d'action stratégique : déploiement en 2 phases</h2>
-        <p>Pour répondre à l'exigence globale de Berger Levrault tout en éradiquant tout risque d'exécution, une approche pragmatique : la Phase 1 isole la population en forte souffrance opérationnelle (les forces de vente) et sécurise l'impact business immédiat sur un périmètre maîtrisé à 100%.</p>
-      </div>
-    </div>
-    <div class="plan-commit">
-      <span class="plan-commit-badge">Sans engagement</span>
-      <p>Un modèle initial <strong>sans engagement</strong> sur la Phase 1, pour vous garantir une totale liberté et prouver notre valeur sur le terrain avant de basculer sur la phase globale du groupe.</p>
-    </div>
-
-    <div class="phase-panel" style="margin-top:32px;">
-      <div class="phase-header">
-        <h3>Phase 1 — Focus performance commerciale</h3>
-        <span class="phase-tag">Août – Septembre</span>
-      </div>
-      <div class="phase-meta">
-        <div class="phase-meta-item">
-          <div class="k">Périmètre</div>
-          <div class="v">112 utilisateurs (100 Sales + 12 Superviseurs)</div>
-        </div>
-        <div class="phase-meta-item">
-          <div class="k">Technologie</div>
-          <div class="v">Licences Ringover Business + Option IA Empower, intégration native Salesforce</div>
-        </div>
-        <div class="phase-meta-item">
-          <div class="k">Objectif</div>
-          <div class="v">Résorber la souffrance des équipes, sécuriser le business et valider l'adhésion des utilisateurs dès la rentrée</div>
-        </div>
-      </div>
-
-      <p class="plan-subhead">Rétro-planning d'exécution et livrables techniques</p>
-      <div class="timeline">
-        <div class="timeline-card">
-          <span class="month">Août</span>
-          <span class="month-sub">Fondations &amp; réseau</span>
-          <ul>
-            <li>Kick-off et alignement des équipes TAM / CSM</li>
-            <li>Audit technique du réseau et des flux Salesforce</li>
-            <li>Collecte et validation des données de portabilité</li>
-            <li>Configuration de l'architecture SVI, des utilisateurs et des groupes</li>
-          </ul>
-        </div>
-        <div class="timeline-arrow" aria-hidden="true">→</div>
-        <div class="timeline-card">
-          <span class="month">Septembre</span>
-          <span class="month-sub">Go-live &amp; adoption</span>
-          <ul>
-            <li>Injection des configurations en production</li>
-            <li>Déploiement et activation du couplage CTI dans Salesforce</li>
-            <li>Bascule technique et routage des numéros</li>
-            <li>Formations utilisateurs et paramétrage des frameworks IA</li>
-          </ul>
-        </div>
-        <div class="timeline-arrow" aria-hidden="true">→</div>
-        <div class="timeline-card">
-          <span class="month">Octobre</span>
-          <span class="month-sub">Confort &amp; ajustements</span>
-          <ul>
-            <li>Accompagnement de confort et suivi de l'adoption</li>
-            <li>Optimisations avancées de l'infrastructure</li>
-            <li>Analyses fines et calibration des scorecards IA</li>
-            <li>Suivi sur-mesure sur des points métiers spécifiques</li>
-          </ul>
-        </div>
-      </div>
-
-      <p class="plan-subhead">Détail par chantier</p>
-      <div class="detail-grid">
-        <div class="detail-card">
-          <div class="detail-num">1</div>
-          <div>
-            <h4>Fluidité des infrastructures et gestion télécom <span style="color:var(--ink-faint); font-weight:500;">(Août)</span></h4>
-            <ul>
-              <li><b>Gouvernance :</b> affectation immédiate de votre Technical Account Manager (TAM) dédié pour piloter les chantiers télécom de bout en bout.</li>
-              <li><b>Gestion des portabilités :</b> prise en charge intégrale des démarches administratives et techniques de transfert de vos numéros actuels, planifiée en amont pour garantir une continuité de service absolue lors de la bascule.</li>
-              <li><b>Configuration :</b> paramétrage complet de l'environnement (profils utilisateurs, groupes de distribution d'appels, règles de routage) et réplication à l'identique de votre SVI actuel.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="detail-card">
-          <div class="detail-num">2</div>
-          <div>
-            <h4>Intégration et conduite du changement <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
-            <ul>
-              <li><b>Alignement CRM :</b> déploiement et activation de l'intégration bidirectionnelle dans votre instance Salesforce (remontée des fiches, click-to-call, consignation automatique).</li>
-              <li><b>Formations sur-mesure :</b> sessions illimitées dispensées par groupes de niveau (administrateurs, superviseurs et équipes sales) pour ancrer les bonnes pratiques dès les premiers jours d'utilisation.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="detail-card">
-          <div class="detail-num">3</div>
-          <div>
-            <h4>Intelligence conversationnelle &amp; coaching <span style="color:var(--ink-faint); font-weight:500;">(Septembre)</span></h4>
-            <ul>
-              <li><b>Frameworks Empower :</b> co-construction des modèles d'analyse IA adaptés à la méthodologie de vente de Berger Levrault (détection des signaux d'achat, des objections récurrentes, des points de conformité).</li>
-              <li><b>Scorecards de coaching :</b> création de grilles d'évaluation sur-mesure dans Empower pour permettre aux 12 superviseurs de piloter la montée en compétences de manière factuelle.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="detail-card">
-          <div class="detail-num">4</div>
-          <div>
-            <h4>Octobre en cible de confort</h4>
-            <p>Afin de sécuriser le projet, le mois d'octobre est conservé comme une phase de confort supplémentaire : suivi de l'adoption, ajustement précis des frameworks d'intelligence artificielle et accompagnement des utilisateurs sur des sujets spécifiques si le besoin s'en fait sentir.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase2-panel">
-      <div class="phase-header">
-        <h3>Phase 2 — Convergence relation client groupe</h3>
-        <span class="phase-tag">À partir de novembre</span>
-      </div>
-      <div class="phase2-grid">
-        <div>
-          <div class="k">Périmètre</div>
-          <p>Extension aux centres de relation client et services transverses du groupe.</p>
-        </div>
-        <div>
-          <div class="k">Démarche</div>
-          <p>Forts du succès de la Phase 1 et d'une infrastructure Salesforce-téléphonie éprouvée, co-développement de l'intégration des besoins CRC complexes et spécifiques, en s'appuyant sur les briques avancées de la roadmap validée.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="empower-plan">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <h2>Plan de formation et déploiement d'Empower</h2>
-        <p>Déployer Empower, module par module : estimation du temps de configuration par atelier, et ce qu'il faut préparer en amont de chaque session.</p>
-      </div>
-    </div>
-
-    <div class="stat-strip pricing-summary">
-      <div class="stat"><div class="num">4</div><div class="label">Phases de configuration</div></div>
-      <div class="stat"><div class="num">12</div><div class="label">Ateliers au total</div></div>
-      <div class="stat ok"><div class="num">~14h00</div><div class="label">Configuration effective estimée</div></div>
-      <div class="stat"><div class="num">1h-1h30</div><div class="label">Formation finale des utilisateurs</div></div>
-    </div>
-
-    <div class="phase-panel" style="margin-top:32px;">
-      <div class="phase-header">
-        <h3>Phase 1 — Fondations</h3>
-        <span class="phase-tag">2h00</span>
-      </div>
-      <p class="phase-intro">Cadrage, rôles et vocabulaire métier : la base sur laquelle reposent toutes les phases suivantes.</p>
-      <div class="workshop-grid">
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Cadrage du besoin</h4></div>
-          <p>Atelier de recueil des objectifs d'évaluation, de la structure d'équipe et des priorités métier.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Objectifs d'évaluation, organigramme équipe, CRM utilisé, quelques exemples d'appels types.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Rôles &amp; groupes</h4></div>
-          <p>Création des groupes utilisateurs et attribution des rôles (Admin, Supervisor, User) — si pas d'intégration native avec Ringover.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Liste des utilisateurs avec le rôle souhaité pour chacun et l'organisation en équipes.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">30 min</span><h4>Vocabulaire métier</h4></div>
-          <p>Ajout des termes spécifiques pour fiabiliser la transcription et l'analyse.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Noms de produits, clients clés, acronymes internes.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-panel">
-      <div class="phase-header">
-        <h3>Phase 2 — Analyse &amp; scoring</h3>
-        <span class="phase-tag">4h30</span>
-      </div>
-      <p class="phase-intro">Framework de vente et scorecards : ce qui permettra à Empower d'évaluer automatiquement les appels.</p>
-      <div class="workshop-grid">
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Framework de vente</h4></div>
-          <p>Configuration de la méthodologie (BANT, MEDDPICC, SPICED ou custom) et des metrics associées.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Méthodologie de vente utilisée et étapes clés attendues dans un appel type.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard principale</h4></div>
-          <p>Grille d'évaluation IA + statistique : critères, pondération, tolérance, mots interdits.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Grille existante si disponible, critères prioritaires et pondération souhaitée.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Scorecard Qualité</h4></div>
-          <p>Grille secondaire dédiée à la conformité et au ton, distincte de la grille commerciale.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Script d'appel type et exemples d'appels réussis / à corriger.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-panel">
-      <div class="phase-header">
-        <h3>Phase 3 — Automatisation</h3>
-        <span class="phase-tag">4h00</span>
-      </div>
-      <p class="phase-intro">Moments, workflows et style de résumé : ce qui fait tourner Empower en continu, sans intervention manuelle.</p>
-      <div class="workshop-grid">
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Moments</h4></div>
-          <p>Détection automatique de mots-clés : objections, mentions concurrents, signaux de closing.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Liste des expressions ou mots-clés à détecter par thématique.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Workflows</h4></div>
-          <p>Règles automatiques : flag, email, changement de scorecard selon les événements détectés.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Règles métier : qui alerter, à quel moment, et quelle action déclencher.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Style de résumé</h4></div>
-          <p>Modèle de résumé d'appel généré par IA, appliqué par défaut à l'équipe.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Format souhaité : longueur, champs à faire apparaître, structure.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase-panel">
-      <div class="phase-header">
-        <h3>Phase 4 — Coaching &amp; intégrations</h3>
-        <span class="phase-tag">3h30</span>
-      </div>
-      <p class="phase-intro">Pitch Room, CRM et Ask Empower : la couche coaching et intégrations qui referme le déploiement.</p>
-      <div class="workshop-grid">
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h30</span><h4>Pitch Room (2 personas)</h4></div>
-          <p>Personas d'entraînement réalistes : scénario, objectif, style de négociation, objections.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Profils clients types, objections fréquentes et attendu de l'interlocuteur.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Webhook / CRM</h4></div>
-          <p>Connexion de la remontée d'appels vers le CRM.</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Accès admin CRM et contact technique côté client pour valider la connexion.</p>
-          </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Templates Ask Empower</h4></div>
-          <p>Prompts prêts à l'emploi pour l'analyse cross-appels (coaching, tendances, objections).</p>
-          <div class="prep-block">
-            <span class="prep-label">À préparer</span>
-            <p>Cas d'usage prioritaires : ex. suivi mensuel, analyse des objections.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="phase2-panel">
-      <div class="phase-header">
-        <h3>Bien préparer les ateliers</h3>
-        <span class="phase-tag">Ce qu'il faut réunir avant chaque session</span>
-      </div>
-      <div class="detail-grid">
-        <div class="detail-card">
-          <div class="detail-num">1</div>
-          <div>
-            <h4>Contenu métier</h4>
-            <ul>
-              <li>Méthodologie de vente utilisée (BANT / MEDDPICC / SPICED ou custom)</li>
-              <li>Grille d'évaluation existante, si elle existe déjà</li>
-              <li>Script d'appel type et exemples d'appels réussis / à corriger</li>
-              <li>Mots-clés, objections et mentions concurrents à détecter</li>
-            </ul>
-          </div>
-        </div>
-        <div class="detail-card">
-          <div class="detail-num">2</div>
-          <div>
-            <h4>Accès &amp; organisation</h4>
-            <ul>
-              <li>Liste des utilisateurs avec le rôle souhaité pour chacun</li>
-              <li>Accès admin CRM et contact technique disponible</li>
-              <li>Organigramme d'équipe et regroupements souhaités</li>
-              <li>Noms produits, clients clés et acronymes internes</li>
-            </ul>
-          </div>
-        </div>
-        <div class="detail-card">
-          <div class="detail-num">3</div>
-          <div>
-            <h4>Décisions à prendre en amont</h4>
-            <ul>
-              <li>Critères prioritaires pour le scoring</li>
-              <li>Règles d'alerte : qui doit être notifié, quand, pour quelle action</li>
-              <li>Profils clients types pour les mises en situation Pitch Room</li>
-              <li>Cas d'usage prioritaires pour l'analyse cross-appels</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="plan-commit">
-      <span class="plan-commit-badge">Prochaine étape</span>
-      <p>Planifions le premier atelier de cadrage : réunissez les éléments de préparation de la Phase 1 et convenons d'une date pour démarrer la configuration d'Empower.</p>
     </div>
   </div>
 </section>
@@ -1834,8 +2076,12 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const DARK_SECTIONS = new Set(["suite", "salesforce"]);
 
+  function watchedIds(item){
+    return (item.dataset.watch || item.dataset.target || "").split(/\s+/).filter(Boolean);
+  }
+
   function setActive(id){
-    navItems.forEach(item => item.classList.toggle("active", item.dataset.target === id));
+    navItems.forEach(item => item.classList.toggle("active", watchedIds(item).includes(id)));
     nav.classList.toggle("on-dark", DARK_SECTIONS.has(id));
   }
 
@@ -1853,7 +2099,8 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
   });
 
   const sections = navItems
-    .map(item => document.getElementById(item.dataset.target))
+    .flatMap(item => watchedIds(item))
+    .map(id => document.getElementById(id))
     .filter(Boolean);
 
   if("IntersectionObserver" in window && sections.length){
