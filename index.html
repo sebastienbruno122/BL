@@ -619,12 +619,6 @@
   .deploy-timeline-head h3{margin:0; font-size:15.5px; font-family:var(--font-display);}
   .dt-track{display:flex; position:relative; height:20px; gap:2px;}
   .dt-seg{height:100%; border-radius:3px; transition:width .6s ease;}
-  .dt-milestone{position:absolute; top:-7px; bottom:-7px; width:0; z-index:2;}
-  .dt-milestone::before{content:''; position:absolute; left:-1px; top:0; bottom:0; width:2px; background:var(--ink);}
-  .dt-milestone::after{
-    content:''; position:absolute; left:50%; top:-4px; width:9px; height:9px; border-radius:50%;
-    background:#fff; border:2px solid var(--ink); transform:translateX(-50%);
-  }
   .dt-scale{display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin:10px 0 22px;}
   .dt-groups{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
   @media (max-width:760px){ .dt-groups{grid-template-columns:1fr;} }
@@ -633,7 +627,6 @@
   .dt-item{display:flex; align-items:center; gap:9px; font-size:12.6px; color:var(--ink-soft);}
   .dt-item b{margin-left:auto; font-family:var(--font-mono); font-size:11.8px; color:var(--ink); font-weight:600;}
   .dt-swatch{width:10px; height:10px; border-radius:3px; flex:0 0 auto;}
-  .dt-item.milestone .dt-swatch{border-radius:50%; background:#fff; border:2px solid var(--ink); width:8px; height:8px;}
   @media (prefers-reduced-motion: reduce){ .dt-seg{transition:none;} }
 
   .phase-intro{margin:0 0 20px; font-size:13.4px; color:var(--ink-soft); line-height:1.55;}
@@ -651,10 +644,12 @@
 
   /* ---------- team (same dark band, calmer cards) ---------- */
   .person-grid{
-    display:grid; grid-template-columns:repeat(3, minmax(0,220px)); gap:20px;
-    justify-content:center; max-width:780px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(5, minmax(0,200px)); gap:20px;
+    justify-content:center; max-width:1120px; margin:0 auto;
   }
-  @media (max-width:700px){ .person-grid{grid-template-columns:minmax(0,220px); max-width:260px;} }
+  @media (max-width:1150px){ .person-grid{grid-template-columns:repeat(3, minmax(0,200px)); max-width:660px;} }
+  @media (max-width:700px){ .person-grid{grid-template-columns:repeat(2, minmax(0,200px)); max-width:440px;} }
+  @media (max-width:480px){ .person-grid{grid-template-columns:minmax(0,220px); max-width:260px;} }
   .person-card{
     background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius);
     padding:26px 20px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;
@@ -770,10 +765,22 @@
         <p>Chef de projet sur le dossier : pilote la relation commerciale jusqu'à la signature, puis veille au bon déroulement du déploiement jusqu'à sa mise en route.</p>
       </div>
       <div class="person-card">
-        <div class="avatar">?</div>
+        <div class="avatar"><img src="lilia.jpeg" alt="Lilia Payet" loading="lazy"></div>
         <span class="suite-tag">Customer Success</span>
-        <h3>Reste à définir</h3>
+        <h3>Lilia Payet</h3>
         <p>Pilote le déploiement une fois le dossier signé : formations des équipes, accompagnement à l'adoption de la solution et suivi jusqu'à la mise en route complète.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="rateau.jpeg" alt="Ludovic Rateau" loading="lazy"></div>
+        <span class="suite-tag">CEO</span>
+        <h3>Ludovic Rateau</h3>
+        <p>CEO de Ringover. Suit de près l'avancement du dossier et a déjà échangé avec Jérôme Bonnet.</p>
+      </div>
+      <div class="person-card">
+        <div class="avatar"><img src="sybille.jpeg" alt="Sybille Canneau" loading="lazy"></div>
+        <span class="suite-tag">Responsable Portabilité</span>
+        <h3>Sybille Canneau</h3>
+        <p>Responsable de l'équipe portabilité Ringover : pilote la récupération des documents et la bascule des numéros.</p>
       </div>
     </div>
   </div>
@@ -818,7 +825,7 @@
     <div class="stat-strip" id="heroStats">
       <div class="stat total"><div class="num" id="statTotal">–</div><div class="label">Exigences analysées</div></div>
       <div class="stat ok"><div class="num" id="statOk">–</div><div class="label">Disponibles aujourd'hui</div></div>
-      <div class="stat warn"><div class="num" id="statWarn">–</div><div class="label">En roadmap / à configurer</div></div>
+      <div class="stat warn"><div class="num" id="statWarn">–</div><div class="label">Couvertes avec paramétrage</div></div>
       <div class="stat dev"><div class="num" id="statDev">–</div><div class="label">Développement sur-mesure</div></div>
       <div class="stat bad"><div class="num" id="statBad">–</div><div class="label">Non couvertes par Ringover</div></div>
     </div>
@@ -854,11 +861,11 @@
         <h3>Disponible aujourd'hui</h3>
         <p>Fonctionnalités natives Ringover / Empower, sans développement complémentaire.</p>
       </div>
-      <div class="lane warn" data-filter="Partiel" tabindex="0" role="button" aria-label="Filtrer sur roadmap et configuration">
-        <div class="lane-top"><span class="lane-tag">Roadmap</span><span class="arrow">Voir le détail →</span></div>
+      <div class="lane warn" data-filter="Partiel" tabindex="0" role="button" aria-label="Filtrer sur couvert avec configuration">
+        <div class="lane-top"><span class="lane-tag">Paramétrage requis</span><span class="arrow">Voir le détail →</span></div>
         <div class="count" id="laneWarnCount">–</div>
-        <h3>En configuration / roadmap proche</h3>
-        <p>Couvert en grande partie : nécessite du paramétrage, une API/webhook, ou une validation précise du comportement attendu.</p>
+        <h3>Couvert, configuration nécessaire</h3>
+        <p>La fonctionnalité existe chez Ringover : elle nécessite un paramétrage, une intégration API/webhook, ou une validation précise du comportement attendu.</p>
       </div>
       <div class="lane dev" data-filter="Partiel (développement requis)" tabindex="0" role="button" aria-label="Filtrer sur développement sur-mesure">
         <div class="lane-top"><span class="lane-tag">Développement sur-mesure</span><span class="arrow">Voir le détail →</span></div>
@@ -870,7 +877,7 @@
         <div class="lane-top"><span class="lane-tag">Non couvert</span><span class="arrow">Voir le détail →</span></div>
         <div class="count" id="laneBadCount">–</div>
         <h3>Non couvert par Ringover</h3>
-        <p>Ce point n'est pas couvert par Ringover aujourd'hui, en toute transparence.</p>
+        <p>Ce point n'est pas couvert par Ringover aujourd'hui.</p>
       </div>
     </div>
   </div>
@@ -924,7 +931,7 @@
     <div class="stat-strip" id="statsCom">
       <div class="stat total"><div class="num">–</div><div class="label">Exigences analysées</div></div>
       <div class="stat ok"><div class="num">–</div><div class="label">Disponibles aujourd'hui</div></div>
-      <div class="stat warn"><div class="num">–</div><div class="label">En roadmap / à configurer</div></div>
+      <div class="stat warn"><div class="num">–</div><div class="label">Couvertes avec paramétrage</div></div>
       <div class="stat dev"><div class="num">–</div><div class="label">Développement sur-mesure</div></div>
       <div class="stat bad"><div class="num">–</div><div class="label">Non couvertes par Ringover</div></div>
     </div>
@@ -960,11 +967,11 @@
         <h3>Disponible aujourd'hui</h3>
         <p>Fonctionnalités natives Ringover / Empower, sans développement complémentaire.</p>
       </div>
-      <div class="lane warn" data-filter="Partiel" tabindex="0" role="button" aria-label="Filtrer sur roadmap et configuration">
-        <div class="lane-top"><span class="lane-tag">Roadmap</span><span class="arrow">Voir le détail →</span></div>
+      <div class="lane warn" data-filter="Partiel" tabindex="0" role="button" aria-label="Filtrer sur couvert avec configuration">
+        <div class="lane-top"><span class="lane-tag">Paramétrage requis</span><span class="arrow">Voir le détail →</span></div>
         <div class="count">–</div>
-        <h3>En configuration / roadmap proche</h3>
-        <p>Couvert en grande partie : nécessite du paramétrage, une API/webhook, ou une validation précise du comportement attendu.</p>
+        <h3>Couvert, configuration nécessaire</h3>
+        <p>La fonctionnalité existe chez Ringover : elle nécessite un paramétrage, une intégration API/webhook, ou une validation précise du comportement attendu.</p>
       </div>
       <div class="lane dev" data-filter="Partiel (développement requis)" tabindex="0" role="button" aria-label="Filtrer sur développement sur-mesure">
         <div class="lane-top"><span class="lane-tag">Développement sur-mesure</span><span class="arrow">Voir le détail →</span></div>
@@ -976,7 +983,7 @@
         <div class="lane-top"><span class="lane-tag">Non couvert</span><span class="arrow">Voir le détail →</span></div>
         <div class="count">–</div>
         <h3>Non couvert par Ringover</h3>
-        <p>Ce point n'est pas couvert par Ringover aujourd'hui, en toute transparence.</p>
+        <p>Ce point n'est pas couvert par Ringover aujourd'hui.</p>
       </div>
     </div>
   </div>
@@ -1027,54 +1034,83 @@
       </div>
     </div>
 
-    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement : environ 20 heures réparties entre Ringover et Empower">
+    <div class="deploy-timeline" role="img" aria-label="Chronologie du déploiement : environ 34 heures réparties entre Ringover et Empower">
       <div class="deploy-timeline-head">
         <h3>Chronologie du déploiement</h3>
-        <span class="table-note">~20h au total, réparties en sessions courtes</span>
+        <span class="table-note">~34h au total, réparties en sessions courtes</span>
       </div>
       <div class="dt-track">
-        <div class="dt-seg" style="width:5.00%; background:#8FF0EA" title="Kick off — 1h"></div>
-        <div class="dt-seg" style="width:5.00%; background:#81DED9" title="Administrateur — 1h"></div>
-        <div class="dt-seg" style="width:2.50%; background:#74CDC7" title="Optimisation — 30 min"></div>
-        <div class="dt-seg" style="width:5.00%; background:#66BBB6" title="Utilisateurs — 1h"></div>
-        <div class="dt-milestone" style="left:17.5%" title="Portabilité — bascule des numéros (jalon, durée non chiffrée)"></div>
-        <div class="dt-seg" style="width:5.00%; background:#58AAA5" title="Superviseur — 1h"></div>
-        <div class="dt-seg" style="width:2.50%; background:#4A9894" title="Q&amp;A — 30 min"></div>
-        <div class="dt-seg" style="width:5.00%; background:#3D8682" title="Fin d'onboarding — 1h"></div>
-        <div class="dt-seg" style="width:10.00%; background:#2F7571" title="Fondations (Empower) — 2h"></div>
-        <div class="dt-seg" style="width:22.50%; background:#216360" title="Analyse &amp; scoring (Empower) — 4h30"></div>
-        <div class="dt-seg" style="width:20.00%; background:#14524E" title="Automatisation (Empower) — 4h"></div>
-        <div class="dt-seg" style="width:17.50%; background:#06403D" title="Coaching &amp; intégrations (Empower) — 3h30"></div>
+        <div class="dt-seg" style="width:2.94%; background:#8FF0EA" title="Kick off — 1h"></div>
+        <div class="dt-seg" style="width:17.65%; background:#83E0DA" title="Administrateur — 6h"></div>
+        <div class="dt-seg" style="width:5.88%; background:#76D0CB" title="Optimisation — 2h"></div>
+        <div class="dt-seg" style="width:11.76%; background:#6AC0BB" title="Utilisateurs — 4h"></div>
+        <div class="dt-seg" style="width:2.94%; background:#5DB0AB" title="Portabilité — 1h"></div>
+        <div class="dt-seg" style="width:11.76%; background:#51A09B" title="Superviseur — 4h"></div>
+        <div class="dt-seg" style="width:2.94%; background:#44908C" title="Q&amp;A — 1h"></div>
+        <div class="dt-seg" style="width:2.94%; background:#38807C" title="Fin d'onboarding — 1h"></div>
+        <div class="dt-seg" style="width:5.88%; background:#2B706C" title="Fondations (Empower) — 2h"></div>
+        <div class="dt-seg" style="width:13.24%; background:#1F605C" title="Analyse &amp; scoring (Empower) — 4h30"></div>
+        <div class="dt-seg" style="width:11.76%; background:#12504D" title="Automatisation (Empower) — 4h"></div>
+        <div class="dt-seg" style="width:10.29%; background:#06403D" title="Coaching &amp; intégrations (Empower) — 3h30"></div>
       </div>
       <div class="dt-scale">
         <span>Kick-off</span>
-        <span>~20h — fin de déploiement</span>
+        <span>~34h — fin de déploiement</span>
       </div>
       <div class="dt-groups">
         <div>
-          <div class="dt-group-title">Déploiement Ringover — ~6h</div>
+          <div class="dt-group-title">Déploiement Ringover — ~20h</div>
           <div class="dt-legend">
             <span class="dt-item"><span class="dt-swatch" style="background:#8FF0EA"></span>Kick off <b>1h</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#81DED9"></span>Administrateur <b>1h</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#74CDC7"></span>Optimisation <b>30 min</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#66BBB6"></span>Utilisateurs <b>1h</b></span>
-            <span class="dt-item milestone"><span class="dt-swatch"></span>Portabilité <b>jalon</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#58AAA5"></span>Superviseur <b>1h</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#4A9894"></span>Q&amp;A <b>30 min</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#3D8682"></span>Fin d'onboarding <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#83E0DA"></span>Administrateur <b>6h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#76D0CB"></span>Optimisation <b>2h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#6AC0BB"></span>Utilisateurs <b>4h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#5DB0AB"></span>Portabilité <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#51A09B"></span>Superviseur <b>4h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#44908C"></span>Q&amp;A <b>1h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#38807C"></span>Fin d'onboarding <b>1h</b></span>
           </div>
         </div>
         <div>
           <div class="dt-group-title">Déploiement Empower — ~14h</div>
           <div class="dt-legend">
-            <span class="dt-item"><span class="dt-swatch" style="background:#2F7571"></span>Fondations <b>2h</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#216360"></span>Analyse &amp; scoring <b>4h30</b></span>
-            <span class="dt-item"><span class="dt-swatch" style="background:#14524E"></span>Automatisation <b>4h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#2B706C"></span>Fondations <b>2h</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#1F605C"></span>Analyse &amp; scoring <b>4h30</b></span>
+            <span class="dt-item"><span class="dt-swatch" style="background:#12504D"></span>Automatisation <b>4h</b></span>
             <span class="dt-item"><span class="dt-swatch" style="background:#06403D"></span>Coaching &amp; intégrations <b>3h30</b></span>
           </div>
         </div>
       </div>
-      <p class="count-note">Configuration effective hors formation finale des utilisateurs (Empower : +1h à 1h30 additionnel une fois la configuration finalisée). Portabilité : jalon de bascule des numéros, durée non chiffrée par l'éditeur.</p>
+      <p class="count-note">Configuration effective hors formation finale des utilisateurs (Empower : +1h à 1h30 additionnel une fois la configuration finalisée). Portabilité : récupération des documents et remplissage des mandats nécessaires à la bascule des numéros.</p>
+    </div>
+
+    <div class="table-block">
+      <div class="table-block-head">
+        <h3>Investissement accompagnement</h3>
+        <span class="table-note">Tarifs professionnels de mise en œuvre</span>
+      </div>
+      <div class="table-panel">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Programme d'accompagnement</th><th>Prix public</th><th>Votre prix dédié</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Onboarding Ringover</td>
+                <td><span class="price-strike">4 000,00 €</span></td>
+                <td><span class="price-dedie">2 000,00 €</span></td>
+              </tr>
+              <tr>
+                <td>Onboarding Empower</td>
+                <td><span class="price-strike">2 500,00 €</span></td>
+                <td><span class="price-dedie">1 250,00 €</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="count-note">Remise de 50&nbsp;% appliquée sur les deux programmes d'accompagnement, dans le cadre du déploiement Berger Levrault.</p>
     </div>
 
     <div class="deploy-group" id="deploy-strategy">
@@ -1294,7 +1330,7 @@
     <div class="stat-strip pricing-summary">
       <div class="stat"><div class="num">8</div><div class="label">Étapes de déploiement</div></div>
       <div class="stat"><div class="num">3</div><div class="label">Formations principales</div></div>
-      <div class="stat ok"><div class="num">~6h</div><div class="label">De formation au total</div></div>
+      <div class="stat ok"><div class="num">~20h</div><div class="label">De formation au total</div></div>
       <div class="stat"><div class="num">3</div><div class="label">Formations optionnelles disponibles</div></div>
     </div>
 
@@ -1305,44 +1341,43 @@
         <p>Réunion de lancement : définition claire des besoins, cas d'usage, KPI, rétro-planning et conditions de portabilité.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">1h00</span><h4>2. Administrateur</h4></div>
-        <p>Formation Administrateur — temps de formation.</p>
+        <div class="workshop-top"><span class="phase-tag">6h</span><h4>2. Administrateur</h4></div>
+        <p>Formation et configuration de la plateforme, encadrées par votre CSM.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>3. Optimisation</h4></div>
+        <div class="workshop-top"><span class="phase-tag">2h</span><h4>3. Optimisation</h4></div>
         <p>Point d'étape : suivi et optimisation de la configuration.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">1h**</span><h4>4. Utilisateurs</h4></div>
-        <p>Formation utilisateur — temps de formation.</p>
+        <div class="workshop-top"><span class="phase-tag">4h</span><h4>4. Utilisateurs</h4></div>
+        <p>Formation et prise en main utilisateurs — temps de formation et d'accompagnement.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">—</span><h4>5. Portabilité</h4></div>
-        <p>Bascule technique des numéros.</p>
+        <div class="workshop-top"><span class="phase-tag">1h</span><h4>5. Portabilité</h4></div>
+        <p>Récupération des documents et remplissage des mandats nécessaires à la bascule des numéros.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">1h00</span><h4>6. Superviseur</h4></div>
-        <p>Formation Superviseur — temps de formation.</p>
+        <div class="workshop-top"><span class="phase-tag">4h</span><h4>6. Superviseur</h4></div>
+        <p>Formation et prise en main superviseurs — temps de formation et d'accompagnement.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">30 min</span><h4>7. Q&amp;A</h4></div>
+        <div class="workshop-top"><span class="phase-tag">1h</span><h4>7. Q&amp;A</h4></div>
         <p>Point d'étape : sessions questions/réponses avec les superviseurs — temps d'atelier.</p>
       </div>
       <div class="workshop-card">
-        <div class="workshop-top"><span class="phase-tag">1h*</span><h4>8. Fin d'onboarding</h4></div>
+        <div class="workshop-top"><span class="phase-tag">1h</span><h4>8. Fin d'onboarding</h4></div>
         <p>Réunion de clôture : revue des besoins, KPI, formalisation et bilan du déploiement.</p>
       </div>
     </div>
-    <p class="count-note">* Point hebdomadaire possible en fonction du nombre de licences et de la complexité de la configuration. ** Plusieurs séances possibles en fonction du nombre d'utilisateurs ou de l'organisation définie lors du Kick off.</p>
 
     <div class="phase-panel" style="margin-top:28px;">
       <div class="phase-header">
         <h3>Formation 1 — Administrateur</h3>
-        <span class="phase-tag">1h30 total avec le CSM</span>
+        <span class="phase-tag">6h au total avec le CSM</span>
       </div>
       <div class="workshop-grid">
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <div class="workshop-top"><span class="phase-tag">2h</span><h4>Formation</h4></div>
           <p>Votre CSM vous guidera à travers différentes possibilités dans la configuration de votre plateforme en fonction de vos priorités et besoins : création et paramétrage des comptes utilisateurs, création de vos SVI, personnalisations de l'outil, intégrations.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
@@ -1350,16 +1385,12 @@
           </div>
         </div>
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">Temps variable***</span><h4>Configuration</h4></div>
-          <p>Vous serez en charge de la création et configuration des utilisateurs, des standards vocaux interactifs et du paramétrage global du compte. *** dépend du nombre d'utilisateurs et de la complexité du SVI.</p>
+          <div class="workshop-top"><span class="phase-tag">4h</span><h4>Configuration</h4></div>
+          <p>Vous serez en charge de la création et configuration des utilisateurs, des standards vocaux interactifs et du paramétrage global du compte, avec l'appui de votre CSM.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
             <p>Liste des utilisateurs avec le rôle souhaité pour chacun et l'organisation en équipes, liste des fonctionnalités à activer, annonce vocale des SVI.</p>
           </div>
-        </div>
-        <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Optimisation</h4></div>
-          <p>Le travail que vous avez effectué sera suivi par le CSM Ringover afin de vérifier, optimiser et valider la configuration au fur et à mesure avec le client.</p>
         </div>
       </div>
     </div>
@@ -1367,11 +1398,11 @@
     <div class="phase-panel">
       <div class="phase-header">
         <h3>Formation 2 — Utilisateur</h3>
-        <span class="phase-tag">1h30 total avec le CSM</span>
+        <span class="phase-tag">4h au total avec le CSM</span>
       </div>
       <div class="workshop-grid">
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <div class="workshop-top"><span class="phase-tag">2h</span><h4>Formation</h4></div>
           <p>La formation de vos utilisateurs est un excellent moyen de favoriser l'adoption de votre nouveau système téléphonique : présentation globale des devices, gestion des appels quotidiens au clavier, puis les réglages.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
@@ -1379,11 +1410,11 @@
           </div>
         </div>
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">15 min</span><h4>Prise en main</h4></div>
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Prise en main</h4></div>
           <p>Les agents naviguent sur l'interface et la personnalisent en cas de besoin ; des tests internes peuvent aider à se familiariser avec l'outil. Attention : une portabilité non effective empêchera tout test d'appel entrant.</p>
         </div>
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Suivi post-portabilité</h4></div>
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Suivi post-portabilité</h4></div>
           <p>Un point de suivi permettant de recenser toutes les questions sur l'usage et les remontées de vos agents, pour aider à la prise en main et à l'optimisation de la configuration suite à la mise en production.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
@@ -1396,11 +1427,11 @@
     <div class="phase-panel">
       <div class="phase-header">
         <h3>Formation 3 — Superviseur</h3>
-        <span class="phase-tag">1h30 total avec le CSM</span>
+        <span class="phase-tag">4h au total avec le CSM</span>
       </div>
       <div class="workshop-grid">
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Formation</h4></div>
+          <div class="workshop-top"><span class="phase-tag">2h</span><h4>Formation</h4></div>
           <p>Aider les managers à piloter leur activité et leurs équipes, leur donner les meilleures pratiques et les aider à optimiser leurs process avec Ringover. Recommandée 15 jours après la mise en production.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
@@ -1408,11 +1439,11 @@
           </div>
         </div>
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">20 min</span><h4>Prise en main</h4></div>
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Prise en main</h4></div>
           <p>Les superviseurs naviguent sur l'interface et la personnalisent avec leurs filtres.</p>
         </div>
         <div class="workshop-card">
-          <div class="workshop-top"><span class="phase-tag">30 min*</span><h4>Suivi</h4></div>
+          <div class="workshop-top"><span class="phase-tag">1h</span><h4>Suivi</h4></div>
           <p>Point de suivi régulier pour recueillir les retours des superviseurs et répondre aux questions d'utilisation — analyse des indicateurs, optimisation, maximisation de la valeur apportée par Ringover.</p>
           <div class="prep-block">
             <span class="prep-label">À préparer</span>
