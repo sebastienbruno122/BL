@@ -328,6 +328,45 @@
   .show-more-btn:hover{background:var(--ink); color:#fff; border-color:var(--ink);}
   .show-more-btn:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
 
+  /* ---------- coverage bar ---------- */
+  .coverage-block{margin-top:18px;}
+  .coverage-bar{
+    display:flex; height:10px; border-radius:5px; overflow:hidden; background:var(--panel-border);
+  }
+  .coverage-bar.lg{height:16px; border-radius:8px;}
+  .cov-seg{height:100%; width:0%; transition:width .6s ease;}
+  .cov-seg + .cov-seg{margin-left:2px;}
+  .cov-seg.ok{background:var(--ok);}
+  .cov-seg.warn{background:var(--warn);}
+  .cov-seg.dev{background:var(--dev);}
+  .cov-seg.bad{background:var(--bad);}
+  .coverage-legend{display:flex; flex-wrap:wrap; gap:16px; margin-top:10px; font-size:12.5px; color:var(--ink-soft);}
+  .cov-item{display:flex; align-items:center; gap:6px;}
+  .cov-item b{color:var(--ink); font-weight:600;}
+  .cov-dot{width:8px; height:8px; border-radius:50%; flex:0 0 auto;}
+  .cov-dot.ok{background:var(--ok);}
+  .cov-dot.warn{background:var(--warn);}
+  .cov-dot.dev{background:var(--dev);}
+  .cov-dot.bad{background:var(--bad);}
+  @media (prefers-reduced-motion: reduce){ .cov-seg{transition:none;} }
+
+  /* ---------- global coverage overview (hero) ---------- */
+  .global-coverage{
+    display:flex; gap:32px; align-items:center; flex-wrap:wrap;
+    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
+    padding:26px 28px; margin-top:32px; box-shadow:var(--shadow);
+  }
+  .gc-figure{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:0 0 auto;}
+  .gc-pct{font-family:var(--font-display); font-size:48px; font-weight:700; color:var(--teal-deep); line-height:1;}
+  .gc-label{font-size:12.5px; color:var(--ink-soft); max-width:22ch;}
+  .gc-sub{color:var(--ink-faint);}
+  .gc-bar-wrap{flex:1 1 320px; min-width:260px;}
+  .gc-note{margin:10px 0 0; font-size:12.5px; color:var(--ink-faint);}
+  @media (max-width:700px){
+    .global-coverage{flex-direction:column; align-items:stretch;}
+    .gc-figure{flex-direction:row; align-items:baseline; gap:10px;}
+  }
+
   /* ---------- pricing ---------- */
   .blank-cell{
     display:inline-block; min-width:70px; padding-bottom:2px; border-bottom:1px dashed var(--ink-faint);
@@ -380,8 +419,10 @@
 
 <nav class="side-nav" aria-label="Navigation rapide">
   <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
-  <a class="side-nav-item" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Feuille de route</span></a>
-  <a class="side-nav-item" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille détaillée</span></a>
+  <a class="side-nav-item" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Roadmap SC</span></a>
+  <a class="side-nav-item" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille SC</span></a>
+  <a class="side-nav-item" href="#roadmap-com" data-target="roadmap-com"><span class="tick"></span><span class="side-label">Roadmap Com</span></a>
+  <a class="side-nav-item" href="#grille-com" data-target="grille-com"><span class="tick"></span><span class="side-label">Grille Com</span></a>
   <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
   <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
   <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
@@ -397,15 +438,62 @@
       suite, leur intégration à Salesforce, la réponse exigence par exigence au recueil fonctionnel et la tarification
       associée. Le contenu ci-dessous se met à jour automatiquement à mesure que l'équipe avance.
     </p>
-    <div class="stat-strip">
-      <div class="stat"><div class="num" id="statTotal">–</div><div class="label">Exigences analysées</div></div>
+    <div class="global-coverage" id="globalCoverage" role="img" aria-label="Couverture Ringover cumulée sur les deux cahiers des charges">
+      <div class="gc-figure">
+        <div class="gc-pct" id="globalCoveragePct">–</div>
+        <div class="gc-label">de couverture Ringover cumulée <span class="gc-sub">(service client + commercial)</span></div>
+      </div>
+      <div class="gc-bar-wrap">
+        <div class="coverage-bar lg">
+          <div class="cov-seg ok"></div>
+          <div class="cov-seg warn"></div>
+          <div class="cov-seg dev"></div>
+          <div class="cov-seg bad"></div>
+        </div>
+        <div class="coverage-legend">
+          <span class="cov-item cov-ok"><span class="cov-dot ok"></span>Oui · <b>–</b></span>
+          <span class="cov-item cov-warn"><span class="cov-dot warn"></span>Partiel · <b>–</b></span>
+          <span class="cov-item cov-dev"><span class="cov-dot dev"></span>Dév. requis · <b>–</b></span>
+          <span class="cov-item cov-bad"><span class="cov-dot bad"></span>Non · <b>–</b></span>
+        </div>
+        <p class="gc-note" id="globalCoverageNote"></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="cdc-service-client" class="cdc-heading">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Cahier des charges</span>
+        <h2>Service client</h2>
+        <p>La feuille de route et la grille de conformité ci-dessous couvrent le recueil des exigences fonctionnelles du service client (centre de contact).</p>
+      </div>
+    </div>
+    <div class="stat-strip" id="heroStats">
+      <div class="stat total"><div class="num" id="statTotal">–</div><div class="label">Exigences analysées</div></div>
       <div class="stat ok"><div class="num" id="statOk">–</div><div class="label">Disponibles aujourd'hui</div></div>
       <div class="stat warn"><div class="num" id="statWarn">–</div><div class="label">En roadmap / à configurer</div></div>
       <div class="stat dev"><div class="num" id="statDev">–</div><div class="label">Développement sur-mesure</div></div>
       <div class="stat bad"><div class="num" id="statBad">–</div><div class="label">Nécessitent un intégrateur</div></div>
     </div>
+    <div class="coverage-block" id="covSC" role="img" aria-label="Répartition de la couverture — service client">
+      <div class="coverage-bar">
+        <div class="cov-seg ok"></div>
+        <div class="cov-seg warn"></div>
+        <div class="cov-seg dev"></div>
+        <div class="cov-seg bad"></div>
+      </div>
+      <div class="coverage-legend">
+        <span class="cov-item cov-ok"><span class="cov-dot ok"></span>Oui · <b>–</b></span>
+        <span class="cov-item cov-warn"><span class="cov-dot warn"></span>Partiel · <b>–</b></span>
+        <span class="cov-item cov-dev"><span class="cov-dot dev"></span>Dév. requis · <b>–</b></span>
+        <span class="cov-item cov-bad"><span class="cov-dot bad"></span>Non · <b>–</b></span>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
 <section id="roadmap">
   <div class="wrap">
@@ -476,6 +564,112 @@
     <p class="count-note" id="countNote"></p>
     <div class="show-more-wrap">
       <button class="show-more-btn" id="showMoreBtn" type="button">Afficher plus</button>
+    </div>
+  </div>
+</section>
+
+<section id="cdc-commercial" class="cdc-heading">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Cahier des charges</span>
+        <h2>Commercial</h2>
+        <p>Même principe que ci-dessus, appliqué cette fois au recueil des exigences fonctionnelles de la partie commerciale.</p>
+      </div>
+    </div>
+    <div class="stat-strip" id="statsCom">
+      <div class="stat total"><div class="num">–</div><div class="label">Exigences analysées</div></div>
+      <div class="stat ok"><div class="num">–</div><div class="label">Disponibles aujourd'hui</div></div>
+      <div class="stat warn"><div class="num">–</div><div class="label">En roadmap / à configurer</div></div>
+      <div class="stat dev"><div class="num">–</div><div class="label">Développement sur-mesure</div></div>
+      <div class="stat bad"><div class="num">–</div><div class="label">Nécessitent un intégrateur</div></div>
+    </div>
+    <div class="coverage-block" id="covCom" role="img" aria-label="Répartition de la couverture — commercial">
+      <div class="coverage-bar">
+        <div class="cov-seg ok"></div>
+        <div class="cov-seg warn"></div>
+        <div class="cov-seg dev"></div>
+        <div class="cov-seg bad"></div>
+      </div>
+      <div class="coverage-legend">
+        <span class="cov-item cov-ok"><span class="cov-dot ok"></span>Oui · <b>–</b></span>
+        <span class="cov-item cov-warn"><span class="cov-dot warn"></span>Partiel · <b>–</b></span>
+        <span class="cov-item cov-dev"><span class="cov-dot dev"></span>Dév. requis · <b>–</b></span>
+        <span class="cov-item cov-bad"><span class="cov-dot bad"></span>Non · <b>–</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap-com">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Feuille de route fonctionnelle</h2>
+        <p>Quatre niveaux de disponibilité, du plus simple au plus engageant. Cliquez une carte pour filtrer le détail plus bas.</p>
+      </div>
+    </div>
+    <div class="lanes">
+      <div class="lane ok" data-filter="Oui" tabindex="0" role="button" aria-label="Filtrer sur disponible aujourd'hui">
+        <div class="lane-top"><span class="lane-tag">Disponible</span><span class="arrow">Voir le détail →</span></div>
+        <div class="count">–</div>
+        <h3>Disponible aujourd'hui</h3>
+        <p>Fonctionnalités natives Ringover / Empower, sans développement complémentaire.</p>
+      </div>
+      <div class="lane warn" data-filter="Partiel" tabindex="0" role="button" aria-label="Filtrer sur roadmap et configuration">
+        <div class="lane-top"><span class="lane-tag">Roadmap</span><span class="arrow">Voir le détail →</span></div>
+        <div class="count">–</div>
+        <h3>En configuration / roadmap proche</h3>
+        <p>Couvert en grande partie : nécessite du paramétrage, une API/webhook, ou une validation précise du comportement attendu.</p>
+      </div>
+      <div class="lane dev" data-filter="Partiel (développement requis)" tabindex="0" role="button" aria-label="Filtrer sur développement sur-mesure">
+        <div class="lane-top"><span class="lane-tag">Développement sur-mesure</span><span class="arrow">Voir le détail →</span></div>
+        <div class="count">–</div>
+        <h3>Solution réalisable, développement identifié</h3>
+        <p>Ce n'est pas une couverture partielle qui reste floue : la solution existe et est réalisable via un développement Ringover sur-mesure — un chantier identifié, pas un point bloquant.</p>
+      </div>
+      <div class="lane bad" data-filter="Non" tabindex="0" role="button" aria-label="Filtrer sur nécessite un intégrateur">
+        <div class="lane-top"><span class="lane-tag">À construire</span><span class="arrow">Voir le détail →</span></div>
+        <div class="count">–</div>
+        <h3>Nécessite un intégrateur</h3>
+        <p>Aucune fonctionnalité native identifiée : développement spécifique ou solution tierce à prévoir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="grille-com">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Grille de conformité détaillée</h2>
+        <p>Les exigences du recueil fonctionnel commercial, avec la fonctionnalité Ringover associée et les points restant à valider.</p>
+      </div>
+    </div>
+    <div class="grid-toolbar">
+      <input class="search" type="text" placeholder="Rechercher un mot-clé, un n°, un chapitre…">
+      <button class="chip" data-chip="Tous" aria-pressed="true">Tous</button>
+      <button class="chip" data-chip="Oui">Oui</button>
+      <button class="chip" data-chip="Partiel">Partiel</button>
+      <button class="chip" data-chip="Partiel (développement requis)">Dév. requis</button>
+      <button class="chip" data-chip="Non">Non</button>
+    </div>
+    <div class="table-panel">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>N°</th><th>Chapitre</th><th>Exigence fonctionnelle Berger-Levrault</th><th>Prio.</th>
+              <th>Couverture</th><th>Fonctionnalité Ringover</th><th>Commentaire</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="count-note"></p>
+    <div class="show-more-wrap">
+      <button class="show-more-btn" type="button">Afficher plus</button>
     </div>
   </div>
 </section>
@@ -771,8 +965,9 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQubYqeRU
 const FALLBACK_ROWS = [["001", "2.1.1 Qualité de la voix", "Très forte qualité vocale maintenable en télétravail ; suivi du niveau de qualité par l'éditeur", "P0", "Partiel", "VoIP Ringover (codec Opus), app web/desktop/mobile, Call Assist", "Qualité voix télétravail couverte ; tableau de bord détaillé MOS/qualité réseau à valider"], ["002", "2.1.2 Contacter les centres de contacts", "Numéro unique pour joindre les CC, transfert vers le bon service en cas d'erreur SVI", "P0", "Oui", "Numéro de téléphone virtuel, numéro gratuit, portabilité des numéros", ""], ["003", "2.1.3 Interface avec MS Teams", "Interfaçage MS Teams, gestion des disponibilités synchronisée", "P0", "Partiel", "Intégration Ringover-Microsoft Teams", "Le sens exact de la synchronisation des présences/statuts doit être validé avec BL"], ["004", "2.1.4 Wallboard", "Wallboard/dashboard partagé (appels en attente, temps moyen d'attente, nb d'appels, etc.)", "P0", "Partiel", "Statistiques temps réel et tableau de bord d'activité des équipes", "Widgets exacts et mode d'affichage partagé à valider"], ["005", "3.1 Omnicanalité", "Support des canaux voix et chat", "P0", "Oui", "Appels Ringover + messagerie omnicanale", ""], ["006", "3.1 Omnicanalité", "Historique des précédents échanges client/agents", "P0", "Oui", "Historique des appels/SMS, journaux d'appels, intégration CRM", ""], ["007", "3.1 Omnicanalité", "Media Blending : gestion simultanée de plusieurs canaux (voix+chat) par un même agent", "P2", "Partiel", "Interface omnicanale Ringover", "Règles de traitement simultané des médias à valider"], ["008", "3.2.1 Accueil et menu vocal (DTMF)", "Modification du SVI en temps réel par un administrateur fonctionnel, sans compétence technique", "P0", "Oui", "Administration et configuration en ligne du SVI Ringover", ""], ["009", "3.2.1 Accueil et menu vocal (DTMF)", "Navigation DTMF + possibilité d'interrompre les annonces lors de la saisie DTMF", "P0", "Partiel", "SVI Ringover / standard automatique", "Comportement exact de type barge-in à valider"], ["010", "3.2.2 Identification de l'appelant", "Identification par numéro de téléphone au SVI, saisie du n° client si non reconnu", "P0", "Partiel", "Synchronisation contacts CRM + CTI Screen Pop", "Collecte du n° client via SVI + API/webhooks à configurer si non reconnu"], ["011", "3.2.3 SVI reconnaissance vocale mots clefs", "Navigation dans le SVI par la voix (mots-clés) sans clavier", "P0", "Partiel", "AIRO Voice Agent (compréhension, qualification, routage)", "SVI vocal classique reposant sur des mots-clés à valider spécifiquement"], ["012", "3.2.4 Diffusion de messages", "Messages d'accueil, événementiels, fermetures (ouvrées/exceptionnelles), campagnes, contextualisés", "P0", "Oui", "Messages d'accueil personnalisés + studio en ligne multilingue", ""], ["013", "3.2.5 Priorisation clients Premium", "Priorisation des appels clients Premium en file, notion Premium récupérée dans Salesforce", "P0", "Partiel (développement requis)", "Priorité d'appel (VIP) + intégration Salesforce", "Récupération automatique du statut Premium depuis Salesforce à valider"], ["014", "3.2.6 Dissuasion et gestion de dissuasion", "Dissuasion si aucun agent connecté / seuil d'attente ou de nb d'appels atteint", "P0", "Partiel", "SVI, files et routage", "Dissuasion automatique basée sur seuils à valider"], ["015", "3.2.6 Dissuasion et gestion de dissuasion", "Message audio de dissuasion proposant des solutions alternatives", "P0", "Partiel", "Configuration SVI / messages d'accueil", "Lié à l'exigence 014, mêmes réserves"], ["016", "3.2.7 SVI CallBack", "Demande de rappel en pic d'activité : immédiat (ASAP) ou programmé (créneaux, limite par créneau)", "P0", "Partiel", "Fonctionnalité de rappel Ringover", "Rappel immédiat et programmé non listés clairement au catalogue public ; à valider"], ["017", "3.2.8 Messagerie vocale", "Message vocal en pic d'activité + Speech-to-Case (retranscription en case Salesforce)", "P0", "Partiel", "Messagerie vocale + transcription Ringover/Empower", "Création automatique du case Salesforce à partir de la transcription à configurer"], ["018", "3.2.9 Web click-to-call", "Lien web click-to-call généré, intégrable sur toute interface web", "P1", "Oui", "Click to Call / bouton click-to-call site web", ""], ["019", "3.2.10 WebCallBack", "Rappel programmé ou immédiat depuis l'espace client, priorisation, commentaire motif, statistiques", "P0", "Partiel", "WebCallback via API/webhooks/intégration site web", "Fonctionnalité native WebCallback avec priorisation ASAP et stats à valider"], ["020", "3.3.1 Routage des appels entrants", "Routage fin (compétence, n° externe, agent, file) + priorisation multi-critères (SVI, compétence, données SVI/Salesforce)", "P0", "Partiel", "Routage par groupes/compétence, routage intelligent (webhooks + données CRM)", "Pondération multi-compétences et niveaux de maîtrise à valider"], ["021", "3.3.2 Routage dynamique", "Routage vers le dernier agent en contact, le Case Owner, ou l'agent dédié/préféré", "P0", "Partiel (développement requis)", "Routage vers l'agent préféré", "Logique 'dernier agent' et 'Case Owner Salesforce' à valider spécifiquement"], ["022", "3.3.3 Modification des règles de routage", "Modification du routage en temps réel sans impacter les appels en cours", "P0", "Oui", "Administration du routage et du SVI Ringover", ""], ["023", "3.3.3 Modification des règles de routage", "Réactivation simple et rapide d'une ancienne règle de routage éprouvée", "P0", "Non", "—", "Aucune fonctionnalité native de gestion de versions / retour arrière identifiée"], ["024", "3.3.4 Communication du temps d'attente", "Diffusion au client du temps d'attente réel en file", "P0", "Partiel", "Configuration de la file", "Aucune fonctionnalité clairement documentée d'annonce du temps d'attente réel"], ["025", "3.3.4 Communication du temps d'attente", "Diffusion du temps d'attente estimé si le temps réel n'est pas calculable", "P0", "Partiel", "Configuration de la file", "Annonce dynamique exacte à valider"], ["026", "3.3.4 Communication du temps d'attente", "Diffusion de la position du client dans la file", "P2", "Oui", "Files d'attente personnalisées avec annonce de la position en temps réel", ""], ["027", "3.3.5 Gestion du RONA", "Repositionnement automatique en file si non-décroché, durée de sonnerie configurable", "P0", "Partiel", "Configuration des files, cascade d'appels + paramètres de sonnerie", "Workflow RONA exact à valider ; durée de sonnerie configurable en revanche couverte"], ["028", "3.3.6 Elargissement du routage", "Routage vers des agents moins qualifiés si aucun agent qualifié disponible", "P1", "Partiel (développement requis)", "Routage en cascade et par groupes", "Logique de niveau de compétence à configurer"], ["029", "3.3.7 Débordement", "Débordement vers un autre groupe ou une autre file si tous les agents indisponibles", "P1", "Oui", "Appels en cascade, routage par groupes, renvoi d'appel", ""], ["030", "3.4.1 Intégration CRM Salesforce", "Intégration forte à Salesforce (statuts agent, qualification auto, données d'appels, etc.)", "P0", "Oui", "Intégration CRM native Ringover pour Salesforce", ""], ["031", "3.4.2 Qualification et intégration des interactions", "Chaque interaction (appel, chat, mail) qualifiée à la clôture et intégrée au CRM", "P0", "Partiel", "Intégration CRM native + synchronisation historique des appels", "Couvert pour la voix ; qualification chat/mail à confirmer selon canaux retenus"], ["032", "3.4.3 Campagne d'appel sortant", "Campagnes alimentées par une liste de contacts issue du CRM (qualification + demandes clients)", "P0", "Oui", "Campagnes d'appels sortants", ""], ["033", "3.4.3 Campagne d'appel sortant", "Automatisation : prédiction disponibilité agent, composition auto, mise en relation si décroché", "P0", "Partiel", "Power Dialer / Parallel Dialer", "Numérotation prédictive réelle basée sur la disponibilité des agents à valider"], ["034", "3.4.3.1 MAJ auto campagnes sortantes", "Qualification et intégration temps réel des appels de campagne dans le CRM", "P0", "Partiel", "Intégration Salesforce + synchronisation des activités CRM", "Mise à jour temps réel spécifique aux campagnes à valider"], ["035", "3.4.4 Transfert d'appels à chaud/froid", "Transfert vers tout personnel BL (CC ou non) ou vers un numéro externe", "P0", "Oui", "Transfert d'appel, appels internes, renvoi d'appel", ""], ["036", "3.4.4 Transfert d'appels à chaud/froid", "Contexte d'appel (n°, durée) transféré sur le bandeau du destinataire", "P0", "Partiel", "Historique des appels + contexte CRM", "Affichage exact du contexte lors du transfert à valider"], ["037", "3.4.4 Transfert d'appels à chaud/froid", "Choix du type de transfert : direct/aveugle, sécurisé, supervisé", "P0", "Partiel", "Transfert d'appel (aveugle couvert)", "Modes 'sécurisé' et 'supervisé' à valider précisément"], ["038", "3.4.5 Réitérations appels non-Premium", "Priorisation des appels répétés d'un même numéro client non-Premium", "P2", "Partiel", "Routage intelligent via API/webhooks", "Aucune fonctionnalité standard clairement identifiée pour prioriser les appels répétés"], ["039", "3.4 Speech-to-Text", "Transcription automatique de l'appel (live ou a minima à la clôture) visible par l'agent dans le Voice Call Salesforce", "P1", "Partiel", "Transcription Empower (temps réel et après appel)", "Transcription réellement live et visible par l'agent à valider"], ["040", "3.4 Text-Analytics", "Résumé de l'appel retranscrit (mots-clés, ton, sujet) dans le Voice Call Salesforce", "P2", "Oui", "Résumé d'appel, détection de sujets et mots-clés Empower", ""], ["041", "3.5.1.1 Bandeau agent", "Bandeau agent complet : décroché auto/manuel, login/logout/pause, mise en attente, transferts, dispo, qualif, stats, sonnerie perso, multimédia", "P0", "Partiel", "Application web/desktop Ringover, mise en attente, transferts, After Call, tags, stats agent", "La quasi-totalité des fonctions du bandeau est couverte ; sonnerie personnalisée et décroché automatique à valider précisément"], ["042", "3.5.1.1 Enregistrement des appels", "Enregistrement des appels réécoutable/réutilisable, éventuellement par appli tierce", "P0", "Oui", "Enregistrement des appels", ""], ["043", "3.5.1.2 Contact center mobile", "Réponse aux appels du centre de contact en télétravail ou en mobilité", "P0", "Oui", "Application web et application mobile Ringover", ""], ["044", "3.5.1.3 Interface de travail dédiée", "Interface CCaaS paramétrable dans la langue choisie par l'agent", "P0", "Partiel", "Application web/desktop Ringover", "Liste exacte des langues d'interface disponibles à confirmer"], ["045", "3.5.1.4 Recording à la main de l'agent", "Démarrage/arrêt de l'enregistrement par l'agent", "P0", "Oui", "Enregistrement à la demande", ""], ["046", "3.5.1.4 Recording à la main de l'agent", "Message sonore annonçant au client le début de l'enregistrement", "P2", "Partiel", "Paramètres d'annonce d'enregistrement", "À valider selon configuration"], ["047", "3.5.1.5 Remontée de fiche client", "Fiche client (historique, cases, activités, opportunités) présentée à l'agent via le CRM", "P0", "Oui", "CTI Screen Pop + historique fiche client CRM", ""], ["048", "3.5.1.6 Synchronisation statut Salesforce", "Statut agent identique dans le CRM, le bandeau et MS Teams", "P0", "Partiel", "Synchronisation des présences/statuts", "Sens exact de la synchronisation à valider (cf exigence 003)"], ["049", "3.5.1.7 Intégration données appel CRM", "Intégration auto dans le CRM (durée, heure, date, agent, type d'appel, résumé)", "P0", "Oui", "Journaux d'appels et synchronisation des activités CRM", ""], ["050", "3.5.1.8 Qualification automatique des appels", "Qualification automatique de l'appel à la fin, remontée dans le CRM", "P0", "Partiel", "After Call, tags d'appel, CRM autofill", "Règles exactes de qualification automatique à valider"], ["051", "3.5.1.9 Click to call", "Contact d'un client via le bandeau en cliquant sur son numéro dans la fiche CRM", "P0", "Oui", "Click to Call, extension navigateur, intégration Salesforce native", ""], ["052", "3.5.1.10 Rendez-vous client / Booking", "Blocage de créneaux dans l'agenda Salesforce par l'agent pour déclencher un callback", "P0", "Partiel", "Calendrier Salesforce ou solution de réservation tierce", "Ce n'est pas une fonctionnalité centrale de Ringover ; intégration à valider"], ["053", "3.5.1.11 Rappel planifié", "Programmation anticipée d'un appel à date/heure précise, éventuellement via appli tierce", "P0", "Partiel", "Tâche de suivi Ringover ou tâches/calendriers Salesforce", "À valider selon l'outil retenu"], ["054", "3.5.1.12 Cobrowse", "Visualisation de l'écran du client par l'agent en cas de besoin", "P0", "Partiel", "Partage d'écran en réunion vidéo Ringover", "Pas de fonctionnalité de co-navigation dédiée service client identifiée"], ["055", "3.5.1.13 Cobrowse remote control", "Prise de contrôle à distance du matériel du client par l'agent", "P0", "Non", "—", "Aucune fonctionnalité native ; nécessite un outil tiers d'assistance à distance"], ["056", "3.5.2.1 Ecoute temps réel et chuchotement", "Écoute discrète (double écoute) et chuchotement de conseils à l'agent, inaudible du client", "P0", "Oui", "Supervision des appels / double écoute, Call Whisper", ""], ["057", "3.5.2.2 Coaching sur le chat (shadow)", "Coaching live du superviseur sur le canal chat, invisible du client", "P0", "Partiel", "AIRO Coach (recommandations temps réel voix/vidéo)", "Prise en charge équivalente sur le chat écrit à confirmer"], ["058", "3.5.2.3 Modification des paramètres (activité)", "Droits superviseur : ouverture/fermeture de file, changement de priorité", "P0", "Partiel", "Administration Ringover", "Droits délégués précis des superviseurs à valider"], ["059", "3.5.2.3 Modification des paramètres (agents)", "Droits superviseur : ajout/retrait agent sur file, compétence, statut", "P0", "Partiel", "Administration des utilisateurs et des groupes Ringover", "Gestion avancée des niveaux de compétence à valider"], ["060", "3.5.2.3 Modification des paramètres (SVI)", "Droits superviseur sur la gestion du SVI (messages, horaires)", "P0", "Oui", "Administration et configuration du SVI Ringover", ""], ["061", "3.1.1 Supervision temps réel", "Supervision multi-écrans via interface graphique multifenêtre", "P0", "Partiel", "Tableaux de bord navigateur affichables séparément", "Interface dédiée multi-fenêtres à valider"], ["062", "3.1.1 Supervision temps réel", "Administration des statistiques temps réel pour un profil superviseur", "P0", "Oui", "Statistiques en temps réel Ringover", ""], ["063", "3.1.1 Supervision temps réel", "Suivi des statistiques temps réel des activités du centre", "P0", "Oui", "Statistiques en temps réel Ringover", ""], ["064", "3.1.1 Supervision temps réel", "KPI standard + création de KPI personnalisés", "P0", "Partiel", "Analyses Ringover (indicateurs standards)", "Création libre de KPI personnalisés à valider"], ["065", "3.1.1 Supervision temps réel", "Notifications push aux superviseurs sur dépassement de seuils KPI / escalades", "P0", "Non", "—", "Aucune fonctionnalité native clairement identifiée d'alerte push sur seuils KPI"], ["066", "3.1.1 Supervision temps réel", "Visualisation du statut de tous les agents par chaque superviseur", "P0", "Oui", "Activité des équipes et statistiques temps réel", ""], ["067", "3.1.1 Supervision temps réel", "Communication temps réel superviseur → chaque agent", "P0", "Oui", "Messagerie instantanée interne Ringover", ""], ["068", "3.1.1 Supervision temps réel", "Communication temps réel superviseur → responsables de centres, tous canaux", "P0", "Partiel", "Messagerie instantanée interne Ringover", "Couverture multicanal (mail/chat/voix) vers tous les responsables à valider"], ["069", "3.1.1 Supervision temps réel", "Accès de chaque superviseur aux enregistrements d'appels", "P0", "Oui", "Enregistrements d'appels dans l'interface superviseur/admin", ""], ["070", "3.1.1 Supervision temps réel", "Accès de tous les superviseurs aux enquêtes de satisfaction en temps réel", "P0", "Partiel", "Enquêtes Ringover", "Accès temps réel spécifique par superviseur à valider"], ["071", "3.1.2 Cloisonnement des statistiques", "Agent limité à ses propres statistiques et à celles de ses activités", "P0", "Partiel", "Rôles utilisateurs et permissions de reporting", "Cloisonnement strict à valider selon la configuration des rôles"], ["072", "3.1.3 Statistiques historiques", "Centralisation dans SF : stats SVI, réitérations, export CSV/Excel, dashboards prédéfinis, campagnes, appels abandonnés, conseillers/flux", "P0", "Partiel", "Analyses avancées, export de données, parcours d'appel", "Disponibilité des exports et des dashboards standards à confirmer pour les jeux de données requis"], ["073", "3.1.3 Statistiques historiques", "Superviseur consulte les enquêtes de satisfaction a posteriori", "P0", "Oui", "Enquêtes Ringover", ""], ["074", "3.2.1 Management de la qualité", "Formulaire d'évaluation intégré, outil de conception, assignation à un évaluateur, stratégie d'identification", "P1", "Partiel", "Empower Framework Analysis", "Attribution des évaluations aux évaluateurs : aucun workflow complet identifié"], ["075", "3.2.1 Management de la qualité", "Calibration des évaluations, redescente à l'agent évalué, tag d'interaction pour évaluation", "P0", "Partiel", "Analyses Empower, bibliothèque d'appels partagée", "Module de calibration des évaluations qualité non identifié nativement"], ["076", "3.2.1 Management de la qualité", "Enquêtes de satisfaction à chaud (SVI d'enquête ou mail)", "P0", "Partiel", "Enquêtes Ringover", "Workflow d'enquête via SVI à chaud à valider précisément"], ["077", "3.2.1.1 Résumé de l'appel", "Synthèses d'appels réalisées par une application tierce (évaluation, litige, qualification à froid)", "P0", "Oui", "Résumé d'appel par IA Empower", ""], ["078", "3.2.1.2 Feedback, retour d'évaluation", "L'agent peut consulter l'évaluation réalisée par le superviseur (enregistrement compris)", "P2", "Partiel", "Analyses Empower + bibliothèque d'appels partagée", "Workflow formel de restitution d'évaluation à valider"], ["079", "3.2.2 Auto-remplissage IA", "Premier niveau d'évaluation automatique par l'IA après analyse des conversations écrites", "P2", "Partiel", "Empower (évaluation principalement orientée appels/réunions)", "Évaluation des conversations écrites (chat) à valider"], ["080", "3.2.2 Auto-remplissage IA", "Premier niveau d'évaluation automatique par l'IA après analyse des interactions orales", "P2", "Partiel", "Empower Framework Analysis, analyses IA", "Remplissage automatique exact des formulaires d'évaluation à valider"], ["081", "3.3.1 Outil de planification (WFM)", "Outil de planification (WFM) pour prévoir/anticiper le travail des agents et les activités particulières", "P0", "Non", "—", "Aucun module natif Ringover de prévision/planification WFM identifié"], ["082", "3.3.2 Planification des activités CRC", "Prévision basée sur historique, génération de plannings, gestion des congés, échange d'horaires (ou partenaires WFM)", "P0", "Non", "—", "Aucune fonctionnalité WFM native identifiée (prévision, plannings, congés, échange de postes) ; partenariat WFM tiers à envisager"], ["083", "3.3.2 Planification des activités CRC", "Rappels du superviseur aux agents pour pause ou changement d'activité", "P0", "Partiel", "Messagerie superviseur (usage manuel)", "Aucune fonctionnalité claire de rappel automatisé WFM"], ["084", "3.4.1 Administration fonctionnelle du SVI", "Personnalisation du SVI à chaud, déploiement instantané (messages, arborescences, branches)", "P0", "Oui", "Administration et configuration en ligne du SVI Ringover", ""], ["085", "3.4.2 Gestion du calendrier et des plages horaires", "Programmation de changements de config par calendrier (heure/jour/date), fermetures exceptionnelles, fermeture d'urgence, horaires par service", "P0", "Partiel", "Routage selon les horaires, configuration du SVI", "Fermeture d'urgence en un clic dédiée à valider"]];
 /* Chaque ligne : [n°, chapitre, exigence, priorité, couverture, fonctionnalité, commentaire] */
 
-let ALL_ROWS = [];
-let currentFilter = "Tous";
+const SHEET_CSV_URL_COM = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8U3YuiZDC4osABHgOoRTTJejCJEjYPPUfDkyH7cW752zqyMXwN3UqHImrnCa2ddjFwolyhiGdEvT8/pub?output=csv";
+
+const FALLBACK_ROWS_COM = [["OBJ-01", "Objectifs (transverses)", "Intégration native Salesforce", "—", "Oui", "Intégration CRM native Ringover pour Salesforce", ""], ["OBJ-02", "Objectifs (transverses)", "Enregistrements disponibles immédiatement pour analyse (Modjo ou équivalent)", "—", "Oui", "Enregistrement disponible immédiatement côté Ringover (API/webhook, sans dépôt FTP)", ""], ["OBJ-03", "Objectifs (transverses)", "Création automatique de tâches Salesforce (entrants + sortants)", "—", "Oui", "Journalisation et création d'activités automatique dans Salesforce", ""], ["OBJ-04", "Objectifs (transverses)", "Vision temps réel des performances", "—", "Oui", "Statistiques et supervision temps réel Ringover", ""], ["OBJ-05", "Objectifs (transverses)", "Automatisation des débordements", "—", "Oui", "Débordement vers un autre groupe ou une autre file (cf. grille recueil n°029)", ""], ["SC1-OBJ-01", "4.1 Scénario 1 — Objectif", "SVI inchangé pour le client lors du remplacement sur la branche Collectivités", "—", "Oui", "Le parcours SVI existant peut être reproduit à l'identique dans Ringover", ""], ["SC1-ENT-01", "4.1 Scénario 1 — Entrants", "Pilotage du décrochage des appels entrants via la nouvelle solution", "—", "Oui", "Routage et distribution d'appels (ACD) Ringover", ""], ["SC1-ENT-02", "4.1 Scénario 1 — Entrants", "Création automatique de tâche Salesforce sur les appels entrants", "—", "Oui", "Intégration CRM native + journalisation automatique", ""], ["SC1-ENT-03", "4.1 Scénario 1 — Entrants", "Enregistrement immédiat de l'appel entrant pour Modjo", "—", "Oui", "Enregistrement disponible immédiatement côté Ringover", ""], ["SC1-SOR-01", "4.1 Scénario 1 — Sortants", "Appel sortant généré depuis Salesforce", "—", "Oui", "Click-to-call depuis la fiche Salesforce", ""], ["SC1-SOR-02", "4.1 Scénario 1 — Sortants", "Softphone natif de la nouvelle solution (remplace MiCollab)", "—", "Oui", "Application web/desktop/mobile Ringover (softphone natif)", ""], ["SC1-SOR-03", "4.1 Scénario 1 — Sortants", "Tâche automatique dans Salesforce sur les appels sortants", "—", "Oui", "Intégration CRM native + journalisation automatique", ""], ["SC1-SOR-04", "4.1 Scénario 1 — Sortants", "Enregistrement immédiat de l'appel sortant pour Modjo", "—", "Oui", "Enregistrement disponible immédiatement côté Ringover", ""], ["SC2-OBJ-01", "4.2 Scénario 2 — Objectif", "Conserver le numéro 0820 35 35 35", "—", "Oui", "Portabilité de numéro vers Ringover", ""], ["SC2-OBJ-02", "4.2 Scénario 2 — Objectif", "Revoir éventuellement le parcours SVI", "—", "Oui", "SVI entièrement reconfigurable, sans compétence technique", ""], ["SC2-ENT-01", "4.2 Scénario 2 — Entrants", "Pilotage direct des appels entrants via la nouvelle solution", "—", "Oui", "Routage et distribution d'appels (ACD) Ringover", ""], ["SC2-ENT-02", "4.2 Scénario 2 — Entrants", "Intégration native Salesforce", "—", "Oui", "Intégration CRM native Ringover pour Salesforce", ""], ["SC2-ENT-03", "4.2 Scénario 2 — Entrants", "Création automatique d'activités Salesforce", "—", "Oui", "Journalisation et création d'activités automatique", ""], ["SC2-ENT-04", "4.2 Scénario 2 — Entrants", "Enregistrement instantané vers Modjo", "—", "Oui", "Enregistrement disponible immédiatement côté Ringover", ""], ["SC2-SOR-01", "4.2 Scénario 2 — Sortants", "Click-to-call depuis Salesforce", "—", "Oui", "Click-to-call natif intégration Salesforce", ""], ["SC2-SOR-02", "4.2 Scénario 2 — Sortants", "Création automatique d'activités Salesforce", "—", "Oui", "Journalisation et création d'activités automatique", ""], ["SC2-SOR-03", "4.2 Scénario 2 — Sortants", "Enregistrement immédiat vers Modjo", "—", "Partiel", "Enregistrement disponible immédiatement côté Ringover", ""], ["SC3-OBJ-01", "4.3 Scénario 3 — Objectif", "Numéro non surtaxé par BU", "—", "Oui", "Numéros de téléphone virtuels/gratuits, un par BU si besoin", ""], ["SC3-01", "4.3 Scénario 3 — Fonctionnement cible", "Pilotage unifié de la solution et de Salesforce", "—", "Oui", "Administration centralisée Ringover + intégration Salesforce", ""], ["SC3-02", "4.3 Scénario 3 — Fonctionnement cible", "Message vocal proposé si non-réponse", "—", "Oui", "Messagerie vocale (cf. grille recueil n°017)", ""], ["SC3-03", "4.3 Scénario 3 — Fonctionnement cible", "Rappel automatique / gestion en mode campagnes si non-réponse", "—", "Oui", "SVI CallBack + campagnes d'appels sortants (cf. grille recueil n°016/032)", ""], ["SC3-04", "4.3 Scénario 3 — Fonctionnement cible", "Création automatique de tâche si non-réponse", "—", "Oui", "Journalisation et création d'activités automatique", ""], ["SC3-05", "4.3 Scénario 3 — Fonctionnement cible", "Proposition de créneau de rappel si non-réponse", "—", "Partiel", "Rappel programmé Ringover ; prise de créneau type agenda à confirmer (cf. grille recueil n°052)", ""], ["SC3-06", "4.3 Scénario 3 — Fonctionnement cible", "Redirection intelligente si non-réponse", "—", "Oui", "Routage intelligent multi-critères (cf. grille recueil n°020/021)", ""]];
 
 function parseCSV(text){
   const rows = [];
@@ -842,60 +1037,163 @@ function escapeHTML(s){
 }
 
 const PAGE_SIZE = 5;
-let visibleCount = PAGE_SIZE;
 
-function render(){
-  const q = (document.getElementById("searchInput").value || "").toLowerCase().trim();
-  const tbody = document.getElementById("tableBody");
-  const rows = ALL_ROWS.filter(r => {
-    const matchesFilter = currentFilter === "Tous" || (r[4]||"").trim().toLowerCase() === currentFilter.toLowerCase();
-    if(!matchesFilter) return false;
-    if(!q) return true;
-    return r.join(" ").toLowerCase().includes(q);
-  });
-  const shown = rows.slice(0, visibleCount);
-
-  if(shown.length === 0){
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Aucune exigence ne correspond à cette recherche.</td></tr>';
-  } else {
-    tbody.innerHTML = shown.map(r => `
-      <tr>
-        <td class="n">${escapeHTML(r[0])}</td>
-        <td class="chapitre">${escapeHTML(r[1])}</td>
-        <td>${escapeHTML(r[2])}</td>
-        <td class="prio">${escapeHTML(r[3])}</td>
-        <td><span class="badge ${badgeClass(r[4])}"><span class="d"></span>${escapeHTML(r[4])}</span></td>
-        <td>${escapeHTML(r[5])}</td>
-        <td>${escapeHTML(r[6])}</td>
-      </tr>
-    `).join("");
+function renderCoverageBar(root, stats){
+  if(!root) return;
+  const {total, ok, warn, dev, bad} = stats;
+  const pct = v => total ? (v / total * 100) : 0;
+  const bar = root.querySelector(".coverage-bar");
+  if(bar){
+    const segOk = bar.querySelector(".cov-seg.ok");
+    const segWarn = bar.querySelector(".cov-seg.warn");
+    const segDev = bar.querySelector(".cov-seg.dev");
+    const segBad = bar.querySelector(".cov-seg.bad");
+    segOk.style.width = pct(ok) + "%";
+    segWarn.style.width = pct(warn) + "%";
+    segDev.style.width = pct(dev) + "%";
+    segBad.style.width = pct(bad) + "%";
+    segOk.title = `Oui — ${ok} (${Math.round(pct(ok))}%)`;
+    segWarn.title = `Partiel — ${warn} (${Math.round(pct(warn))}%)`;
+    segDev.title = `Partiel (développement requis) — ${dev} (${Math.round(pct(dev))}%)`;
+    segBad.title = `Non — ${bad} (${Math.round(pct(bad))}%)`;
   }
-  document.getElementById("countNote").textContent =
-    `${shown.length} exigence${shown.length > 1 ? "s" : ""} affichée${shown.length > 1 ? "s" : ""} sur ${rows.length} (${ALL_ROWS.length} au total).`;
-
-  const remaining = rows.length - shown.length;
-  const showMoreWrap = document.getElementById("showMoreBtn").parentElement;
-  showMoreWrap.hidden = remaining <= 0;
-  document.getElementById("showMoreBtn").textContent = `Afficher plus (${Math.min(PAGE_SIZE, remaining)} sur ${remaining} restantes)`;
+  const legend = root.querySelector(".coverage-legend");
+  if(legend){
+    const setItem = (sel, v) => {
+      const b = legend.querySelector(sel + " b");
+      if(b) b.textContent = `${v} (${Math.round(pct(v))}%)`;
+    };
+    setItem(".cov-ok", ok);
+    setItem(".cov-warn", warn);
+    setItem(".cov-dev", dev);
+    setItem(".cov-bad", bad);
+  }
 }
 
-function resetPaging(){
-  visibleCount = PAGE_SIZE;
-}
+function initRequirementBoard(cfg){
+  let ALL_ROWS = [];
+  let currentFilter = "Tous";
+  let visibleCount = PAGE_SIZE;
 
-function computeStats(){
-  const total = ALL_ROWS.length;
-  const count = v => ALL_ROWS.filter(r => (r[4]||"").trim().toLowerCase() === v).length;
-  const ok = count("oui"), warn = count("partiel"), dev = count("partiel (développement requis)"), bad = count("non");
-  document.getElementById("statTotal").innerHTML = `${total}`;
-  document.getElementById("statOk").innerHTML = `${ok} <small>${total ? Math.round(ok/total*100) : 0}%</small>`;
-  document.getElementById("statWarn").innerHTML = `${warn} <small>${total ? Math.round(warn/total*100) : 0}%</small>`;
-  document.getElementById("statDev").innerHTML = `${dev} <small>${total ? Math.round(dev/total*100) : 0}%</small>`;
-  document.getElementById("statBad").innerHTML = `${bad} <small>${total ? Math.round(bad/total*100) : 0}%</small>`;
-  document.getElementById("laneOkCount").textContent = ok;
-  document.getElementById("laneWarnCount").textContent = warn;
-  document.getElementById("laneDevCount").textContent = dev;
-  document.getElementById("laneBadCount").textContent = bad;
+  const searchInput = cfg.gridRoot.querySelector(".search");
+  const tableBody = cfg.gridRoot.querySelector("tbody");
+  const countNote = cfg.gridRoot.querySelector(".count-note");
+  const showMoreWrap = cfg.gridRoot.querySelector(".show-more-wrap");
+  const showMoreBtn = cfg.gridRoot.querySelector(".show-more-btn");
+  const chips = Array.from(cfg.gridRoot.querySelectorAll(".chip"));
+  const lanes = cfg.roadmapRoot ? Array.from(cfg.roadmapRoot.querySelectorAll(".lane")) : [];
+
+  function setStatNum(selector, value, total){
+    if(!cfg.statsRoot) return;
+    const el = cfg.statsRoot.querySelector(selector);
+    if(!el) return;
+    el.innerHTML = total === null ? `${value}` : `${value} <small>${total ? Math.round(value/total*100) : 0}%</small>`;
+  }
+
+  function render(){
+    const q = (searchInput.value || "").toLowerCase().trim();
+    const rows = ALL_ROWS.filter(r => {
+      const matchesFilter = currentFilter === "Tous" || (r[4]||"").trim().toLowerCase() === currentFilter.toLowerCase();
+      if(!matchesFilter) return false;
+      if(!q) return true;
+      return r.join(" ").toLowerCase().includes(q);
+    });
+    const shown = rows.slice(0, visibleCount);
+
+    if(shown.length === 0){
+      tableBody.innerHTML = '<tr class="empty-row"><td colspan="7">Aucune exigence ne correspond à cette recherche.</td></tr>';
+    } else {
+      tableBody.innerHTML = shown.map(r => `
+        <tr>
+          <td class="n">${escapeHTML(r[0])}</td>
+          <td class="chapitre">${escapeHTML(r[1])}</td>
+          <td>${escapeHTML(r[2])}</td>
+          <td class="prio">${escapeHTML(r[3])}</td>
+          <td><span class="badge ${badgeClass(r[4])}"><span class="d"></span>${escapeHTML(r[4])}</span></td>
+          <td>${escapeHTML(r[5])}</td>
+          <td>${escapeHTML(r[6])}</td>
+        </tr>
+      `).join("");
+    }
+    countNote.textContent =
+      `${shown.length} exigence${shown.length > 1 ? "s" : ""} affichée${shown.length > 1 ? "s" : ""} sur ${rows.length} (${ALL_ROWS.length} au total).`;
+
+    const remaining = rows.length - shown.length;
+    showMoreWrap.hidden = remaining <= 0;
+    showMoreBtn.textContent = `Afficher plus (${Math.min(PAGE_SIZE, remaining)} sur ${remaining} restantes)`;
+  }
+
+  function resetPaging(){
+    visibleCount = PAGE_SIZE;
+  }
+
+  function computeStats(){
+    const total = ALL_ROWS.length;
+    const count = v => ALL_ROWS.filter(r => (r[4]||"").trim().toLowerCase() === v).length;
+    const ok = count("oui"), warn = count("partiel"), dev = count("partiel (développement requis)"), bad = count("non");
+    setStatNum(".stat.total .num", total, null);
+    setStatNum(".stat.ok .num", ok, total);
+    setStatNum(".stat.warn .num", warn, total);
+    setStatNum(".stat.dev .num", dev, total);
+    setStatNum(".stat.bad .num", bad, total);
+    lanes.forEach(lane => {
+      const f = (lane.dataset.filter || "").trim().toLowerCase();
+      const c = f === "oui" ? ok : f === "partiel" ? warn : f === "partiel (développement requis)" ? dev : f === "non" ? bad : 0;
+      const countEl = lane.querySelector(".count");
+      if(countEl) countEl.textContent = c;
+    });
+    const stats = {total, ok, warn, dev, bad};
+    renderCoverageBar(cfg.covRoot, stats);
+    if(cfg.onStats) cfg.onStats(stats);
+  }
+
+  searchInput.addEventListener("input", () => { resetPaging(); render(); });
+  chips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      chips.forEach(c => c.setAttribute("aria-pressed","false"));
+      chip.setAttribute("aria-pressed","true");
+      currentFilter = chip.dataset.chip;
+      resetPaging();
+      render();
+    });
+  });
+  lanes.forEach(lane => {
+    const go = () => {
+      const f = lane.dataset.filter;
+      chips.forEach(c => c.setAttribute("aria-pressed", c.dataset.chip === f ? "true" : "false"));
+      currentFilter = f;
+      resetPaging();
+      render();
+      cfg.gridRoot.scrollIntoView({behavior:"smooth", block:"start"});
+    };
+    lane.addEventListener("click", go);
+    lane.addEventListener("keypress", e => { if(e.key === "Enter") go(); });
+  });
+  showMoreBtn.addEventListener("click", () => {
+    visibleCount += PAGE_SIZE;
+    render();
+  });
+
+  async function loadData(){
+    if(cfg.csvUrl && cfg.csvUrl.trim() !== ""){
+      try{
+        const res = await fetch(cfg.csvUrl, {cache:"no-store"});
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        const text = await res.text();
+        ALL_ROWS = rowsFromCSV(text);
+        if(cfg.onSync) cfg.onSync("live");
+        computeStats(); render();
+        return;
+      }catch(err){
+        console.warn("Impossible de charger la Google Sheet, bascule sur les données intégrées.", err);
+      }
+    }
+    ALL_ROWS = cfg.fallbackRows;
+    if(cfg.onSync) cfg.onSync("offline");
+    computeStats(); render();
+  }
+
+  return { loadData };
 }
 
 function setSyncState(mode){
@@ -912,62 +1210,58 @@ function setSyncState(mode){
   document.getElementById("footDate").textContent = `Dernière vérification : ${now}`;
 }
 
-async function loadData(){
-  if(SHEET_CSV_URL && SHEET_CSV_URL.trim() !== ""){
-    try{
-      const res = await fetch(SHEET_CSV_URL, {cache:"no-store"});
-      if(!res.ok) throw new Error("HTTP " + res.status);
-      const text = await res.text();
-      ALL_ROWS = rowsFromCSV(text);
-      setSyncState("live");
-      computeStats(); render();
-      return;
-    }catch(err){
-      console.warn("Impossible de charger la Google Sheet, bascule sur les données intégrées.", err);
-    }
-  }
-  ALL_ROWS = FALLBACK_ROWS;
-  setSyncState("offline");
-  computeStats(); render();
+let scStats = {total:0, ok:0, warn:0, dev:0, bad:0};
+let comStats = {total:0, ok:0, warn:0, dev:0, bad:0};
+
+function renderGlobalOverview(){
+  const combined = {
+    total: scStats.total + comStats.total,
+    ok: scStats.ok + comStats.ok,
+    warn: scStats.warn + comStats.warn,
+    dev: scStats.dev + comStats.dev,
+    bad: scStats.bad + comStats.bad,
+  };
+  renderCoverageBar(document.getElementById("globalCoverage"), combined);
+  const covered = combined.ok + combined.warn + combined.dev;
+  const pct = combined.total ? Math.round(covered / combined.total * 100) : 0;
+  const pctEl = document.getElementById("globalCoveragePct");
+  if(pctEl) pctEl.textContent = `${pct}%`;
+  const noteEl = document.getElementById("globalCoverageNote");
+  if(noteEl) noteEl.textContent =
+    `${covered} exigences sur ${combined.total} ont une réponse Ringover — native, en configuration, ou via un développement identifié.`;
 }
 
-document.getElementById("searchInput").addEventListener("input", () => { resetPaging(); render(); });
-document.querySelectorAll(".chip").forEach(chip => {
-  chip.addEventListener("click", () => {
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed","false"));
-    chip.setAttribute("aria-pressed","true");
-    currentFilter = chip.dataset.chip;
-    resetPaging();
-    render();
-  });
+const scBoard = initRequirementBoard({
+  csvUrl: SHEET_CSV_URL,
+  fallbackRows: FALLBACK_ROWS,
+  gridRoot: document.getElementById("grille"),
+  roadmapRoot: document.getElementById("roadmap"),
+  statsRoot: document.getElementById("heroStats"),
+  covRoot: document.getElementById("covSC"),
+  onSync: setSyncState,
+  onStats: (s) => { scStats = s; renderGlobalOverview(); },
 });
-document.querySelectorAll(".lane").forEach(lane => {
-  const go = () => {
-    const f = lane.dataset.filter;
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.chip === f ? "true" : "false"));
-    currentFilter = f;
-    resetPaging();
-    render();
-    document.getElementById("grille").scrollIntoView({behavior:"smooth", block:"start"});
-  };
-  lane.addEventListener("click", go);
-  lane.addEventListener("keypress", e => { if(e.key === "Enter") go(); });
+
+const comBoard = initRequirementBoard({
+  csvUrl: SHEET_CSV_URL_COM,
+  fallbackRows: FALLBACK_ROWS_COM,
+  gridRoot: document.getElementById("grille-com"),
+  roadmapRoot: document.getElementById("roadmap-com"),
+  statsRoot: document.getElementById("statsCom"),
+  covRoot: document.getElementById("covCom"),
+  onStats: (s) => { comStats = s; renderGlobalOverview(); },
 });
 
 document.querySelectorAll(".ref-chip").forEach(chip => {
   chip.addEventListener("click", () => {
-    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.chip === "Tous" ? "true" : "false"));
-    currentFilter = "Tous";
-    document.getElementById("searchInput").value = chip.dataset.ref;
-    resetPaging();
-    render();
-    document.getElementById("grille").scrollIntoView({behavior:"smooth", block:"start"});
+    const scGrid = document.getElementById("grille");
+    const tousChip = scGrid.querySelector('.chip[data-chip="Tous"]');
+    if(tousChip) tousChip.click();
+    const searchEl = scGrid.querySelector(".search");
+    searchEl.value = chip.dataset.ref;
+    searchEl.dispatchEvent(new Event("input"));
+    scGrid.scrollIntoView({behavior:"smooth", block:"start"});
   });
-});
-
-document.getElementById("showMoreBtn").addEventListener("click", () => {
-  visibleCount += PAGE_SIZE;
-  render();
 });
 
 /* ---------- side nav: smooth scroll + scrollspy ---------- */
@@ -1070,7 +1364,8 @@ document.getElementById("showMoreBtn").addEventListener("click", () => {
   }
 })();
 
-loadData();
+scBoard.loadData();
+comBoard.loadData();
 </script>
 </body>
 </html>
