@@ -82,8 +82,39 @@
   .side-nav.on-dark .side-nav-item:hover .side-label,
   .side-nav.on-dark .side-nav-item:focus-visible .side-label,
   .side-nav.on-dark .side-nav-item.active .side-label{color:#fff;}
+
+  .side-nav-sub{
+    display:flex; flex-direction:column; overflow:hidden; padding-left:19px;
+    max-height:0; opacity:0; transition:max-height .35s ease, opacity .25s ease;
+  }
+  .side-nav-item.active + .side-nav-sub{max-height:160px; opacity:1;}
+  .side-nav-subitem{
+    display:flex; align-items:center; gap:8px; padding:4px; text-decoration:none; cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .side-nav-subitem .tick{
+    width:9px; height:2px; border-radius:2px; flex:0 0 auto;
+    background:var(--ink-faint); opacity:.5;
+    transition:width .2s ease, background-color .2s ease, opacity .2s ease;
+  }
+  .side-nav-subitem .side-label{
+    font-family:var(--font-mono); font-size:9.5px; letter-spacing:.02em; text-transform:uppercase;
+    white-space:nowrap; color:var(--ink-faint); opacity:.65;
+    transition:color .2s ease, opacity .2s ease;
+  }
+  .side-nav-subitem:hover .tick, .side-nav-subitem.active .tick{width:17px; background:var(--teal-deep); opacity:1;}
+  .side-nav-subitem:hover .side-label, .side-nav-subitem.active .side-label{color:var(--ink); opacity:1;}
+  .side-nav-subitem.active .side-label{font-weight:600;}
+  .side-nav-subitem:focus-visible{outline:2px solid var(--teal); outline-offset:2px; border-radius:3px;}
+  .side-nav.on-dark .side-nav-subitem .tick{background:rgba(255,255,255,.4);}
+  .side-nav.on-dark .side-nav-subitem .side-label{color:rgba(232,241,244,.6);}
+  .side-nav.on-dark .side-nav-subitem:hover .tick, .side-nav.on-dark .side-nav-subitem.active .tick{background:var(--teal);}
+  .side-nav.on-dark .side-nav-subitem:hover .side-label, .side-nav.on-dark .side-nav-subitem.active .side-label{color:#fff;}
+
   @media (prefers-reduced-motion: reduce){
     .side-nav-item .tick, .side-nav-item .side-label{transition:none;}
+    .side-nav-sub{transition:none;}
+    .side-nav-subitem .tick, .side-nav-subitem .side-label{transition:none;}
   }
 
   /* ---------- top bar ---------- */
@@ -135,6 +166,39 @@
   .stat.warn .num{color:var(--warn);}
   .stat.dev .num{color:var(--dev);}
   .stat.bad .num{color:var(--bad);}
+
+  /* ---------- stat indicators: motion + cursor interaction (Service client / Service commercial only) ---------- */
+  #heroStats .stat, #statsCom .stat{
+    position:relative; overflow:hidden; cursor:pointer;
+    transition: filter .2s ease, opacity .2s ease;
+  }
+  #heroStats:hover .stat:not(:hover), #statsCom:hover .stat:not(:hover){
+    opacity:.6; filter:saturate(.55);
+  }
+  #heroStats .stat:hover, #statsCom .stat:hover{
+    filter:brightness(1.05) saturate(1.2);
+  }
+  #heroStats .stat::after, #statsCom .stat::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,.6) 50%, transparent 80%);
+    background-size:220% 100%; background-position:150% 0; mix-blend-mode:soft-light;
+    animation:covShimmer 3.6s ease-in-out infinite;
+  }
+  #heroStats .stat:nth-child(1)::after, #statsCom .stat:nth-child(1)::after{animation-delay:0s;}
+  #heroStats .stat:nth-child(2)::after, #statsCom .stat:nth-child(2)::after{animation-delay:.3s;}
+  #heroStats .stat:nth-child(3)::after, #statsCom .stat:nth-child(3)::after{animation-delay:.6s;}
+  #heroStats .stat:nth-child(4)::after, #statsCom .stat:nth-child(4)::after{animation-delay:.9s;}
+  #heroStats .stat:nth-child(5)::after, #statsCom .stat:nth-child(5)::after{animation-delay:1.2s;}
+  #heroStats .stat::before, #statsCom .stat::before{
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+    opacity:0; transition:opacity .25s ease;
+    background:radial-gradient(140px circle at var(--sx,50%) var(--sy,50%), rgba(255,255,255,.65), transparent 70%);
+    mix-blend-mode:overlay;
+  }
+  #heroStats .stat:hover::before, #statsCom .stat:hover::before{opacity:1;}
+  @media (prefers-reduced-motion: reduce){
+    #heroStats .stat::after, #statsCom .stat::after{animation:none;}
+  }
 
   /* ---------- sections generic ---------- */
   section{padding:56px 0;}
@@ -331,10 +395,13 @@
   /* ---------- coverage bar ---------- */
   .coverage-block{margin-top:18px;}
   .coverage-bar{
-    display:flex; height:10px; border-radius:5px; overflow:hidden; background:var(--panel-border);
+    display:flex; height:10px; border-radius:5px; overflow:visible; background:var(--panel-border);
+    position:relative;
   }
   .coverage-bar.lg{height:16px; border-radius:8px;}
   .cov-seg{height:100%; width:0%; transition:width .6s ease;}
+  .cov-seg:first-child{border-top-left-radius:inherit; border-bottom-left-radius:inherit;}
+  .cov-seg:last-child{border-top-right-radius:inherit; border-bottom-right-radius:inherit;}
   .cov-seg + .cov-seg{margin-left:2px;}
   .cov-seg.ok{background:var(--ok);}
   .cov-seg.warn{background:var(--warn);}
@@ -349,6 +416,61 @@
   .cov-dot.dev{background:var(--dev);}
   .cov-dot.bad{background:var(--bad);}
   @media (prefers-reduced-motion: reduce){ .cov-seg{transition:none;} }
+
+  /* ---------- coverage bar: motion + cursor interaction (Service client / Service commercial only) ---------- */
+  .coverage-block .cov-seg{
+    transition: width .6s ease var(--seg-delay, 0s), filter .2s ease, opacity .2s ease;
+    cursor:pointer;
+  }
+  .coverage-block .cov-seg:nth-child(1){--seg-delay:0s;}
+  .coverage-block .cov-seg:nth-child(2){--seg-delay:.08s;}
+  .coverage-block .cov-seg:nth-child(3){--seg-delay:.16s;}
+  .coverage-block .cov-seg:nth-child(4){--seg-delay:.24s;}
+  .coverage-block .coverage-bar:hover .cov-seg:not(:hover){opacity:.55; filter:saturate(.55);}
+  .coverage-block .cov-seg:hover{filter:brightness(1.16) saturate(1.25); position:relative; z-index:1;}
+
+  .coverage-block .coverage-bar::after{
+    content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit; z-index:1;
+    background:linear-gradient(100deg, transparent 20%, rgba(255,255,255,.6) 50%, transparent 80%);
+    background-size:220% 100%; background-position:150% 0; mix-blend-mode:soft-light;
+    animation:covShimmer 3.6s ease-in-out infinite;
+  }
+  @keyframes covShimmer{
+    0%{background-position:150% 0;}
+    55%{background-position:-60% 0;}
+    100%{background-position:-60% 0;}
+  }
+  .coverage-block .coverage-bar::before{
+    content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit; z-index:2;
+    opacity:0; transition:opacity .25s ease;
+    background:radial-gradient(90px circle at var(--cbx,50%) var(--cby,50%), rgba(255,255,255,.7), transparent 70%);
+    mix-blend-mode:overlay;
+  }
+  .coverage-block .coverage-bar:hover::before{opacity:1;}
+
+  .coverage-block .cov-item{transition:opacity .2s ease, transform .2s ease;}
+  .coverage-block:has(.cov-item.cov-ok:hover) .cov-seg:not(.ok),
+  .coverage-block:has(.cov-item.cov-warn:hover) .cov-seg:not(.warn),
+  .coverage-block:has(.cov-item.cov-dev:hover) .cov-seg:not(.dev),
+  .coverage-block:has(.cov-item.cov-bad:hover) .cov-seg:not(.bad){
+    opacity:.5; filter:saturate(.5);
+  }
+  .coverage-block:has(.cov-seg.ok:hover) .cov-item:not(.cov-ok),
+  .coverage-block:has(.cov-seg.warn:hover) .cov-item:not(.cov-warn),
+  .coverage-block:has(.cov-seg.dev:hover) .cov-item:not(.cov-dev),
+  .coverage-block:has(.cov-seg.bad:hover) .cov-item:not(.cov-bad){
+    opacity:.45;
+  }
+  .coverage-block:has(.cov-item.cov-ok:hover) .cov-item.cov-ok,
+  .coverage-block:has(.cov-item.cov-warn:hover) .cov-item.cov-warn,
+  .coverage-block:has(.cov-item.cov-dev:hover) .cov-item.cov-dev,
+  .coverage-block:has(.cov-item.cov-bad:hover) .cov-item.cov-bad{
+    transform:translateX(2px);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .coverage-block .coverage-bar::after{animation:none;}
+    .coverage-block .cov-seg{transition:filter .2s ease, opacity .2s ease;}
+  }
 
   /* ---------- global coverage overview (hero) ---------- */
   .global-coverage{
@@ -556,9 +678,26 @@
 
 <nav class="side-nav" aria-label="Navigation rapide">
   <a class="side-nav-item active" href="#hero" data-target="hero"><span class="tick"></span><span class="side-label">Accueil</span></a>
+
   <a class="side-nav-item" href="#cdc-service-client" data-target="cdc-service-client" data-watch="cdc-service-client roadmap grille"><span class="tick"></span><span class="side-label">Service client</span></a>
+  <div class="side-nav-sub">
+    <a class="side-nav-subitem" href="#roadmap" data-target="roadmap"><span class="tick"></span><span class="side-label">Feuille de route</span></a>
+    <a class="side-nav-subitem" href="#grille" data-target="grille"><span class="tick"></span><span class="side-label">Grille détaillée</span></a>
+  </div>
+
   <a class="side-nav-item" href="#cdc-commercial" data-target="cdc-commercial" data-watch="cdc-commercial roadmap-com grille-com"><span class="tick"></span><span class="side-label">Service commercial</span></a>
-  <a class="side-nav-item" href="#deployment-plan" data-target="deployment-plan"><span class="tick"></span><span class="side-label">Plan de déploiement</span></a>
+  <div class="side-nav-sub">
+    <a class="side-nav-subitem" href="#roadmap-com" data-target="roadmap-com"><span class="tick"></span><span class="side-label">Feuille de route</span></a>
+    <a class="side-nav-subitem" href="#grille-com" data-target="grille-com"><span class="tick"></span><span class="side-label">Grille détaillée</span></a>
+  </div>
+
+  <a class="side-nav-item" href="#deployment-plan" data-target="deployment-plan" data-watch="deployment-plan deploy-strategy deploy-ringover deploy-empower"><span class="tick"></span><span class="side-label">Plan de déploiement</span></a>
+  <div class="side-nav-sub">
+    <a class="side-nav-subitem" href="#deploy-strategy" data-target="deploy-strategy"><span class="tick"></span><span class="side-label">Stratégie de déploiement</span></a>
+    <a class="side-nav-subitem" href="#deploy-ringover" data-target="deploy-ringover"><span class="tick"></span><span class="side-label">Onboarding Ringover</span></a>
+    <a class="side-nav-subitem" href="#deploy-empower" data-target="deploy-empower"><span class="tick"></span><span class="side-label">Déploiement Empower</span></a>
+  </div>
+
   <a class="side-nav-item" href="#pricing" data-target="pricing"><span class="tick"></span><span class="side-label">Tarification</span></a>
   <a class="side-nav-item" href="#salesforce" data-target="salesforce"><span class="tick"></span><span class="side-label">Salesforce</span></a>
   <a class="side-nav-item" href="#suite" data-target="suite"><span class="tick"></span><span class="side-label">Suite Ringover</span></a>
@@ -870,7 +1009,7 @@
       <p class="count-note">Configuration effective hors formation finale des utilisateurs (Empower : +1h à 1h30 additionnel une fois la configuration finalisée). Portabilité : jalon de bascule des numéros, durée non chiffrée par l'éditeur.</p>
     </div>
 
-    <div class="deploy-group">
+    <div class="deploy-group" id="deploy-strategy">
       <h3 class="deploy-subhead">Stratégie de déploiement (Berger Levrault)</h3>
       <p class="deploy-subhead-intro">Pour répondre à l'exigence globale de Berger Levrault tout en éradiquant tout risque d'exécution, une approche pragmatique : la Phase 1 isole la population en forte souffrance opérationnelle (les forces de vente) et sécurise l'impact business immédiat sur un périmètre maîtrisé à 100%.</p>
     <div class="plan-commit">
@@ -995,7 +1134,7 @@
     </div>
     </div>
 
-    <div class="deploy-group">
+    <div class="deploy-group" id="deploy-ringover">
       <h3 class="deploy-subhead">Onboarding &amp; formation Ringover</h3>
       <p class="deploy-subhead-intro">Feuille de route d'onboarding et de formation : 8 étapes de déploiement, dont 3 formations principales, réparties en sessions courtes plutôt qu'en un seul bloc.</p>
     <div class="stat-strip pricing-summary">
@@ -1160,7 +1299,7 @@
     </div>
     </div>
 
-    <div class="deploy-group">
+    <div class="deploy-group" id="deploy-empower">
       <h3 class="deploy-subhead">Formation &amp; déploiement Empower</h3>
       <p class="deploy-subhead-intro">Déployer Empower, module par module : estimation du temps de configuration par atelier, et ce qu'il faut préparer en amont de chaque session.</p>
     <div class="stat-strip pricing-summary">
@@ -2072,6 +2211,7 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
 (function initSideNav(){
   const nav = document.querySelector(".side-nav");
   const navItems = Array.from(document.querySelectorAll(".side-nav-item"));
+  const subItems = Array.from(document.querySelectorAll(".side-nav-subitem"));
   if(!navItems.length) return;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const DARK_SECTIONS = new Set(["suite", "salesforce"]);
@@ -2082,10 +2222,11 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
 
   function setActive(id){
     navItems.forEach(item => item.classList.toggle("active", watchedIds(item).includes(id)));
+    subItems.forEach(sub => sub.classList.toggle("active", sub.dataset.target === id));
     nav.classList.toggle("on-dark", DARK_SECTIONS.has(id));
   }
 
-  navItems.forEach(item => {
+  navItems.concat(subItems).forEach(item => {
     item.addEventListener("click", e => {
       e.preventDefault();
       const target = document.getElementById(item.dataset.target);
@@ -2171,6 +2312,30 @@ document.querySelectorAll(".ref-chip").forEach(chip => {
       });
     });
   }
+})();
+
+/* ---------- coverage bars (Service client / Service commercial): cursor-tracked spotlight ---------- */
+(function initCoverageBarFX(){
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion) return;
+  document.querySelectorAll(".coverage-block .coverage-bar").forEach(bar => {
+    bar.addEventListener("pointermove", e => {
+      const r = bar.getBoundingClientRect();
+      const px = ((e.clientX - r.left) / r.width) * 100;
+      const py = ((e.clientY - r.top) / r.height) * 100;
+      bar.style.setProperty("--cbx", px + "%");
+      bar.style.setProperty("--cby", py + "%");
+    });
+  });
+  document.querySelectorAll("#heroStats .stat, #statsCom .stat").forEach(tile => {
+    tile.addEventListener("pointermove", e => {
+      const r = tile.getBoundingClientRect();
+      const px = ((e.clientX - r.left) / r.width) * 100;
+      const py = ((e.clientY - r.top) / r.height) * 100;
+      tile.style.setProperty("--sx", px + "%");
+      tile.style.setProperty("--sy", py + "%");
+    });
+  });
 })();
 
 scBoard.loadData();
